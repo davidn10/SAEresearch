@@ -10,6 +10,7 @@ library("povmap")
 
 set.seed(7)
 
+#setwd("D:/SAE_project/BRA/2000/full_census")
 setwd("D:/SAE_project/BRA/2000/full_census")
 
 #==============================================
