@@ -11,7 +11,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("D:/SAE_project/BRA/2000/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 
 #==============================================
 # Unit-level models
@@ -21,7 +21,7 @@ setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("rawsamples_new/selected") 
+mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("betavars_selected") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
@@ -40,7 +40,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       
       ###Reading sample data
       assign(paste0("sample"),                                   # Read and store data frames
-             read_dta(paste0("rawsamples_new/selected/",
+             read_dta(paste0("rawsamples/selected/",
                              mysamples[i])))
       sample<-as.data.frame(sample)
 
@@ -87,7 +87,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("rawsamples_new/selected") 
+mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("context/betavars_selected") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
@@ -106,7 +106,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       
       ###Reading sample data
       assign(paste0("sample"),                                   # Read and store data frames
-             read_dta(paste0("rawsamples_new/selected/",
+             read_dta(paste0("rawsamples/selected/",
                              mysamples[i])))
       sample<-as.data.frame(sample)
       
