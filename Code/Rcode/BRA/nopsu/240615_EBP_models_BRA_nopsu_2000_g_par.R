@@ -7,7 +7,7 @@ library("povmap")
 library(foreach)
 library(doParallel)
 # adjust number of clusters depending on available memory and file size 
-cl <- makeCluster(3)
+cl <- makeCluster(4)
 registerDoParallel(cl)
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
@@ -56,8 +56,7 @@ ebplist <- foreach(i=1:length(mysamples),.packages=c("haven","povmap")) %dopar% 
                           smp_data = sample,
                           smp_domains = "mun_id",
                           weights = "FACTOR",
-                          #weights_type = "Guadarrama",
-                          weights_type = "hybrid",
+                          weights_type = "Guadarrama",
                           nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
@@ -65,8 +64,7 @@ ebplist <- foreach(i=1:length(mysamples),.packages=c("haven","povmap")) %dopar% 
                           cpus = 10,
                           threshold =  4.6622116, #LOG 7.464 , nO LOG 1744.69
                           na.rm=TRUE,
-                          #L=100,   #default is 50
-                          L=0,
+                          L=100,   #default is 50
                           model_parameters="fixed",
                           indicators=c("Head_Count")
       )
