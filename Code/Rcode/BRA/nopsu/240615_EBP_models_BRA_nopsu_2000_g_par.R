@@ -83,7 +83,9 @@ ebplist <- foreach(i=1:length(mysamples),.packages=c("haven","povmap")) %dopar% 
       write.excel(ebp, paste0("results/results_ebp/context/model_nopsu_g/model_",mysamples[i],".xlsx"))
       return(list(simulation,coefficients)) 
 }
+parallel::stopCluster(cl = cl)
 
+#output results 
 for (i in 1:length(mysamples)) {
  write_dta(as.data.frame(ebplist[[i]][1]),paste0("results/results_ebp/context/model_nopsu_g/sim_ebp_",mysamples[i])) 
  write_dta(as.data.frame(ebplist[[i]][2]),paste0("results/results_ebp/context/model_nopsu_g/coef_",mysamples[i])) 
