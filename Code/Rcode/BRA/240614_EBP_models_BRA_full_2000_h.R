@@ -4,7 +4,7 @@ library(pbmcapply) # wrapper for mclapply that lets me see progress
 library(povmap)
 library(haven)
 library("povmap")
-
+library(foreach)
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
 
@@ -24,7 +24,7 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("betavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+for (i in 90:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("betavars_selected/",
@@ -75,7 +75,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       write_dta(simulation, paste0("results/results_ebp/unit/output_h/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/unit/model_h/coef_",mysamples[i]))
       write.excel(ebp, paste0("results/results_ebp/unit/model_h/model_",mysamples[i],".xlsx"))
-      saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_h/object_",mysamples[i]))
+      #saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_h/object_",mysamples[i]))
 }
 
 
@@ -142,5 +142,5 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       write_dta(simulation, paste0("results/results_ebp/context/output_h/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/context/model_h/coef_",mysamples[i]))
       write.excel(ebp, paste0("results/results_ebp/context/model_h/model_",mysamples[i],".xlsx"))
-      saveRDS(object=ebp,file=paste0("results/results_ebp/context/model_h/object_",mysamples[i]))
+      #saveRDS(object=ebp,file=paste0("results/results_ebp/context/model_h/object_",mysamples[i]))
 }

@@ -10,7 +10,8 @@ library("povmap")
 
 set.seed(7)
 
-setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
+#setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 
 #==============================================
 # Unit-context models
