@@ -5,13 +5,13 @@ library(povmap)
 library(haven)
 library("povmap")
 
-#detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
 
 set.seed(7)
 
 #setwd("D:/SAE_project/BRA/2000/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
+#setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 
 #==============================================
 # Unit-level models
@@ -24,7 +24,7 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("betavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+for(i in 32:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("betavars_selected/",
@@ -75,7 +75,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       write_dta(simulation, paste0("results/results_ebp/unit/output_g/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/unit/model_g/coef_",mysamples[i]))
       write.excel(ebp, paste0("results/results_ebp/unit/model_g/model_",mysamples[i],".xlsx"))
-      saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_g/object_",mysamples[i]))
+      #saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_g/object_",mysamples[i]))
 }
 
 
@@ -142,5 +142,5 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       write_dta(simulation, paste0("results/results_ebp/context/output_g/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/context/model_g/coef_",mysamples[i]))
       write.excel(ebp, paste0("results/results_ebp/context/model_g/model_",mysamples[i],".xlsx"))
-      saveRDS(object=ebp,file=paste0("results/results_ebp/context/model_g/object_",mysamples[i]))
+      #saveRDS(object=ebp,file=paste0("results/results_ebp/context/model_g/object_",mysamples[i]))
 }
