@@ -28,10 +28,9 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("betavars_selected") 
 
-#ebplist <- foreach(i=1:length(mysamples),.packages=c("haven","povmap")) %dopar% { # Head of for-loop                                # Head of for-loop
+#ebplist <- foreach(i=1:length(mysamples),.packages=c("haven")) %dopar% { # Head of for-loop                                # Head of for-loop
   ebplist <- foreach(i=1:100,.packages=c("haven")) %dopar% { # Head of for-loop                                # Head of for-loop
-    .libPaths("D:/David/R/R-4.4.0")
-    library(povmap)
+    library(povmap,lib.loc="D:/David/R/R-4.4.0")
         ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("betavars_selected/",
@@ -98,8 +97,7 @@ mysamples <- list.files("rawsamples/selected")
 mybetas <- list.files("context/betavars_selected") 
 
 ebplist <- foreach(i=1:length(mysamples),.packages=c("haven")) %dopar% { # Head of for-loop 
-  .libPaths("D:/David/R/R-4.4.0")
-  library(povmap)
+  library(povmap,lib.loc="D:/David/R/R-4.4.0")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("context/betavars_selected/",
