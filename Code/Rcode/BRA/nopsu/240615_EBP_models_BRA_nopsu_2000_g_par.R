@@ -28,7 +28,8 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("context/betavars_selected_nopsu") 
 
-ebplist <- foreach(i=1:length(mysamples),.packages=c("haven","povmap")) %dopar% { # Head of for-loop    
+ebplist <- foreach(i=1:length(mysamples),.packages=c("haven")) %dopar% { # Head of for-loop  
+  library(povmap,lib.loc="D:/David/R/R-4.4.0")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("context/betavars_selected_nopsu/",
@@ -85,6 +86,6 @@ parallel::stopCluster(cl = cl)
 
 #output results 
 for (i in 1:length(mysamples)) {
- write_dta(as.data.frame(ebplist[[i]][1]),paste0("results/results_ebp/context/model_nopsu_g/sim_ebp_",mysamples[i])) 
+ write_dta(as.data.frame(ebplist[[i]][1]),paste0("results/results_ebp/context/output_nopsu_g/sim_ebp_",mysamples[i])) 
  write_dta(as.data.frame(ebplist[[i]][2]),paste0("results/results_ebp/context/model_nopsu_g/coef_",mysamples[i])) 
 }

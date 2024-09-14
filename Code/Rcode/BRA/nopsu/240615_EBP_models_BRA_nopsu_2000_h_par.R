@@ -84,6 +84,6 @@ parallel::stopCluster(cl = cl)
 
 #output results 
 for (i in 1:length(mysamples)) {
- write_dta(as.data.frame(ebplist[[i]][1]),paste0("results/results_ebp/context/model_nopsu_h/sim_ebp_",mysamples[i])) 
+ write_dta(as.data.frame(ebplist[[i]][1]),paste0("results/results_ebp/context/output_nopsu_h/sim_ebp_",mysamples[i])) 
  write_dta(as.data.frame(ebplist[[i]][2]),paste0("results/results_ebp/context/model_nopsu_h/coef_",mysamples[i])) 
 }
