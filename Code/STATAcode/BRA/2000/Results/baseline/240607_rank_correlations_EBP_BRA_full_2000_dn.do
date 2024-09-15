@@ -11,7 +11,7 @@ global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
 global simcensus "$currdata\simcensus\"
-global weight_type "g"
+global weight_type "h"
 set seed 648743
 
 use "$census\census.dta", clear

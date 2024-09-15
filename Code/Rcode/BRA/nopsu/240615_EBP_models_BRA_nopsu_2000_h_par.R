@@ -7,7 +7,7 @@ library("povmap")
 library(foreach)
 library(doParallel)
 # adjust number of clusters depending on available memory and file size 
-cl <- makeCluster(4)
+cl <- makeCluster(6)
 registerDoParallel(cl)
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")

@@ -7,7 +7,7 @@ library("povmap")
 library(foreach)
 library(doParallel)
 # adjust number of clusters depending on available memory and file size 
-cl <- makeCluster(4)
+cl <- makeCluster(6)
 registerDoParallel(cl)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
 
@@ -78,9 +78,9 @@ mybetas <- list.files("betavars_selected")
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
       colnames(coefficients) <- c("names","coefficients") 
-      write_dta(simulation, paste0("results/results_ebp/unit/output_h/sim_ebp_",mysamples[i]))
-      write_dta(coefficients, paste0("results/results_ebp/unit/model_h/coef_",mysamples[i]))
-      write.excel(ebp, paste0("results/results_ebp/unit/model_h/model_",mysamples[i],".xlsx"))
+      write_dta(simulation, paste0("results/results_ebp/unit/output_wow/sim_ebp_",mysamples[i]))
+      write_dta(coefficients, paste0("results/results_ebp/unit/model_wow/coef_",mysamples[i]))
+      write.excel(ebp, paste0("results/results_ebp/unit/model_wow/model_",mysamples[i],".xlsx"))
       #saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_g/object_",mysamples[i]))
 }
 
@@ -149,7 +149,7 @@ ebplist <- foreach(i=1:length(mysamples),.packages=c("haven")) %dopar% { # Head 
       colnames(coefficients) <- c("names","coefficients") 
       write_dta(simulation, paste0("results/results_ebp/context/output_h/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/context/model_h/coef_",mysamples[i]))
-      write.excel(ebp, paste0("results/results_ebp/context/model_g/model_",mysamples[i],".xlsx"))
+      write.excel(ebp, paste0("results/results_ebp/context/model_h/model_",mysamples[i],".xlsx"))
       #saveRDS(object=ebp,file=paste0("results/results_ebp/context/model_h/object_",mysamples[i]))
 }
 parallel::stopCluster(cl = cl)

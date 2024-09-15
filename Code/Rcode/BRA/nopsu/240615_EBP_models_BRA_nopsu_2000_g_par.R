@@ -7,7 +7,7 @@ library("povmap")
 library(foreach)
 library(doParallel)
 # adjust number of clusters depending on available memory and file size 
-cl <- makeCluster(4)
+cl <- makeCluster(6)
 registerDoParallel(cl)
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
@@ -15,7 +15,7 @@ registerDoParallel(cl)
 set.seed(7)
 
 #setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 
 #==============================================
 # Unit-context models

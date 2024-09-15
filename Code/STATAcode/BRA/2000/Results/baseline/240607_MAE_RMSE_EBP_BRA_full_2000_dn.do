@@ -12,7 +12,7 @@ global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
 global simcensus "$currdata\simcensus\"
-global weight_type "h"
+global weight_type "wow"
 set seed 648743
 
 use "$census\census.dta", clear
@@ -129,7 +129,7 @@ sum RMEin
 local rmein_`i'=r(mean)
 sum RMEout 
 local rmeout_`i'=r(mean)
-
+qui {
 putexcel A`i'=`mae_`i''
 putexcel B`i'=`maein_`i''
 putexcel C`i'=`maeout_`i''
@@ -145,7 +145,7 @@ putexcel K`i'=`meout_`i''
 putexcel M`i'=`rme_`i''
 putexcel N`i'=`rmein_`i''
 putexcel O`i'=`rmeout_`i''
-
+}
 ***Only larger municipalities
 keep if small_mun==0
 
@@ -197,7 +197,7 @@ sum RMEin2
 local rmein_`i'=r(mean)
 sum RMEout2 
 local rmeout_`i'=r(mean)
-
+qui {
 putexcel Q`i'=`mae_`i''
 putexcel R`i'=`maein_`i''
 putexcel S`i'=`maeout_`i''
@@ -213,7 +213,7 @@ putexcel AA`i'=`meout_`i''
 putexcel AC`i'=`rme_`i''
 putexcel AD`i'=`rmein_`i''
 putexcel AE`i'=`rmeout_`i''
-
+}
 di "`i'"
 }
 
@@ -325,7 +325,7 @@ sum RMEin
 local rmein_`i'=r(mean)
 sum RMEout 
 local rmeout_`i'=r(mean)
-
+qui {
 putexcel A`i'=`mae_`i''
 putexcel B`i'=`maein_`i''
 putexcel C`i'=`maeout_`i''
@@ -341,7 +341,7 @@ putexcel K`i'=`meout_`i''
 putexcel M`i'=`rme_`i''
 putexcel N`i'=`rmein_`i''
 putexcel O`i'=`rmeout_`i''
-
+}
 ***Only larger municipalities
 keep if small_mun==0
 
@@ -393,7 +393,7 @@ sum RMEin2
 local rmein_`i'=r(mean)
 sum RMEout2 
 local rmeout_`i'=r(mean)
-
+qui {
 putexcel Q`i'=`mae_`i''
 putexcel R`i'=`maein_`i''
 putexcel S`i'=`maeout_`i''
@@ -409,7 +409,7 @@ putexcel AA`i'=`meout_`i''
 putexcel AC`i'=`rme_`i''
 putexcel AD`i'=`rmein_`i''
 putexcel AE`i'=`rmeout_`i''
-
+}
 di "`i'"
 }
 

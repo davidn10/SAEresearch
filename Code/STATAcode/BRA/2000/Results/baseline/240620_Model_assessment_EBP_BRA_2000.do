@@ -30,7 +30,7 @@ global results "$currdata\results"
 putexcel set "$results\results_ebp\normality_unit_h", replace
 
 forvalues i=1(1)100{
-
+dis `i'
 import excel "$results\results_ebp\unit\model_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
 
 sum Skewness if rownames=="Error"
@@ -43,19 +43,20 @@ local kur1_`i'=r(mean)
 sum Kurtosis if rownames=="Random_effect"
 local kur2_`i'=r(mean)
 
-
+qui {
 putexcel A`i'=`skw1_`i''
 putexcel B`i'=`skw2_`i''
 
 putexcel D`i'=`kur1_`i''
 putexcel E`i'=`kur2_`i''
 }
+}
 
 ***Context level models
 putexcel set "$results\results_ebp\normality_context_h", replace
 
 forvalues i=1(1)100{
-
+dis `i'
 import excel "$results\results_ebp\context\model_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
 
 sum Skewness if rownames=="Error"
@@ -68,12 +69,13 @@ local kur1_`i'=r(mean)
 sum Kurtosis if rownames=="Random_effect"
 local kur2_`i'=r(mean)
 
-
+qui {
 putexcel A`i'=`skw1_`i''
 putexcel B`i'=`skw2_`i''
 
 putexcel D`i'=`kur1_`i''
 putexcel E`i'=`kur2_`i''
+}
 }
 
 /*====================
@@ -83,16 +85,18 @@ putexcel E`i'=`kur2_`i''
 putexcel set "$results\results_ebp\rsquared_unit_h", replace
 
 forvalues i=1(1)100{
+	dis `i'
 	import excel "$results\results_ebp\unit\model_h\model_sample_`i'.dta.xlsx", sheet("summary")  cellrange(D23:G24) firstrow clear
 	foreach x in Marginal_R2 Conditional_R2 Marginal_Area_R2 Conditional_Area_R2 {
 		sum `x'
 		local `x'_`i'=r(mean)
 		}
-	
+qui {	
 	putexcel A`i'=`Marginal_R2_`i''
 	putexcel B`i'=`Conditional_R2_`i''
     putexcel D`i'=`Marginal_Area_R2_`i''
 	putexcel E`i'=`Conditional_Area_R2_`i''
+}
 }
 
 ***Context level models
@@ -104,11 +108,12 @@ forvalues i=1(1)100{
 		sum `x'
 		local `x'_`i'=r(mean)
 		}
-	
+qui {	
 	putexcel A`i'=`Marginal_R2_`i''
 	putexcel B`i'=`Conditional_R2_`i''
     putexcel D`i'=`Marginal_Area_R2_`i''
 	putexcel E`i'=`Conditional_Area_R2_`i''
+}
 }
 
 /*====================
@@ -126,10 +131,10 @@ sum Variance if rownames=="Error"
 local var1_`i'=r(mean)
 sum Variance if rownames=="Random_effect"
 local var2_`i'=r(mean)
-
+qui {
 putexcel A`i'=`var1_`i''
 putexcel B`i'=`var2_`i''
-
+}
 }
 
 ***Context level models
@@ -143,10 +148,10 @@ sum Variance if rownames=="Error"
 local var1_`i'=r(mean)
 sum Variance if rownames=="Random_effect"
 local var2_`i'=r(mean)
-
+qui {
 putexcel A`i'=`var1_`i''
 putexcel B`i'=`var2_`i''
-
+}
 }
 
 /*==========================
