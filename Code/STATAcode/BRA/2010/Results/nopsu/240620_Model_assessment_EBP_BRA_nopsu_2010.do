@@ -2,13 +2,15 @@ clear all
 set more off
 
 /*=========================================
-***Full Mexico 2010 
+***Full BRA 2010 
 =========================================*/
 
 /*=========================================
  Defining globals
  *=========================================*/
 global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "H:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\BRA_2010_new"
+
 global results "$currdata\results"
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*

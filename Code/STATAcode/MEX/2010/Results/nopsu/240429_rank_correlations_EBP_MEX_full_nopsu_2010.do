@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -8,6 +8,7 @@ set more off
  *=========================================*/
 
 global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
@@ -15,7 +16,7 @@ global simcensus "$currdata\simcensus\"
 
 set seed 648743
 
-
+/*
 /*===================================
 =====================================
 Unit level models
@@ -181,7 +182,7 @@ putexcel AQ`i'=`Ndt2_`i''
 
 di "`i'"
 }
-
+*/ 
 
 /*===================================
 =====================================
@@ -249,6 +250,7 @@ spearman fgt0_true sim_fgt0 if in_sample==1
 local rhoin_`i'=r(rho)
 local Nin_`i'=r(N)
 spearman fgt0_true sim_fgt0 if in_sample==0
+xx
 local rhoout_`i'=r(rho)
 local Nout_`i'=r(N)
 spearman fgt0_dirs sim_fgt0 

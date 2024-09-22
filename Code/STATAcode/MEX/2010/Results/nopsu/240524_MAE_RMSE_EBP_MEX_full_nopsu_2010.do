@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,7 +7,8 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+* global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
@@ -85,6 +86,7 @@ g error_me=(fgt0_true-sim_fgt0)
 egen ME=mean(error_me)
 egen MEin=mean(error_me) if in_sample==1
 egen MEout=mean(error_me) if in_sample==0
+
 
 g error_rme=abs(sim_fgt0-fgt0_true)/fgt0_true
 egen RME=mean(error_rme)
