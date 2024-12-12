@@ -101,7 +101,7 @@ cell compu auto washing fridge tele radio shower stove over_crowding cook_fuel o
 collapse (mean) mun_id water_bad no_electri no_flush_toilet no_sewage no_sersan shared_bath bad_disposal  no_internet rural water_good electri flush_toilet sewage good_sersan only_bath good_disposal internet urban cell compu auto washing fridge tele radio shower stove over_crowding cook_fuel own_house floor_improved roof_improved wall_improved (rawsum) FACTOR [pw=FACTOR], by(psu_id)
 
 bys mun_id: gen mun_size=_N
-drop if mun_size<8
+* drop if mun_size<8
 
 pca water_good electri flush_toilet sewage good_sersan only_bath good_disposal internet urban [w=FACTOR]
 predict pcr
@@ -117,7 +117,7 @@ keep psu_id percentile_remote pcr pcas mun_size mun_id percentile_asset
 
 
 ***Adjusting by (percentile_remoteness/20)
-g prob_psu_nobias=8/mun_size
+g prob_psu_nobias=1/mun_size
 g prob_adjust_r=(percentile_remote/25)^5
 replace prob_adjust_r=1 if prob_adjust_r >1
 
@@ -177,7 +177,7 @@ save `size'
 restore
 merge m:1 mun_id using `size'
 drop _merge
-drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
+* drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
 
 tempfile census
 save `census'
@@ -197,7 +197,7 @@ save `size'
 restore
 merge m:1 mun_id using `size'
 drop _merge
-drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
+* drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
 
 preserve
 collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=(FACTOR*hhsize)], by(mun_id)

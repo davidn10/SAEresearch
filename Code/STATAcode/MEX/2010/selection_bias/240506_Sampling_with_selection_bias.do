@@ -115,7 +115,7 @@ keep psu_id percentile_remote pcr pcas mun_size mun_id percentile_asset
 
 
 ***Adjusting by (percentile_remoteness/20)
-g prob_psu_nobias=8/mun_size
+g prob_psu_nobias=1/mun_size
 g prob_adjust_r=(percentile_remote/25)^5
 replace prob_adjust_r=1 if prob_adjust_r >1
 
