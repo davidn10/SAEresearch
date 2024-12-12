@@ -1,4 +1,6 @@
 global rawdata "D:\SAE_project\MEX"
+global rawdata "D:\david\SAE\SAE_research_with_Melany\MEX"
+
 global currdata "$rawdata\2010\full_census_new"
 global census "$currdata\rawdata\census_proc_MEX_2010.dta"
 
@@ -10,7 +12,6 @@ set sortseed 54321
  ======================================*/
 use "$rawdata\2010\census_viv_2010.dta", clear
 g uno="1"
-
 ***PSU ID
 set seed 3454
 egen psu_id2=group(ENT MUN TAM_LOC UPM)
@@ -96,7 +97,9 @@ cell compu auto washing fridge tele radio shower stove over_crowding cook_fuel o
 collapse (mean) mun_id water_bad no_electri no_flush_toilet no_sewage no_sersan shared_bath bad_disposal no_medluz no_internet rural water_good electri flush_toilet sewage good_sersan only_bath good_disposal medluz internet urban cell compu auto washing fridge tele radio shower stove over_crowding cook_fuel own_house floor_improved roof_improved wall_improved (rawsum) FACTOR [pw=FACTOR], by(psu_id)
 
 bys mun_id: gen mun_size=_N
-drop if mun_size<8
+* drop if mun_size<8
+
+
 
 pca water_good electri flush_toilet sewage good_sersan only_bath good_disposal medluz internet urban [w=FACTOR]
 predict pcr
@@ -172,7 +175,8 @@ save `size'
 restore
 merge m:1 mun_id using `size'
 drop _merge
-drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
+
+* drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
 
 tempfile census
 save `census'
@@ -192,7 +196,7 @@ save `size'
 restore
 merge m:1 mun_id using `size'
 drop _merge
-drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
+* drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
 
 preserve
 collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=(FACTOR*hhsize)], by(mun_id)

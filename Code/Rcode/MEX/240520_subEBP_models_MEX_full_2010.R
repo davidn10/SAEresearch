@@ -10,8 +10,9 @@ library("povmap")
 
 set.seed(7)
 
-setwd("D:/SAE_project/MEX/2010/full_census_new")
+#setwd("D:/SAE_project/MEX/2010/full_census_new")
 
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2010/full_census_new")
 #==============================================
 # WOW weights
 #==============================================
@@ -20,7 +21,7 @@ setwd("D:/SAE_project/MEX/2010/full_census_new")
 census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("subarea_ebp") 
+mysamples <- list.files("subarea_ebp",pattern=".dta") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
@@ -78,7 +79,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("subarea_ebp") 
+mysamples <- list.files("subarea_ebp",pattern=".dta")
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
@@ -136,7 +137,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("subarea_ebp") 
+mysamples <- list.files("subarea_ebp",pattern=".dta")
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
@@ -193,7 +194,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("subarea_ebp") 
+mysamples <- list.files("subarea_ebp",pattern=".dta") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
