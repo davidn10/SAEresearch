@@ -31,7 +31,7 @@ tempfile census
 save `census'
 
 
-***Getting samples 2010
+**Getting samples 2010
 forvalues i=1(1)100 {
 use "$rawsamples00\sample1\sample_`i'.dta", clear
 merge 1:1 hid using `census', keepusing(hid* pchinc $myvar ln_pchinc)
@@ -320,6 +320,7 @@ putexcel G31="depen_ch"
 putexcel G32="depen_old"
      
 }
+
 
 ***Getting samples 2000
 forvalues i=1(1)100 {
@@ -610,7 +611,8 @@ putexcel G31="depen_ch"
 putexcel G32="depen_old"
      
 }
-
+ 
+* start here for sample3 
 ***Getting samples 2000
 forvalues i=1(1)100 {
 	
@@ -903,8 +905,7 @@ putexcel G32="depen_old"
      
 }
 
-*putexcel set "$results\sample_size", replace
-
+putexcel set "$results\sample_size", replace
 *wall_improved_psu wall_improved_mun motorcy_mun motorcy_psu  internet_mun internet_psu
 
 global myarea aux_sh_primedu_mun aux_sh_secedu_mun aux_sh_supedu_mun aux_sh_noedu_mun aux_sh_literate_mun unemp_mun informal_mun hhsize_mun hh_primedu_mun hh_secondedu_mun hh_superior_mun age_hh_mun female_hh_mun depen_ch_mun depen_old_mun  water_improved_mun electri_mun sewage_mun own_house_mun good_house_mun over_crowding_mun over_crowding_ext_mun radio_mun tele_mun fridge_mun washing_mun auto_mun compu_mun cell_mun aux_sh_primedu_psu aux_sh_secedu_psu aux_sh_supedu_psu aux_sh_noedu_psu aux_sh_literate_psu unemp_psu informal_psu hhsize_psu hh_primedu_psu hh_secondedu_psu hh_superior_psu age_hh_psu female_hh_psu depen_ch_psu depen_old_psu  water_improved_psu electri_psu sewage_psu own_house_psu good_house_psu over_crowding_psu over_crowding_ext_psu radio_psu tele_psu fridge_psu washing_psu auto_psu compu_psu cell_psu 
@@ -1027,7 +1028,7 @@ tempfile survey
 save `survey'
 
 import excel "$results\distribution_census_00.xlsx", sheet("Sheet1") firstrow clear
-
+** the bug is here. And survey is comes from distribution_sample00_100 which is different from all the others 
 merge 1:1 A using `survey'
 
 g check=1 if (LL_sur<=Meanreg & Meanreg<=UL_sur)
