@@ -50,6 +50,7 @@ save `direct'
 Merging data
 *=========================================*/
 use "$rawsamples\sample1\selected\sample_`i'.dta", clear
+xx
 keep  mun_id $myfh state_*
 duplicates drop 
 merge 1:1 mun_id using `direct' 

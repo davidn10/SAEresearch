@@ -11,7 +11,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("D:/SAE_project/MEX/2010/full_census_new")
-setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census")
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census")
 
 #==============================================
 # Sample 1
@@ -21,7 +21,7 @@ setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census")
 census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("subarea_ebp/sample1") 
+mysamples <- list.files("subarea_ebp/sample1",pattern="sample") 
 
 for(i in 1:length(mysamples)) { 
   i 
@@ -74,7 +74,7 @@ for(i in 1:length(mysamples)) {
 
 
 ### Sample2
-mysamples <- list.files("subarea_ebp/sample2") 
+mysamples <- list.files("subarea_ebp/sample2",pattern="sample") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
@@ -124,7 +124,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 }
 
 ### Sample3
-mysamples <- list.files("subarea_ebp/sample3") 
+mysamples <- list.files("subarea_ebp/sample3",pattern="sample") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data

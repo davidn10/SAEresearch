@@ -1,34 +1,40 @@
-cd "D:\SAE_project\MEX\"
+* cd "D:\SAE_project\MEX\"
+
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
+
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-*- CENSUS 2010
+*- CENSUS 2015
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 **********************************************************************************
 ***Household level variables individuals
-use "2010\census_ind_2010.dta", clear
+use "2015\intercensal_ind_2015.dta", clear
 
 g uno="1"
 
+***Generate strata ID based on survey design (State and locsize)
+recode TAMLOC (3=2) (4=3) (5=4)
+
 ***PSU ID
 set seed 3454
-egen psu_id2=group(ENT MUN TAM_LOC UPM)
-egen psu_id=concat(uno ENT MUN TAM_LOC UPM)
+egen psu_id2=group(ENT MUN TAMLOC UPM)
+egen psu_id=concat(uno ENT MUN TAMLOC UPM)
 destring psu_id, replace
 format psu_id %20.0g
 
 ***Generating strata
 set seed 3454
-egen strata2 = group(ENT TAM_LOC)
-egen strata = concat(uno ENT TAM_LOC)
+egen strata2 = group(ENT TAMLOC)
+egen strata = concat(uno ENT TAMLOC)
 destring strata, replace
 
 ***Households ID
 set seed 3454
+format ID_VIV %25.0g
 egen hid2=group(ENT MUN ID_VIV)
-egen hid=concat(uno ENT MUN ID_VIV)
-destring hid, replace
-format hid %20.0g
+gen double hid=1000000000000+ID_VIV
+format hid %25.0g
 
 ***Municipality ID
 set seed 3454
@@ -39,8 +45,9 @@ drop uno
 
 *** Merging with samples
 forvalues i=1(1)100 {
+dis "`i'"
 preserve
-merge m:1 hid using "2010\full_census_new\rawsamples_full\sample_`i'.dta"
+merge m:1 hid using "2015\full_census_new\rawsamples_full\sample_`i'.dta"
 keep if _merge==3
 
 ***Variances of continuous variables
@@ -79,7 +86,9 @@ replace esco_high=0 if esco_high<0
 **********************************
 ***Generating variables for the model
 ***Education level of HH
+
 g aux_eduhh=esco_low if PARENT==1
+
 bys hid: egen educ_low_hh=max(aux_eduhh)
 drop aux*
 
@@ -214,7 +223,7 @@ keep hid educ_low_hh educ_high_hh age_low_hh age_high_hh sh_educ0_8_low sh_educ9
 
 duplicates drop
 
-saveold "2010\full_census_new\error_data\ind\variables_errors_ind_`i'", replace
+saveold "2015\full_census_new\error_data\ind\variables_errors_ind_`i'", replace
 restore
 }
 
@@ -222,28 +231,31 @@ restore
 /*===============================================================
 ***Household level variables
 ===============================================================*/
-use "2010\census_viv_2010.dta", clear
+use "2015\intercensal_viv_2015.dta", clear
 g uno="1"
+
+***Generate strata ID based on survey design (State and locsize)
+recode TAMLOC (3=2) (4=3) (5=4)
 
 ***PSU ID
 set seed 3454
-egen psu_id2=group(ENT MUN TAM_LOC UPM)
-egen psu_id=concat(uno ENT MUN TAM_LOC UPM)
+egen psu_id2=group(ENT MUN TAMLOC UPM)
+egen psu_id=concat(uno ENT MUN TAMLOC UPM)
 destring psu_id, replace
 format psu_id %20.0g
 
 ***Generating strata
 set seed 3454
-egen strata2 = group(ENT TAM_LOC)
-egen strata = concat(uno ENT TAM_LOC)
+egen strata2 = group(ENT TAMLOC)
+egen strata = concat(uno ENT TAMLOC)
 destring strata, replace
 
 ***Households ID
 set seed 3454
+format ID_VIV %25.0g
 egen hid2=group(ENT MUN ID_VIV)
-egen hid=concat(uno ENT MUN ID_VIV)
-destring hid, replace
-format hid %20.0g
+gen double hid=1000000000000+ID_VIV
+format hid %25.0g
 
 ***Municipality ID
 set seed 3454
@@ -256,37 +268,42 @@ drop uno
 forvalues i=1(1)100 {
 preserve
 
-merge 1:1 hid using "2010\full_census_new\rawsamples_full\sample_`i'.dta"
+merge 1:1 hid using "2015\full_census_new\rawsamples_full\sample_`i'.dta"
 keep if _merge==3
+
+
+
+
 
 ******************************************
 *** Creating variables without error
 ***House conditions
-g wall_improved  = inlist(PAREDES,6,7,8) //madera, adobe; tabique, ladrillo, block, piedra, cemento, concreto
-g roof_improved  = inlist(TECHOS, 3,4,8,9) //lamina metalica, lamina asbesto, teaj, losa concreto    
-g floor_improved = inlist(PISOS, 2,3) //cemento; madera, mosaico 
+g wall_improved  = inlist(PAREDES,6,7,8) //Madera, adobe; tabique, ladrillo, bloque, piedra
+g roof_improved  = inlist(TECHOS, 3,4,9,10) //lamina metalica,lamina asbesto, Teja, losa de concreto
+g floor_improved = inlist(PISOS, 2,3) //cemento; mosaico, madera 
   
-g water_improved = inlist(DISAGU, 1,2) //agua entubada dentro de la vivienda; agua entubada fuera de la vivienda,  
-g electri = inlist(ELECTRI, 1)   
-g flush_toilet = inlist(CONAGU,5) //tiene descarga directa de agua
-g sewage = inlist(DRENAJE, 1,2) //la red p�blica, una fosa s�ptica 
+g water_improved = inlist(AGUA_ENTUBADA, 1,2)  //dentro de la vivienda?,s�lo en el patio o terreno?  
+g electri = inlist(ELECTRI, 5)   
+g flush_toilet = inlist(CONAGU,1) //tiene descarga directa de agua?
+g sewage = inlist(DRENAJE, 1,2) //la red p�blica?; una fosa s�ptica o tanque s�ptico 
 
-g own_house = inlist(TENVIV, 1) //vive el due�o o propietario
+g own_house = inlist(TENENCIA, 1) // vive la due�a o due�o?
 
-g cook_fuel = inlist(COMBUS, 1,2,5) //gas de cilindro o tanque,gas natural o de tuber�a, electricity
+g cook_fuel = inlist(COMBUS, 1,2,5) //gas?, electricidad?
+
 
 
 ***Household assets
-g stove = inlist(ESTUFAG, 1) //estufa de gas
-g shower = inlist(REGADERA, 3)
+g stove = inlist(ESTUFA, 1)
+g shower = inlist(REGADERA, 7)
 g radio = inlist(RADIO, 1)
-g tele = inlist(TELEVI, 3)
-g fridge = inlist(REFRIG, 1)
+g tele = inlist(TELEVISOR, 3)
+g fridge = inlist(REFRIGERADOR, 1)
 g washing = inlist(LAVADORA, 3)
-g auto = inlist(AUTOPROP, 1)
-g compu = inlist(COMPU, 3)
+g auto = inlist(AUTOPROP, 7)
+g compu = inlist(COMPUTADORA, 7)
 g cell = inlist(CELULAR, 3)
-g internet = inlist(INTERNET, 1)
+g internet = inlist(INTERNET, 5)
 
 *****************************************
 
@@ -359,7 +376,7 @@ g over_crowding_ext_high=NUMPERS/CUADORM_high
 
 keep hid psu_id mun_id  FACTOR* over_crowding_ext_high over_crowding_high over_crowding_ext_low over_crowding_low internet_high internet_low cell_high cell_low compu_high compu_low auto_high auto_low washing_high washing_low fridge_high fridge_low tele_high tele_low radio_high radio_low shower_high shower_low stove_high stove_low cook_fuel_high cook_fuel_low own_house_high own_house_low sewage_high sewage_low flush_toilet_high flush_toilet_low electri_high electri_low water_improved_high water_improved_low floor_improved_high floor_improved_low roof_improved_high roof_improved_low wall_improved_high wall_improved_low
 
-saveold "2010\full_census_new\error_data\viv\variables_errors_viv_`i'", replace
+saveold "2015\full_census_new\error_data\viv\variables_errors_viv_`i'", replace
 restore
 }
 
@@ -368,11 +385,11 @@ restore
 *** Merginf variables with error with samples
 ===============================================================*/
 forvalues i=1(1)100 {
-use "2010\full_census_new\error_data\ind\variables_errors_ind_`i'", clear
-merge 1:1 hid using "2010\full_census_new\error_data\viv\variables_errors_viv_`i'"
+use "2015\full_census_new\error_data\ind\variables_errors_ind_`i'", clear
+merge 1:1 hid using "2015\full_census_new\error_data\viv\variables_errors_viv_`i'"
 keep if _merge==3
 drop _merge
-save "2010\full_census_new\rawsamples_error\sample_`i'.dta", replace
+save "2015\full_census_new\rawsamples_error\sample_`i'.dta", replace
 }
 
 

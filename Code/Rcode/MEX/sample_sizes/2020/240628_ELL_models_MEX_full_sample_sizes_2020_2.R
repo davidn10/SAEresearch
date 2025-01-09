@@ -11,8 +11,8 @@ library("povmap")
 
 set.seed(7)
 
-#setwd("D:/SAE_project/MEX/200/full_census_new")
-setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census")
+#setwd("D:/SAE_project/MEX/2020/full_census")
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census")
 
 #==============================================
 # Unit-level models

@@ -63,7 +63,7 @@ estimates store model
 di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model
 global postlasso `hhvars'
-
+xx
 ***Save samples and variables post lasso to run ELL and EBP
 sort psu_id
 keep $postlasso FACTOR mun_id psu_id poor_direct

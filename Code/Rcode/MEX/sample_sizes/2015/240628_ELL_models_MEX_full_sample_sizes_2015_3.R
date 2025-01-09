@@ -12,7 +12,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("D:/SAE_project/MEX/2010/full_census_new")
-setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2015/full_census_new")
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2015/full_census_new")
 
 #==============================================
 # Unit-level models

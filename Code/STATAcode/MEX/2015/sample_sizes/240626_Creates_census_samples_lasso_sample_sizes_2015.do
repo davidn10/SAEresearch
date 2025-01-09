@@ -31,7 +31,7 @@ forvalues i=1(1)100 {
 use "$rawsamples\sample1\selected\sample_`i'.dta", clear
 
 preserve
-drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m fgt0_psu fgt0_m_psu fgt0_mun fgt0_m_mun
 
 ds
 local myvar=r(varlist)
@@ -101,7 +101,7 @@ forvalues i=1(1)100 {
 use "$rawsamples\sample2\selected\sample_`i'.dta", clear
 
 preserve
-drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m fgt0_psu fgt0_m_psu fgt0_mun fgt0_m_mun
 
 ds
 local myvar=r(varlist)
@@ -172,7 +172,7 @@ forvalues i=1(1)100 {
 use "$rawsamples\sample3\selected\sample_`i'.dta", clear
 
 preserve
-drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m fgt0_psu fgt0_m_psu fgt0_mun fgt0_m_mun
 
 ds
 local myvar=r(varlist)
