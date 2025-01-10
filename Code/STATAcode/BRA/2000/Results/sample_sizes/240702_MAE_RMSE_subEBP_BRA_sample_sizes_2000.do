@@ -6,12 +6,13 @@ set more off
  Defining globals
  *=========================================*/
 
-* global currdata "D:\SAE_project\MEX\2010\full_census_new"
-global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
-global rawsamples "$currdata\rawsamples_full\"
+* global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
+global rawsamples "$currdata\rawsamples_new\"
 global census "$currdata\census\"
 global results "$currdata\results\results_sub_ebp\"
-global simcensus "$currdata\simcensus\"
+global simcensus "$currdata\simcensus_new\"
+
 
 
 set seed 648743
@@ -52,7 +53,7 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-use "$results\sample`x'\output_h\sim_ebp_s_`i'.dta", clear
+use "$results\sample`x'\output_h\sim_ebp_subebp_`i'.dta", clear
 rename area mun_id
 destring mean mun_id, replace
 rename mean sim_fgt0

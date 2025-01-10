@@ -52,7 +52,7 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-use "$results\sample`x'\output_h\sim_ebp_subebp_`i'.dta", clear
+use "$results\sample`x'\output_h\sim_ebp_sample_`i'.dta", clear
 rename area mun_id
 destring mean mun_id, replace
 rename mean sim_fgt0
