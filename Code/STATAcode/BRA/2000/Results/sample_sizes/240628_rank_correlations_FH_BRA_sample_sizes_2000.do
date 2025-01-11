@@ -28,7 +28,7 @@ save `census'
 
 putexcel set "$results\sample1\rankcorr_FH_1", replace
 
-foreach i in 1 2 3 4 5 6 8 9 10 11 12 13 14 15 16 17 19 20 21 22 23 24 26 27 29 30 32 34 36 37 39 40 41 42 45 46 48 50 51 52 54 56 58 59 61 62 63 65 66 67 69 70 73 75 77 78 79 80 81 83 84 85 86 87 92 94 97  {
+forvalues i=1(1)100 {
 
 /*=========================================
  Identifying in sample and out-of-sample

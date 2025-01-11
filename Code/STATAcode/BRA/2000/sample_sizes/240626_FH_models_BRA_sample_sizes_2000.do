@@ -10,7 +10,7 @@ global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_new\"
 global census "$data\census_proc_BRA_2000.dta"
-global simcensus "$currdata\simcensus\"
+global simcensus "$currdata\simcensus_new\"
 global results "$currdata\results\"
 set seed 648743
 
