@@ -89,7 +89,7 @@ restore
 drop total_size* mun_size*
 
 ***Second: select PSUs
-/*Selecting same number of PSUs for all datasets: 9 PSUs/mun*/
+/*Selecting same number of PSUs for all datasets: 10 PSUs/mun*/
 ***Data at PSU level
 keep psu_id mun_id
 duplicates drop

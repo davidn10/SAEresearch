@@ -5,7 +5,8 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\2010\full_census"
+* global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples\"
 global census "$data\census_proc_BRA_2010.dta"
@@ -28,12 +29,11 @@ set seed 648743
 ***Samples 1,2; ampl
 ***Sample 7, 18,25,28,31,33,35,38, 43-44;47;49;53;55,57,60,64,68,71-72,74,76,82,88-91;93-96;98-100 do not converge
 ***Samples 3-6;8-17;19-24;26-27;29-30;32;34;36,37;39-42;45-46;48;50-52;54;56;58,59;61-63;65-67;73;75;77-81;83-87;92;97;99: reml
-forvalues i=43(1)44 {
+forvalues i=1(1)100 {
 /*=========================================
 Direct estimates 
 *=========================================*/
 use "$rawsamples\sample1\selected\sample_`i'.dta", clear
-
 direct fgt0_m [aw=FACTOR], by(mun_id) gen(poor_direct)
 gen poor_direct_var=poor_direct_SD^2 
 
@@ -63,6 +63,8 @@ di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model
 global postlasso `hhvars'
 
+
+
  
 /*=========================================
 Fay-Harriot models
@@ -72,7 +74,7 @@ merge 1:1 mun_id using `census'
 drop _merge
 replace insample=0 if insample==.
 
-fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(ampl) gamma  mse(mse_fh_sim)
+fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(aryl) gamma  mse(mse_fh_sim)  initialvalue(0.01)
 est store fhmodel
 
 ***Predictions
@@ -83,6 +85,7 @@ save "$results\results_fh\sample1\myFH_`i'.dta", replace
 
 } 
 
+exit 
 
 forvalues i=1(1)100 {
 /*=========================================
@@ -128,7 +131,7 @@ merge 1:1 mun_id using `census'
 drop _merge
 replace insample=0 if insample==.
 
-fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(ampl) gamma  mse(mse_fh_sim)
+fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(ampl) gamma  mse(mse_fh_sim) initialvalue(0.01)
 est store fhmodel
 
 ***Predictions
@@ -189,7 +192,7 @@ merge 1:1 mun_id using `census'
 drop _merge
 replace insample=0 if insample==.
 
-fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(ampl) gamma  mse(mse_fh_sim)
+fayherriot poor_direct $postlasso, variance(poor_direct_var) sigmamethod(ampl) gamma  mse(mse_fh_sim) initialvalue(0.01)
 est store fhmodel
 
 ***Predictions
