@@ -1,4 +1,5 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -6,11 +7,11 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata10 "D:\SAE_project\MEX\2010\full_census_new"
-global data10 "$currdata10\rawdata\"
-global rawsamples10 "$currdata10\rawsamples_error\"
-global census10 "$data10\census_proc_MEX_2010.dta"
-global results "$currdata10\results\error\"
+global currdata15 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
+global data15 "$currdata15\rawdata\"
+global rawsamples15 "$currdata15\rawsamples_error\"
+global census15 "$data15\census_proc_MEX_2015.dta"
+global results "$currdata15\results\error\"
 
 
 //global with candidate variables for unit level models
@@ -20,10 +21,10 @@ global myvar wall_improved roof_improved floor_improved water_improved electri f
 set seed 648743
 
 ***In the census
-use "$currdata10\census\census.dta", clear
+use "$currdata15\census\census.dta", clear
 keep psu_id mun_id hid $myvar  popwt 
 
-putexcel set "$results\results_distrib\distribution_census_10", replace
+putexcel set "$results\results_distrib\distribution_census_15", replace
 
 foreach var in $myvar {
 	reg `var'  [w=popwt], r cluster(mun_id)
@@ -307,9 +308,9 @@ putexcel G32="sh_educ14_plus"
 putexcel G33="sh_literate"     
 
 *** HIgh measurement error scenario
-***Getting samples 2010
+***Getting samples 2015
 forvalues i=1(1)100 {
-use "$rawsamples10\sample_`i'.dta", clear
+use "$rawsamples15\sample_`i'.dta", clear
 rename educ_low_hh educ_hh_low
 rename educ_high_hh educ_hh_high
 rename age_low_hh age_hh_low
@@ -322,12 +323,12 @@ foreach var in educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus depen_ch dep
 }
 
 ***Variables that were not modified: hhsize hhsize2 ln_pchinc
-merge 1:1 hid using "$currdata10\census\census.dta", keepusing(hhsize hhsize2)
+merge 1:1 hid using "$currdata15\census\census.dta", keepusing(hhsize hhsize2)
 keep if _merge==3
 keep psu_id mun_id hid $myvar FACTOR  
 
 
-putexcel set "$results\results_distrib\distribution_sample_high10_`i'", replace
+putexcel set "$results\results_distrib\distribution_sample_high15_`i'", replace
 
 	foreach var in $myvar {
 	reg `var'  [w=FACTOR], r cluster(mun_id)
@@ -618,7 +619,7 @@ putexcel G33="sh_literate"
 *** Preparing census
 global myarea aaux_sh_educ0_8_mun aaux_sh_educ9_13_mun aaux_sh_educ14_plus_mun ALFABET_mun ESCOACUM_mun unemp_mun informal_mun hhsize_mun  educ_hh_mun age_hh_mun female_hh_mun depen_ch_mun depen_old_mun wall_improved_mun roof_improved_mun floor_improved_mun water_improved_mun electri_mun flush_toilet_mun sewage_mun own_house_mun cook_fuel_mun over_crowding_mun over_crowding_ext_mun stove_mun shower_mun radio_mun tele_mun fridge_mun washing_mun auto_mun compu_mun cell_mun internet_mun aaux_sh_educ0_8_psu aaux_sh_educ9_13_psu aaux_sh_educ14_plus_psu ALFABET_psu ESCOACUM_psu unemp_psu informal_psu hhsize_psu  educ_hh_psu age_hh_psu female_hh_psu depen_ch_psu depen_old_psu wall_improved_psu roof_improved_psu floor_improved_psu water_improved_psu electri_psu flush_toilet_psu sewage_psu own_house_psu cook_fuel_psu over_crowding_psu over_crowding_ext_psu stove_psu shower_psu radio_psu tele_psu fridge_psu washing_psu auto_psu compu_psu cell_psu internet_psu
 
-use "$currdata10\census\census.dta", clear
+use "$currdata15\census\census.dta", clear
 keep psu_id mun_id hid popwt  $myarea pchinc ln_pchinc state_* hhsize hhsize2 fgt0_m 
 tempfile census
 save `census'
@@ -628,7 +629,7 @@ putexcel set "$results\results_distrib\sample_size_high", replace
 
 forvalues i=1(1)100 {
 ***Analyzing C.I.
-import excel "$results\results_distrib\distribution_sample_high10_`i'.xlsx", sheet("Sheet1") firstrow clear
+import excel "$results\results_distrib\distribution_sample_high15_`i'.xlsx", sheet("Sheet1") firstrow clear
 foreach x of var * { 
 	rename `x' `x'_sur 
 } 
@@ -636,7 +637,7 @@ rename A_sur A
 tempfile survey
 save `survey'
 
-import excel "$results\results_distrib\distribution_census_10.xlsx", sheet("Sheet1") firstrow clear
+import excel "$results\results_distrib\distribution_census_15.xlsx", sheet("Sheet1") firstrow clear
 
 merge 1:1 A using `survey'
 
@@ -657,7 +658,7 @@ local tokeep=r(varlist)
 global tokeep `tokeep'
 
 ***Generating samples with selected variables
-use "$rawsamples10\sample_`i'.dta", clear
+use "$rawsamples15\sample_`i'.dta", clear
 rename educ_low_hh educ_hh_low
 rename educ_high_hh educ_hh_high
 rename age_low_hh age_hh_low
@@ -680,14 +681,14 @@ local obs_`i'=r(k)
 putexcel A`i'=`obs_`i''
 
 
-save "$currdata10\rawsamples_error\selected_high\sample_`i'.dta", replace
+save "$currdata15\rawsamples_error\selected_high\sample_`i'.dta", replace
 }
 
 
 *** Low measurement error scenario
-***Getting samples 2010
+***Getting samples 2015
 forvalues i=1(1)100 {
-use "$rawsamples10\sample_`i'.dta", clear
+use "$rawsamples15\sample_`i'.dta", clear
 rename educ_low_hh educ_hh_low
 rename educ_high_hh educ_hh_high
 rename age_low_hh age_hh_low
@@ -700,12 +701,12 @@ foreach var in educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus depen_ch dep
 }
 
 ***Variables that were not modified: hhsize hhsize2 ln_pchinc
-merge 1:1 hid using "$currdata10\census\census.dta", keepusing(hhsize hhsize2)
+merge 1:1 hid using "$currdata15\census\census.dta", keepusing(hhsize hhsize2)
 keep if _merge==3
 keep psu_id mun_id hid $myvar FACTOR  
 
 
-putexcel set "$results\results_distrib\distribution_sample_low10_`i'", replace
+putexcel set "$results\results_distrib\distribution_sample_low15_`i'", replace
 
 	foreach var in $myvar {
 	reg `var'  [w=FACTOR], r cluster(mun_id)
@@ -993,7 +994,7 @@ putexcel G33="sh_literate"
 }
 
 
-use "$currdata10\census\census.dta", clear
+use "$currdata15\census\census.dta", clear
 keep psu_id mun_id hid popwt  $myarea pchinc ln_pchinc state_* hhsize hhsize2 fgt0_m 
 tempfile census
 save `census'
@@ -1003,7 +1004,7 @@ putexcel set "$results\results_distrib\sample_size_low", replace
 
 forvalues i=1(1)100 {
 ***Analyzing C.I.
-import excel "$results\results_distrib\distribution_sample_low10_`i'.xlsx", sheet("Sheet1") firstrow clear
+import excel "$results\results_distrib\distribution_sample_low15_`i'.xlsx", sheet("Sheet1") firstrow clear
 foreach x of var * { 
 	rename `x' `x'_sur 
 } 
@@ -1011,7 +1012,7 @@ rename A_sur A
 tempfile survey
 save `survey'
 
-import excel "$results\results_distrib\distribution_census_10.xlsx", sheet("Sheet1") firstrow clear
+import excel "$results\results_distrib\distribution_census_15.xlsx", sheet("Sheet1") firstrow clear
 
 merge 1:1 A using `survey'
 
@@ -1032,7 +1033,7 @@ local tokeep=r(varlist)
 global tokeep `tokeep'
 
 ***Generating samples with selected variables
-use "$rawsamples10\sample_`i'.dta", clear
+use "$rawsamples15\sample_`i'.dta", clear
 rename educ_low_hh educ_hh_low
 rename educ_high_hh educ_hh_high
 rename age_low_hh age_hh_low
@@ -1055,5 +1056,5 @@ local obs_`i'=r(k)
 putexcel A`i'=`obs_`i''
 
 
-save "$currdata10\rawsamples_error\selected_low\sample_`i'.dta", replace
+save "$currdata15\rawsamples_error\selected_low\sample_`i'.dta", replace
 }
