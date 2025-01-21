@@ -1,8 +1,8 @@
-cd "D:\SAE_project\BRA\2000\full_census\rawdata"
+* cd "D:\SAE_project\BRA\2000\full_census\rawdata"
+cd "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\rawdata"
 
 forvalues i=1(1)10 {
 use "BRA_`i'_2000.dta", clear
-
 ***Labeling variables
 label var V0102 "UF"
 label var V0103 "Municipality"
@@ -469,7 +469,7 @@ save "census_ind_psulevel_BRA_2000", replace
 
 **********************************************************************************
 ***Household level variables, househols
-use "BRA_VIV_2000.dta", clear
+use "2000\full_census\rawdata\BRA_VIV_2000.dta", clear
 
 ***Household ID
 egen hid=concat(V0103 V0300)

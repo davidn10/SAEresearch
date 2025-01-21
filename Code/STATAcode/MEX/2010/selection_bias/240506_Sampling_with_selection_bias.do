@@ -136,7 +136,7 @@ g prob_adjust2_a=(percentile_asset/30)^7
 replace prob_adjust2_a=1 if prob_adjust2_a >1
 */
 
-***Ajusteing by (value-min)/(max-min)
+***Adjusting by (value-min)/(max-min)
 format pcr pcas %8.6g
 sum pcr pcas
 /*
