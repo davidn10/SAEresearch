@@ -1,4 +1,5 @@
-cd "D:\david\SAE\SAE_research_with_Melany\BRA"
+* BRAZIL 2000 
+cd "H:\david\SAE\SAE_research_with_Melany\BRA"
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 *- CENSUS 2000
@@ -172,7 +173,7 @@ g id_old_low=(ageyrs_low>=65 & ageyrs_low!=.)
 bys hid: egen depen_old_low=mean(id_old_low)
 
 ***Elderly
-g id_old_high=(ageyrs_low>=65 & ageyrs_high!=.)
+g id_old_high=(ageyrs_high>=65 & ageyrs_high!=.)
 bys hid: egen depen_old_high=mean(id_old_high)
 
 
@@ -203,8 +204,10 @@ generate double u_school = uniform()
 gen addschool=1 if school==0 
 replace addschool=-1 if school>0 // sets everything above 0 to negative 1   
 replace addschool=1 if school>0 & school<4 & uniform()<0.5  // resets randomly selected half of everything between 1 and 3 to 1 
-generate school_low=school+addschool if u_school<p_change_low
-generate school_high=school+addschool if u_school<p_change_high 
+generate school_low=school 
+generate school_high=school 
+replace school_low=school+addschool if u_school<p_change_low
+replace school_high=school+addschool if u_school<p_change_high 
 
 ***Household head some primary education
 g aux_eduhh=(school_low==2 & hhead==1)

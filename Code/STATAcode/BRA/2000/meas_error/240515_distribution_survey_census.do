@@ -1,6 +1,6 @@
 * This one is the new brazil 2000 code for measurement error 
 * cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
-cd "D:\david\SAE\SAE_research_with_Melany\BRA"
+cd "H:\david\SAE\SAE_research_with_Melany\BRA"
 
 clear all
 set more off
@@ -8,7 +8,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata00 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
+global currdata00 "H:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global data00 "$currdata00\rawdata\"
 global rawsamples00 "$currdata00\rawsamples_error\"
 global census00 "$data00\census_proc_BRA_2000.dta"

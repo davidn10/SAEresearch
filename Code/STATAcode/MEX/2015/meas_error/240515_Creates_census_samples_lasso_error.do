@@ -94,7 +94,7 @@ save "$currdata\vars_selected_error\high\alphavars_selected\alpha_`i'.dta", repl
 restore
 
 }
-
+xx
 /*=========================================
 Smaller error
 *=========================================*/

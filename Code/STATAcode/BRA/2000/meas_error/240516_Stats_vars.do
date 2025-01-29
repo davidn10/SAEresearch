@@ -7,7 +7,7 @@ set more off
  *=========================================*/
 
 * global currdata "D:\SAE_project\MEX\2010\full_census_new"
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
+global currdata "H:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 
 global census "$currdata\census\"
 global results "$currdata\results"

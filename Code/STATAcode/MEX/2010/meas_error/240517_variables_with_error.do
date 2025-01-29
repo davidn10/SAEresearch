@@ -1,5 +1,6 @@
 * cd "D:\SAE_project\MEX\"
-cd "D:\david\SAE\SAE_research_with_Melany\MEX"
+cd "H:\david\SAE\SAE_research_with_Melany\MEX"
+
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 *- CENSUS 2010
