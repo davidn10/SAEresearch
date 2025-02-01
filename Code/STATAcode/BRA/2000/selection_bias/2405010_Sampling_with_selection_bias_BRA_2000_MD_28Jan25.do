@@ -4,7 +4,8 @@ global census "$currdata\rawdata\census_proc_MEX_2010.dta"
 */
 
 ****CHANGE DIRECTION****
-global rawdata "D:\SAE_project\BRA\BRA_2000"
+* global rawdata "D:\SAE_project\BRA\BRA_2000"
+global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA"
 global currdata "$rawdata\2000\full_census"
 global census "$currdata\rawdata\census_proc_BRA_2000.dta"
 *global savetempfile "$currdata\census"
@@ -15,7 +16,7 @@ set sortseed 54321
  Remoteness index
  ======================================*/
 
-use "$rawdata\2000\BRA_VIV_2000.dta", clear
+use "$rawdata\2000\full_census\rawdata\BRA_VIV_2000.dta", clear
 
 ***label variables for Brazil_2000:
 
@@ -34,7 +35,7 @@ label var V1004 "Metropolitan region"
 
 *Rename variables:
 
-rename V0102 state
+encode V0102, gen(state)
 rename PESO_DOMIC weights
 
 rename V1001 region
@@ -115,7 +116,7 @@ g AC= V0223>0 & V0223!=.
 
 keep state hid hid2 mun_id psu_id2 psu_id urban water_improved electri sewage own_house good_toilet good_house good_street micro radio tele fridge washing auto compu cell AC weights
 
-collapse (mean) mun_id urban water_improved electri sewage own_house good_toilet good_house good_street micro radio tele fridge washing auto compu cell AC (rawsum) weights [pw=weights], by(psu_id)
+collapse (mean) state mun_id urban water_improved electri sewage own_house good_toilet good_house good_street micro radio tele fridge washing auto compu cell AC (rawsum) weights [pw=weights], by(psu_id)
 
 bys mun_id: gen mun_size=_N
 *drop if mun_size<8
@@ -125,7 +126,7 @@ predict pcas
 xtile percentile_asset = pcas, nq(100)
 *xtile decile_asset = pcas, nq(100)
 	
-keep psu_id pcas mun_size mun_id percentile_asset
+keep state psu_id pcas mun_size mun_id percentile_asset
 
 
 ***Adjusting by (percentile_asset/20)
@@ -157,7 +158,7 @@ g prob_psu_bias4=prob_psu_nobias*prob_adjust4_r
 *g prob_psu_bias4=prob_psu_nobias*prob_adjust2_a
 
 egen mun_id2=group(mun_id)
-keep psu_id mun_id prob_psu_nobias prob_psu_bias* mun_id2 prob_adjust* pcas  percentile_asset
+keep state psu_id mun_id prob_psu_nobias prob_psu_bias* mun_id2 prob_adjust* pcas  percentile_asset
 
 tempfile remoteness
 save `remoteness', replace
@@ -168,9 +169,36 @@ Census data
 use "$census", clear
 
 keep mun_id state psu_id hid weights hhsize
+encode (state), gen(state_n)
+drop state
+rename state_n state
 
 preserve
-keep mun_id psu_id
+keep state mun_id psu_id
+duplicates drop
+bys mun_id: g size_mun=_N
+keep mun_id size_mun
+duplicates drop
+tempfile size
+save `size'
+restore
+merge m:1 mun_id using `size' 
+drop _merge
+*drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
+
+tempfile census
+save `census', replace
+
+
+***Census with fgt0
+use "$census", clear
+encode (state), gen(state_n)
+drop state
+rename state_n state
+
+keep mun_id state psu_id hid weights hhsize fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+preserve
+keep mun_id state psu_id
 duplicates drop
 bys mun_id: g size_mun=_N
 keep mun_id size_mun
@@ -181,27 +209,6 @@ restore
 merge m:1 mun_id using `size'
 drop _merge
 *drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
-
-tempfile census
-save `census', replace
-
-
-***Census with fgt0
-use "$census", clear
-
-keep mun_id state psu_id hid weights hhsize fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
-preserve
-keep mun_id psu_id
-duplicates drop
-bys mun_id: g size_mun=_N
-keep mun_id size_mun
-duplicates drop
-tempfile size
-save `size'
-restore
-merge m:1 mun_id using `size'
-drop _merge
-* drop if size_mun<8 //dropping mun with <8 PSU 121264 HH
 
 preserve
 collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=(weights*hhsize)], by(mun_id)
@@ -247,9 +254,9 @@ keep mun_id total_size* mun_size*
 duplicates drop
 
 ***Identifying municipalities with very high probability of selection=1 certainly selected before PPS sample
-
+/*In this census there are 555 municipalities that have a probability of 1 to be in the sample*/
 g popshare=mun_size/total_size
-g certain=1 if popshare>(1/900) 
+g certain=1 if popshare>(1/900) //161
 sum certain 
 
 egen aux_size=sum(mun_size) if certain!=1
@@ -301,7 +308,7 @@ restore
 *******************************
 *** Selecting PSUs
 
-keep mun_id psu_id 
+keep mun_id psu_id state
 duplicates drop
 
 ***Merging only selected municipalities
@@ -336,8 +343,8 @@ graph combine graph1.gph graph2.gph graph3.gph graph4.gph
 preserve 
 gsample 10 if mun_size>=10 ,strata(mun_id) wor // nobias
 sum pcas
-codebook mun_id psu_id
-keep psu_id mun_id mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
+codebook state mun_id psu_id
+keep psu_id mun_id state mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
 bys mun_id: gen selected_psu=_N
 ***Probability of PSU getting selected
 g prob_select_psu= min(selected_psu/mun_size,1)
@@ -346,53 +353,11 @@ tempfile sample_psu_nobias
 save `sample_psu_nobias' 
 restore
 
-/* 
-preserve
-gsample 9 [w=(prob_psu_bias1^5)], strata(mun_id)  // weights2
-sum pcr pcas
-*codebook mun_id psu_id
-keep psu_id mun_id mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
-bys psu_id: g dup=_n
-tab dup
-keep if dup==1
-sum pcr pcas
-tempfile sample_psu_bias5_5
-save `sample_psu_bias5_5'
-restore
-
-preserve
-gsample 9 [w=(prob_psu_bias2^7)], strata(mun_id)  // weights2
-sum pcr pcas
-*codebook mun_id psu_id
-keep psu_id mun_id mun_size percentile_remote pcr pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
-bys psu_id: g dup=_n
-tab dup
-keep if dup==1
-sum pcr pcas
-tempfile sample_psu_bias7_7
-save `sample_psu_bias7_7'
-restore
-
-
-preserve
-gsample 9 [w=(prob_psu_bias3^11)], strata(mun_id)  // weights2
-sum pcas
-*codebook mun_id psu_id
-keep psu_id mun_id mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
-bys psu_id: g dup=_n
-tab dup
-keep if dup==1
-sum pcas
-tempfile sample_psu_bias11_11
-save `sample_psu_bias11_11'
-restore
-*/
-
 preserve
 gsample 10 [w=(prob_psu_bias4^11)], strata(mun_id)  // weights2
 sum pcas
 *codebook mun_id psu_id
-keep psu_id mun_id mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
+keep psu_id mun_id state mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
 bys psu_id: g dup=_n
 tab dup
 keep if dup==1
@@ -413,7 +378,7 @@ drop _merge
 preserve
 sample 28 , count by(psu_id)
 g sample_hh=1
-keep psu_id hid sample_hh  prob_select_mun pcas percentile_asset  prob_psu_nobias prob_psu_bias*
+keep psu_id hid state sample_hh  prob_select_mun pcas percentile_asset  prob_psu_nobias prob_psu_bias*
 tempfile sample_24
 save `sample_24'
 restore
@@ -466,184 +431,16 @@ g factor3=factor_total/totw2
 rename factor2 FACTOR_res
 rename factor3 FACTOR_res2
 
-keep psu_id hid mun_id FACTOR_res FACTOR_res2 factor_total state fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
-rename factor_total FACTOR
+keep psu_id hid mun_id state FACTOR_res FACTOR_res2 factor_total state fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+rename factor_total weights
 
 ***Direct estimates
 preserve
-collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=FACTOR], by(mun_id)
+collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=weights], by(mun_id)
 save "$currdata\simcensus\nobias\direct_nobias_`x'.dta", replace
 restore
 drop fgt*
 save "$currdata\rawsamples_bias\nobias\sample_nobias_`x'.dta", replace
-
-
-*************************************************
-*** Selection of HH (biased samples)
-
-use `census', clear
-merge m:1 psu_id using `sample_psu_bias5_5'
-keep if _merge==3
-drop _merge
-
-
-****************************Melany dofile
-***Selection of HH
-preserve
-sample 28 , count by(psu_id)
-g sample_hh=1
-keep psu_id hid sample_hh  prob_select_mun pcas percentile_asset prob_psu_nobias prob_psu_bias*
-tempfile sample_24
-save `sample_24'
-restore
-
-
-/*==============================
-Final samples
-===============================*/
-use `sample_24', clear
-
-merge 1:1 hid using `census_fgt'
-rename _merge merge_sample
-
-***Correct weights
-g popwt=FACTOR*hhsize
-
-***Number of HH per UPM
-bys psu_id: gen numberhh_upm=_N
-
-***Generate state dummy variables
-tab code_stat, g(state_)
-
-***Creating sample
-*preserve
-keep if merge_sample==3
-
-***Probability of HH being selected
-bys psu_id: gen num_hh_select=_N
-
-g prob_select_hh= num_hh_select/numberhh_upm
-*sum prob_select_hh
-
-***Factor de expansion
-g prob_select=prob_select_hh*prob_psu_nobias*prob_select_mun
-gen factor_sample=(1/prob_select)
-
-g factor_total=factor_sample*popwt
-
-egen test=sum(factor_sample)
-sum test
-egen test2=sum(factor_total)
-sum test2
-
-***Generating a rescaled weights
-***Total weights
-bys mun_id: egen totw=sum(factor_total)
-bys mun_id: egen totw2=mean(factor_total)
-g factor2=factor_total/totw
-g factor3=factor_total/totw2
-rename factor2 FACTOR_res
-rename factor3 FACTOR_res2
-
-keep psu_id hid mun_id FACTOR_res FACTOR_res2 factor_total ENT fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
-rename factor_total FACTOR
-
-***Direct estimates
-preserve
-collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=FACTOR], by(mun_id)
-save "$currdata\simcensus\bias55\direct_bias_`x'.dta", replace
-restore
-
-drop fgt*
-
-save "$currdata\rawsamples_bias\bias55\sample_bias_`x'.dta", replace
-
-
-
-
-*************************************************
-*** Selection of HH (biased samples)
-
-use `census', clear
-merge m:1 psu_id using `sample_psu_bias7_7'
-keep if _merge==3
-drop _merge
-
-***Selection of HH
-preserve
-sample 28 , count by(psu_id)
-g sample_hh=1
-keep psu_id hid sample_hh  prob_select_mun pcas percentile_asset prob_psu_nobias prob_psu_bias*
-tempfile sample_24
-save `sample_24'
-restore
-
-
-/*==============================
-Final samples
-===============================*/
-
-
-
-/*==============================
-Final samples
-===============================*/
-use `sample_24', clear
-
-merge 1:1 hid using `census_fgt'
-rename _merge merge_sample
-
-***Correct weights
-g popwt=FACTOR*hhsize
-
-***Number of HH per UPM
-bys psu_id: gen numberhh_upm=_N
-
-***Generate state dummy variables
-tab ENT, g(state_)
-
-***Creating sample
-*preserve
-keep if merge_sample==3
-
-***Probability of HH being selected
-bys psu_id: gen num_hh_select=_N
-
-g prob_select_hh= num_hh_select/numberhh_upm
-*sum prob_select_hh
-
-***Factor de expansion
-g prob_select=prob_select_hh*prob_psu_nobias*prob_select_mun
-gen factor_sample=(1/prob_select)
-
-g factor_total=factor_sample*popwt
-
-egen test=sum(factor_sample)
-sum test
-egen test2=sum(factor_total)
-sum test2
-
-***Generating a rescaled weights
-***Total weights
-bys mun_id: egen totw=sum(factor_total)
-bys mun_id: egen totw2=mean(factor_total)
-g factor2=factor_total/totw
-g factor3=factor_total/totw2
-rename factor2 FACTOR_res
-rename factor3 FACTOR_res2
-
-keep psu_id hid mun_id FACTOR_res FACTOR_res2 factor_total ENT fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
-rename factor_total FACTOR
-
-***Direct estimates
-preserve
-collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=FACTOR], by(mun_id)
-save "$currdata\simcensus\bias1111\direct_bias_`x'.dta", replace
-restore
-
-drop fgt*
-
-save "$currdata\rawsamples_bias\bias1111\sample_bias_`x'.dta", replace
 
 
 
@@ -659,7 +456,7 @@ drop _merge
 preserve
 sample 28 , count by(psu_id)
 g sample_hh=1
-keep psu_id hid sample_hh  prob_select_mun pcas percentile_asset prob_psu_nobias prob_psu_bias*
+keep psu_id hid state sample_hh  prob_select_mun pcas percentile_asset prob_psu_nobias prob_psu_bias*
 tempfile sample_24
 save `sample_24'
 restore
@@ -674,7 +471,7 @@ merge 1:1 hid using `census_fgt'
 rename _merge merge_sample
 
 ***Correct weights
-g popwt=FACTOR*hhsize
+g popwt=weights*hhsize
 
 ***Number of HH per UPM
 bys psu_id: gen numberhh_upm=_N
@@ -712,12 +509,12 @@ g factor3=factor_total/totw2
 rename factor2 FACTOR_res
 rename factor3 FACTOR_res2
 
-keep psu_id hid mun_id FACTOR_res FACTOR_res2 factor_total ENT fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
-rename factor_total FACTOR
+keep psu_id hid mun_id state FACTOR_res FACTOR_res2 factor_total fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+rename factor_total weights
 
 ***Direct estimates
 preserve
-collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=FACTOR], by(mun_id)
+collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=weights], by(mun_id)
 save "$currdata\simcensus\bias11b11\direct_bias_`x'.dta", replace
 restore
 

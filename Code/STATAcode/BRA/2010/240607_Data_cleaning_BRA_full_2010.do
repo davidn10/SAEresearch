@@ -1,4 +1,5 @@
-cd "D:\SAE_project\BRA\2010\full_census\rawdata"
+* cd "D:\SAE_project\BRA\2010\full_census\rawdata"
+cd "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\rawdata"
 
 forvalues i=1(1)10 {
 use "BRA_`i'_2010.dta", clear

@@ -1,5 +1,6 @@
 
 global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census"
 global census "$currdata\rawdata\census_proc_BRA_2010.dta"
 global simcensus "$currdata\simcensus\"
 
