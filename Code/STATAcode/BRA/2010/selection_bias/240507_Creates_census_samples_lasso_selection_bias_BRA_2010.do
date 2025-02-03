@@ -101,6 +101,7 @@ restore
 */ 
 
 
+
 set sortseed 648743
 
 forvalues i=1(1)100 {
@@ -174,7 +175,7 @@ restore
 
 
 
-
+/* We do not use unbiased samples here 
 /*=========================================
 Unbiased samples
 *=========================================*/
@@ -182,12 +183,13 @@ Unbiased samples
 set sortseed 648743
 
 forvalues i=1(1)100 {
+	dis "sample `i'"
 ***To select variables with same distribution in survey and census
 use "$rawsamples\nobias\selected\sample_`i'.dta", clear
 rename weights FACTOR 
 gen ln_pchinc=log(pchinc) 
 tab state, gen(state_)
-drop state_26 
+
 preserve
 drop hid mun_id psu_id FACTOR FACTOR_res FACTOR_res2 hid2 pchinc ln_pchinc fgt*  state* povline* 
 
@@ -248,6 +250,7 @@ save "$currdata\vars_selected_bias\nobias\alphavars_selected_nobias\alpha_`i'.dt
 restore
 
 }
+*/ 
 
 /*============================
 
@@ -321,13 +324,16 @@ restore
 set seed 648743
 
 forvalues i=1(1)100 {
+***To select variables with same distribution in survey and census
+
+
 
 use "$rawsamples\bias11b11\selected\sample_`i'.dta", clear
 rename weights FACTOR 
 gen ln_pchinc=log(pchinc) 
 tab state, gen(state_)
 drop state_27 
-keep psu_id* mun_id*   hid* pchinc $mycontextmun ln_pchinc FACTOR FACTOR_res FACTOR_res2 ENT state_*
+keep psu_id* mun_id*   hid* pchinc $mycontextmun ln_pchinc FACTOR FACTOR_res FACTOR_res2 state_*
 tempfile sample`i'_complete
 save `sample`i'_complete'
 
@@ -394,8 +400,7 @@ use "$rawsamples\nobias\selected\sample_`i'.dta", clear
 rename weights FACTOR 
 gen ln_pchinc=log(pchinc) 
 tab state, gen(state_)
-drop state_26 
-keep psu_id* mun_id*   hid* pchinc $mycontextmun $mycontextpsu ln_pchinc FACTOR FACTOR_res FACTOR_res2 ENT state_*
+keep psu_id* mun_id*   hid* pchinc $mycontextmun $mycontextpsu ln_pchinc FACTOR FACTOR_res FACTOR_res2 state_*
 tempfile sample`i'_complete
 save `sample`i'_complete'
 

@@ -273,7 +273,6 @@ sum prob_select_mun
 keep if this_sample==1  | certain_sample==1
 
 
-
 keep mun_id  prob_select_mun*
 
 tempfile samplefile
@@ -290,10 +289,13 @@ duplicates drop
 merge m:1 mun_id using `samplefile' 
 keep if _merge==3
 drop _merge
+unique mun_id 
+
 
 merge 1:1 psu_id using `remoteness'
 keep if _merge==3
 drop _merge
+unique mun_id 
 
 ***Number of PSU per municipality
 bys mun_id: g mun_size=_N
@@ -316,7 +318,8 @@ graph save graph4.gph, replace
 graph combine graph1.gph graph2.gph graph3.gph graph4.gph
 */
 preserve 
-gsample 10 if mun_size>=10 ,strata(mun_id) wor // nobias
+sample 10, count by(mun_id)
+* gsample 10 if mun_size>=10 ,strata(mun_id) wor // nobias
 sum pcas
 codebook state mun_id psu_id
 keep psu_id mun_id state mun_size pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
@@ -348,6 +351,7 @@ use `census', clear
 merge m:1 psu_id using `sample_psu_nobias'
 keep if _merge==3
 drop _merge
+unique mun_id 
 
 ***Selection of HH
 preserve
@@ -366,6 +370,8 @@ use `sample_24', clear
 
 merge 1:1 hid using `census_fgt'
 rename _merge merge_sample
+unique mun_id 
+
 
 ***Correct weights
 g popwt=weights*hhsize
@@ -415,6 +421,7 @@ collapse (mean) fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m [pw=weights], by(mun_id)
 save "$currdata\simcensus\nobias\direct_nobias_`x'.dta", replace
 restore
 drop fgt*
+unique mun_id 
 save "$currdata\rawsamples_bias\nobias\sample_nobias_`x'.dta", replace
 
 
