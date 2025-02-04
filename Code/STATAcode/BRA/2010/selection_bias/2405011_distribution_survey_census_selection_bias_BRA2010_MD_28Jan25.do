@@ -7,7 +7,6 @@ set more off
  *=========================================*/
 * global currdata10 "D:\SAE_project\BRA\BRA_2010\2010\full_census_new"
 global currdata10 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
-
 global data10 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\rawdata\"
 global samplesbias11b11 "$currdata10\rawsamples_bias\bias11b11"
 global samplesnobias "$currdata10\rawsamples_bias\nobias"

@@ -6,6 +6,8 @@ set more off
  Defining globals
  *=========================================*/
 global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
+
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples\"
 global census "$data\census_proc_BRA_2010.dta"
@@ -50,10 +52,14 @@ use `sample`i'_complete', clear
 ***Lasso models
 set seed 648743
 lasso linear ln_pchinc (state_1-state_26) $myvar [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+
+
+
 estimates store bicmodel2
 di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model
 global postlasso `hhvars'
+
 
 ***OLS and LASSO to get variables for alpha model in ELL
 reg ln_pchinc $postlasso [iw=FACTOR], r cluster(mun_id)
