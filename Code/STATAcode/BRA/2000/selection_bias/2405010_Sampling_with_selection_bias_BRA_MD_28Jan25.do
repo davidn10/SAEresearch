@@ -5,6 +5,8 @@ global census "$currdata\rawdata\census_proc_MEX_2010.dta"
 
 ****CHANGE DIRECTION****
 global rawdata "C:\DavidNewhouse2024\BRA\BRA_2000"
+global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA"
+
 global currdata "$rawdata\2000\full_census"
 global census "$currdata\rawdata\census_proc_BRA_2000.dta"
 *global savetempfile "$currdata\census"
@@ -15,7 +17,7 @@ set sortseed 54321
  Remoteness index
  ======================================*/
 
-use "$rawdata\2000\BRA_VIV_2000.dta", clear
+use "$currdata\rawdata\BRA_VIV_2000.dta", clear
 
 ***label variables for Brazil_2000:
 
@@ -255,36 +257,36 @@ duplicates drop
 ***Identifying municipalities with very high probability of selection=1 certainly selected before PPS sample
 /*In this census there are 555 municipalities that have a probability of 1 to be in the sample*/
 g popshare=mun_size/total_size
-g certain=1 if popshare>(1/900) //161
+g certain=1 if popshare>(1/900) //124
 sum certain 
 
 egen aux_size=sum(mun_size) if certain!=1
 egen total_size2=max(aux_size)
 g popshare2=mun_size/total_size2 if certain!=1
-g certain2=1 if popshare2>(1/739) & popshare2!=. //175
+g certain2=1 if popshare2>(1/776) & popshare2!=. //60
 sum certain2 
 drop aux_size
 
 egen aux_size=sum(mun_size) if certain!=1 & certain2!=1
 egen total_size3=max(aux_size)
 g popshare3=mun_size/total_size3 if certain!=1 & certain2!=1
-g certain3=1 if popshare3>(1/564) & popshare3!=. //30
+g certain3=1 if popshare3>(1/716) & popshare3!=. //8
 sum certain3
 drop aux_size
 
 egen aux_size=sum(mun_size) if certain!=1 & certain2!=1 & certain3!=1
 egen total_size4=max(aux_size)
 g popshare4=mun_size/total_size4 if certain!=1 & certain2!=1 & certain3!=1
-g certain4=1 if popshare4>(1/534) & popshare4!=. //2
+g certain4=1 if popshare4>(1/708) & popshare4!=. //0
 sum certain4
 drop aux*
 
-g certain_sample=1 if certain==1 | certain2==1 | certain3==1 | certain4==1 
+g certain_sample=1 if certain==1 | certain2==1 | certain3==1 | certain4==1
 g prob_select_mun=1 if certain==1 | certain2==1 | certain3==1 | certain4==1
 drop popshare* total_size*
 
 ***PPS sample on the remaining municipalities
-samplepps this_sample if certain!=1 & certain2!=1 & certain3!=1 & certain4!=1, ncases(532) size(mun_size)
+samplepps this_sample if certain!=1 & certain2!=1 & certain3!=1 & certain4!=1, ncases(708) size(mun_size)
 
 
 ***Probability of a municipality to be selected

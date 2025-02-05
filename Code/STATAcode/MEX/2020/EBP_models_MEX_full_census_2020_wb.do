@@ -6,12 +6,11 @@
 
 
 * program to test stata sae simulations 
-cd "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
+cd "H:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 
 ** prepare census 
-*use "census/census", replace  
-*gen hhsize2=hhsize^2 
-*save "./stata_sae/census", replace 
+use "census/census", replace  
+save "./stata_sae/census", replace 
 */ 
 
 
@@ -35,7 +34,7 @@ egen mean_FACTOR=mean(FACTOR), by(mun_id)
 gen FACTOR_rescaled=FACTOR/mean_FACTOR 
 sae sim h3 ln_pchinc $model [w=FACTOR_rescaled],  area(mun_id)  ///
 	     bsrep(0) matin("./stata_sae/thecensus") seed(123) mcrep(100) ///
-	    indicators(FGT0) uniq(hid) aggids(0) plines(6.869814491) pwcensus(popwt)
+	    indicators(FGT0) uniq(hid) aggids(0) plines(7.3851231) pwcensus(popwt)
 
 rename Unit Domain  
 rename Mean mean 
@@ -78,7 +77,7 @@ gen FACTOR_rescaled=FACTOR/mean_FACTOR
 
 sae sim h3 ln_pchinc $model [w=FACTOR_rescaled],  area(mun_id)  ///
 	     bsrep(0) matin("./stata_sae/thecensus") seed(123) mcrep(100) ///
-	    indicators(FGT0) uniq(hid) aggids(0) plines(6.869814491) pwcensus(popwt)
+	    indicators(FGT0) uniq(hid) aggids(0) plines(7.3851231) pwcensus(popwt)
 
 rename Unit Domain  
 rename Mean mean 
@@ -111,7 +110,7 @@ egen mean_FACTOR=mean(FACTOR), by(mun_id)
 gen FACTOR_rescaled=FACTOR/mean_FACTOR 
 sae sim h3 ln_pchinc $model [w=FACTOR_rescaled],  area(mun_id)  ///
 	     bsrep(0) matin("./stata_sae/thecensus") seed(123) mcrep(100) ///
-	    indicators(FGT0) uniq(hid) aggids(0) plines(6.869814491) pwcensus(popwt)
+	    indicators(FGT0) uniq(hid) aggids(0) plines(7.3851231) pwcensus(popwt)
 
 rename Unit Domain  
 rename Mean mean 
@@ -154,7 +153,7 @@ gen FACTOR_rescaled=FACTOR/mean_FACTOR
 
 sae sim h3 ln_pchinc $model [w=FACTOR_rescaled],  area(mun_id)  ///
 	     bsrep(0) matin("./stata_sae/thecensus") seed(123) mcrep(100) ///
-	    indicators(FGT0) uniq(hid) aggids(0) plines(7.1200103) pwcensus(popwt)
+	    indicators(FGT0) uniq(hid) aggids(0) plines(7.3851231) pwcensus(popwt)
 
 rename Unit Domain  
 rename Mean mean 

@@ -8,7 +8,8 @@ set more off
  Defining globals
  *=========================================*/
  *global currdata "D:\SAE_project\BRA\BRA_2000\2000\full_census"
-global currdata "C:\DavidNewhouse2024\BRA\BRA_2000\2000\full_census"
+* global currdata "C:\DavidNewhouse2024\BRA\BRA_2000\2000\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_bias\"
 global census "$data\census_proc_BRA_2000.dta"
@@ -40,6 +41,8 @@ set sortseed 648743
 forvalues i=1(1)100 {
 ***To select variables with same distribution in survey and census
 use "$rawsamples\bias11b11\selected\sample_`i'.dta", clear
+tab state, gen(state_) 
+gen ln_pchinc=log(pchinc) 
 
 preserve
 drop psu_id* hid* mun_id* weights FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
@@ -114,7 +117,8 @@ set sortseed 648743
 forvalues i=1(1)100 {
 ***To select variables with same distribution in survey and census
 use "$rawsamples\nobias\selected\sample_`i'.dta", clear
-
+tab state, gen(state_) 
+gen ln_pchinc=log(pchinc) 
 preserve
 drop psu_id* hid* mun_id* weights FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
 
