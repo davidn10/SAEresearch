@@ -51,7 +51,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           smp_data = sample,
                           smp_domains = "mun_id",
                           weights = "FACTOR",
-                          weights_type = "Guadarrama",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
@@ -116,7 +116,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           smp_data = sample,
                           smp_domains = "mun_id",
                           weights = "FACTOR",
-                          weights_type = "Guadarrama",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"

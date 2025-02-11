@@ -1,4 +1,5 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -6,7 +7,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$data\census_proc_MEX_2010.dta"
@@ -16,7 +17,7 @@ global simcensus "$currdata\simcensus\"
 //global with candidate variables for unit level models
 set seed 648743
 
-
+/*
 /*=========================================
 Creating simulates surveys
 *=========================================*/
@@ -92,7 +93,7 @@ save "$currdata\alphavars_selected_nopsu\alpha_`i'.dta", replace
 restore
 
 }
-
+*/ 
 
 
 ***Unit-context models
