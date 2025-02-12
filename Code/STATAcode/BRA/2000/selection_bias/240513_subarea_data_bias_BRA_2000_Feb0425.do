@@ -75,8 +75,11 @@ global postlassores `hhvarsres'
 ***Saving selected variables for EBP models in R (BREAK)
 
 preserve
-keep psu_id mun_id $postlassores FACTOR_res weights FACTOR_res2 poor_direct
-order psu_id FACTOR_res weights FACTOR_res2
+* keep psu_id mun_id $postlassores FACTOR_res weights FACTOR_res2 poor_direct
+* order psu_id FACTOR_res weights FACTOR_res2
+
+keep psu_id mun_id $postlassores weights poor_direct
+order psu_id weights 
 
 save "$currdata\subarea\bias11b11\sample_`i'.dta", replace
 restore
@@ -120,8 +123,11 @@ global postlassores `hhvarsres'
 ***Saving selected variables for EBP models in R (BREAK)
 
 preserve
-keep psu_id mun_id $postlassores FACTOR_res weights FACTOR_res2 poor_direct
-order psu_id FACTOR_res weights FACTOR_res2
+*keep psu_id mun_id $postlassores FACTOR_res weights FACTOR_res2 poor_direct
+* order psu_id FACTOR_res weights FACTOR_res2
+
+keep psu_id mun_id $postlassores weights poor_direct
+order psu_id weights 
 
 save "$currdata\subarea\nobias\sample_`i'.dta", replace
 restore
