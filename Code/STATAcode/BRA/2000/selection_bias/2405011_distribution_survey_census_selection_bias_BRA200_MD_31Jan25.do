@@ -13,7 +13,7 @@ global samplesbias11b11 "$currdata\rawsamples_bias\bias11b11"
 global samplesnobias "$currdata\rawsamples_bias\nobias"
 global census "$data\census_proc_BRA_2000.dta"
 global simcensus "$currdata\simcensus\"
-global results "$currdata\results\bias\results_distrib"
+global results "$currdata\BRA_2000_new\results\bias\results_distrib"
 
 //global with candidate variables for unit level models
 
