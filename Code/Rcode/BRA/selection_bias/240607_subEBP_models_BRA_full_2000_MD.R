@@ -70,9 +70,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   names<-as.data.frame(rownames(coefficients))
   coefficients<-cbind(names,coefficients)
   colnames(coefficients) <- c("names","coefficients")
-  write_dta(simulation, paste0("BRA_2000_new/results/results_sub_ebp/output_bias11b11/sim_ebp_",mysamples[i]))
-  write_dta(coefficients, paste0("BRA_2000_new/results/results_sub_ebp/model_bias11b11/coef_",mysamples[i]))
-  write.excel(ebp, paste0("BRA_2000_new/results/results_sub_ebp/model_bias11b11/model_",mysamples[i],".xlsx"))
+  write_dta(simulation, paste0("BRA_2000_new/results/bias/results_sub_ebp/output_bias11b11/sim_ebp_",mysamples[i]))
+  write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_sub_ebp/model_bias11b11/coef_",mysamples[i]))
+  write.excel(ebp, paste0("BRA_2000_new/results/bias/results_sub_ebp/model_bias11b11/model_",mysamples[i],".xlsx"))
 }
 
 
@@ -81,7 +81,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 #==============================================
 
 ##Reading sample and census files
-census<- read_dta("census/census_subebp_bias.dta")
+census<- read_dta("census/census_subarea_bias.dta")
 census<-as.data.frame(census)
 
 #sample<- read_dta("subarea_ebp/bias55/subebp_1.dta")
@@ -92,7 +92,7 @@ mysamples <- list.files("subarea/nobias")
 for(i in 1:length(mysamples)) {                              # Head of for-loop
   ###Reading sample data
   assign(paste0("sample"),                                   # Read and store data frames
-         read_dta(paste0("subarea_ebp/nobias/",
+         read_dta(paste0("subarea/nobias/",
                          mysamples[i])))
   sample<-as.data.frame(sample)
   drop <- c("psu_id", "mun_id", "poor_direct","weights")
@@ -131,7 +131,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   names<-as.data.frame(rownames(coefficients))
   coefficients<-cbind(names,coefficients)
   colnames(coefficients) <- c("names","coefficients") 
-  write_dta(simulation, paste0("BRA_2000_new/results/results_sub_ebp/output_nobias/sim_ebp_",mysamples[i]))
-  write_dta(coefficients, paste0("BRA_2000_new/results/results_sub_ebp/model_nobias/coef_",mysamples[i]))
-  write.excel(ebp, paste0("BRA_2000_new/results/results_sub_ebp/model_nobias/model_",mysamples[i],".xlsx"))
+  write_dta(simulation, paste0("BRA_2000_new/results/bias/results_sub_ebp/output_nobias/sim_ebp_",mysamples[i]))
+  write_dta(coefficients, paste0("BRA_2000_new/bias/results/results_sub_ebp/model_nobias/coef_",mysamples[i]))
+  write.excel(ebp, paste0("BRA_2000_new/results/bias/results_sub_ebp/model_nobias/model_",mysamples[i],".xlsx"))
 }

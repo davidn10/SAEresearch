@@ -8,14 +8,15 @@ library(foreign)
 
 set.seed(7)
 
-setwd("BRA/BRA_2000/2000/full_census")
+#setwd("BRA/BRA_2000/2000/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
 
 
 census<- read_dta("census/census_subarea_bias.dta")
 census<-as.data.frame(census)
 
 
-### LArge bias
+### Large bias
 
 mysamples <- list.files("subarea/bias11b11") 
 
@@ -40,7 +41,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   select<-subset(census, select = c(mun_id, psu_id))
   results<-as.data.frame(cbind(select, predictions))
   
-  write_dta(results, paste0("results/bias/results_BRF/output_bias11b11/BRF_", mysamples[i]))
+  write_dta(results, paste0("BRA_2000_new/results/bias/results_BRF/output_bias11b11/BRF_", mysamples[i]))
 }
 
 
@@ -69,5 +70,5 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   select<-subset(census, select = c(mun_id, psu_id))
   results<-as.data.frame(cbind(select, predictions))
   
-  write_dta(results, paste0("results/bias/results_BRF/output_nobias/BRF_", mysamples[i]))
+  write_dta(results, paste0("BRA_2000_new/results/bias/results_BRF/output_nobias/BRF_", mysamples[i]))
 }

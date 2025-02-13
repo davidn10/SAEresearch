@@ -8,7 +8,6 @@ library("povmap")
 
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david3")
-
 set.seed(7)
 
 #setwd("C:/Davidnewhouse2024/BRA/BRA_2000/2000/full_census")
