@@ -26,7 +26,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("C:/Davidnewhouse2024/BRA/BRA_2000/2000/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new")
 
 #==============================================
 # Unit-level models-biased
@@ -41,8 +41,7 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples_bias/bias11b11/selected") 
 mybetas <- list.files("vars_selected_bias/bias11b11/betavars_selected_bias") 
 
-#for(i in 1:length(mysamples)) {                              # Head of for-loop
-for(i in 58:59) {                              # Head of for-loop
+for(i in 1:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("vars_selected_bias/bias11b11/betavars_selected_bias/",
@@ -69,10 +68,10 @@ for(i in 58:59) {                              # Head of for-loop
                           pop_weights = "popwt",
                           smp_data = sample,
                           smp_domains = "mun_id",
-                          #weights = "weights",
-                          #weights_type = "nlme",
+                          weights = "weights",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
+                          rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
@@ -133,10 +132,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                       pop_weights = "popwt",
                       smp_data = sample,
                       smp_domains = "mun_id",
-                      #weights = "weights",
-                      #weights_type = "nlme",
+                      weights = "weights",
+                      weights_type = "hybrid",
                       nlme_opt="optim",
-                      #rescale_weights = T,
+                      rescale_weights = T,
                       transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                       MSE = F,
                       cpus = 10,
@@ -199,10 +198,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           pop_weights = "popwt",
                           smp_data = sample,
                           smp_domains = "mun_id",
-                          #weights = "weights",
-                          #weights_type = "nlme",
+                          weights = "weights",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
+                          rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
@@ -265,10 +264,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                       pop_weights = "popwt",
                       smp_data = sample,
                       smp_domains = "mun_id",
-                      #weights = "weights",
-                      #weights_type = "nlme",
+                      weights = "weights",
+                      weights_type = "hybrid",
                       nlme_opt="optim",
-                      #rescale_weights = T,
+                      rescale_weights = T,
                       transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                       MSE = F,
                       cpus = 10,

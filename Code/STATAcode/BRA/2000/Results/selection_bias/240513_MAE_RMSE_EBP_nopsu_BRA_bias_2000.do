@@ -71,7 +71,7 @@ rename  fgt0_m fgt0_true
 merge 1:1 mun_id using "$simcensus\bias11b11\direct_bias_`i'.dta", keepusing(fgt0_m )
 drop _merge
 rename  fgt0_m fgt0_dir
-
+xx
 
 ***Mean absolute error & RMSE
 g error=abs(fgt0_true-sim_fgt0)

@@ -26,7 +26,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("C:/Davidnewhouse2024/BRA/BRA_2000/2000/full_census")
-setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
 
 #==============================================
 # Unit-level models-biased
@@ -68,10 +68,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           pop_weights = "popwt",
                           smp_data = sample,
                           smp_domains = "mun_id",
-                          #weights = "weights",
-                          #weights_type = "nlme",
+                          weights = "weights",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
+                          rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
@@ -132,10 +132,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                       pop_weights = "popwt",
                       smp_data = sample,
                       smp_domains = "mun_id",
-                      #weights = "weights",
-                      #weights_type = "nlme",
+                      weights = "weights",
+                      weights_type = "hybrid",
                       nlme_opt="optim",
-                      #rescale_weights = T,
+                      rescale_weights = T,
                       transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                       MSE = F,
                       cpus = 10,
@@ -198,10 +198,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           pop_weights = "popwt",
                           smp_data = sample,
                           smp_domains = "mun_id",
-                          #weights = "weights",
-                          #weights_type = "nlme",
+                          weights = "weights",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
+                          rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
@@ -264,10 +264,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                       pop_weights = "popwt",
                       smp_data = sample,
                       smp_domains = "mun_id",
-                      #weights = "weights",
-                      #weights_type = "nlme",
+                      weights = "weights",
+                      weights_type = "hybrid",
                       nlme_opt="optim",
-                      #rescale_weights = T,
+                      rescale_weights = T,
                       transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                       MSE = F,
                       cpus = 10,

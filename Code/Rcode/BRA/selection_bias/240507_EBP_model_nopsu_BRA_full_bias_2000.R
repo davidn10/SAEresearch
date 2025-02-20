@@ -55,7 +55,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
-                          threshold = 6.869814491, #LOG 7.464 , nO LOG 1744.69
+                          threshold = 4.6622116, #LOG 7.464 , nO LOG 1744.69
                           na.rm=TRUE,
                           L=100,   #default is 50
                           model_parameters="fixed",
@@ -120,7 +120,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                       transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                       MSE = F,
                       cpus = 10,
-                      threshold = 6.869814491, #LOG 7.464 , nO LOG 1744.69
+                      threshold = 4.6622116, #LOG 7.464 , nO LOG 1744.69
                       na.rm=TRUE,
                       L=100,   #default is 50
                       model_parameters="fixed",
