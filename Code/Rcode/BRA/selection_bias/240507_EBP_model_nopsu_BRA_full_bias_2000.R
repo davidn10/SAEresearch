@@ -69,9 +69,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
       colnames(coefficients) <- c("names","coefficients") 
-      write_dta(simulation, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/output_bias11b11/sim_ebp_",mysamples[i]))
-      write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/model_bias11b11/coef_",mysamples[i]))
-      write.excel(ebp, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/model_bias11b11/model_",mysamples[i],".xlsx"))
+      write_dta(simulation, paste0("BRA_2000_new/results/bias/results_nopsu/output_bias11b11/sim_ebp_",mysamples[i]))
+      write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_nopsu/model_bias11b11/coef_",mysamples[i]))
+      write.excel(ebp, paste0("BRA_2000_new/results/bias/results_nopsu/model_bias11b11/model_",mysamples[i],".xlsx"))
 }
 
 
@@ -134,8 +134,8 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   names<-as.data.frame(rownames(coefficients))
   coefficients<-cbind(names,coefficients)
   colnames(coefficients) <- c("names","coefficients") 
-  write_dta(simulation, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/output_nobias/sim_ebp_",mysamples[i]))
-  write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/model_nobias/coef_",mysamples[i]))
-  write.excel(ebp, paste0("BRA_2000_new/results/bias/results_ebp/nopsu/model_nobias/model_",mysamples[i],".xlsx"))
+  write_dta(simulation, paste0("BRA_2000_new/results/bias/results_nopsu/output_nobias/sim_ebp_",mysamples[i]))
+  write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_nopsu/nopsu/model_nobias/coef_",mysamples[i]))
+  write.excel(ebp, paste0("BRA_2000_new/results/nopsu/bias/results_nopsu/model_nobias/model_",mysamples[i],".xlsx"))
 }
 

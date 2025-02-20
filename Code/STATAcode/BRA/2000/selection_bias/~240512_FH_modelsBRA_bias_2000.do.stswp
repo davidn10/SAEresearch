@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 *global currdata "D:\SAE_project\BRA\BRA_2000\2000\full_census"
-global currdata "C:\DavidNewhouse2024\BRA\BRA_2000\2000\full_census"
+* global currdata "C:\DavidNewhouse2024\BRA\BRA_2000\2000\full_census"
 global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_bias\"

@@ -27,8 +27,9 @@ set seed 648743
 *use "$currdata10\census\census.dta", clear
 use $census10, clear
 gen hhsize2=hhsize^2 
-keep psu_id* mun_id*  hid* pchinc $myvar state *_mun weights 
-
+tab state, gen(state_)
+gen popwt=hhsize 
+keep psu_id* mun_id*  hid* pchinc $myvar state_* *_psu *_mun weights popwt 
 
 preserve
 keep mun_id psu_id
@@ -41,6 +42,7 @@ save `size'
 restore
 merge m:1 mun_id using `size'
 drop _merge
+
 *drop if size_mun<8
 
 saveold "$currdata10\census\census_bias.dta", replace
@@ -951,13 +953,15 @@ use "$samplesbias11b11\sample_bias_`i'.dta", clear
 merge 1:1 hid using $census10, force
 keep if _merge==3
 
-keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR_res FACTOR_res2 state hhsize*
+keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR_res FACTOR_res2 state hhsize*  
 
 desc,short
 local obs_`i'=r(k)
 
 putexcel A`i'=`obs_`i''
 
+tab state, gen(state_) 
+gen ln_pchinc=log(pchinc) 
 
 save "$samplesbias11b11\selected\sample_`i'.dta", replace
 }
@@ -1007,13 +1011,14 @@ merge 1:1 hid using $census10, force
 keep if _merge==3
 gen hhsize2=hhsize^2 
 
-keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR_res FACTOR_res2 state hhsize*
+keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR_res FACTOR_res2 state hhsize* state 
 
 desc,short
 local obs_`i'=r(k)
 
 putexcel A`i'=`obs_`i''
-
+tab state, gen(state_) 
+gen ln_pchinc=log(pchinc) 
 
 save "$samplesnobias\selected\sample_`i'.dta", replace
 }

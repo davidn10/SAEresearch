@@ -100,8 +100,6 @@ restore
 }
 */ 
 
-
-
 set sortseed 648743
 
 forvalues i=1(1)100 {
@@ -112,7 +110,7 @@ gen ln_pchinc=log(pchinc)
 tab state, gen(state_)
 drop state_27 
 preserve
-drop hid mun_id psu_id FACTOR FACTOR_res FACTOR_res2 hid2 pchinc ln_pchinc fgt*  state* 
+drop hid mun_id psu_id FACTOR FACTOR_res FACTOR_res2 hid2 pchinc ln_pchinc fgt*  state* povline* 
 
 ds
 local myvar=r(varlist)
@@ -175,7 +173,7 @@ restore
 
 
 
-/* We do not use unbiased samples here 
+
 /*=========================================
 Unbiased samples
 *=========================================*/
@@ -251,6 +249,7 @@ restore
 
 }
 */ 
+
 
 /*============================
 

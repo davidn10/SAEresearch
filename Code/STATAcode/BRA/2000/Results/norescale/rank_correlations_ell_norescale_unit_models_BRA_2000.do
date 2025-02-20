@@ -3,9 +3,9 @@
  *=========================================*/
 
 global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
-global rawsamples "$currdata\rawsamples_full\"
+global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
-global results "$currdata\results\results_ebp_norescale"
+global results "$currdata\results\results_ell_norescale"
 global simcensus "$currdata\simcensus\"
 
 
@@ -39,7 +39,7 @@ tempfile insample
 save `insample'
 
 
-use "$results\unit\output_h\sim_ebp_sample_`i'", clear
+use "$results\unit\output\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
 rename fgt sim_fgt0

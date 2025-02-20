@@ -15,7 +15,7 @@ global rawsamples "$currdata\rawsamples_bias\"
 global census "$data\census_proc_BRA_2000.dta"
 global simcensus "$currdata\simcensus\bias"
 
-/*
+*
 /*============================
 
    Unit-level models

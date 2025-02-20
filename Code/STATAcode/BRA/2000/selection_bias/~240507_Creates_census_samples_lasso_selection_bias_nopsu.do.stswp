@@ -52,7 +52,7 @@ local hhvars_context=e(allvars_sel) //best model
 global postlasso_context `hhvars_context'
 
 ***OLS and LASSO to get variables for alpha model in ELL
-reg ln_pchinc $postlasso_context [iw=weight], r cluster(mun_id)
+reg ln_pchinc $postlasso_context [iw=weights], r cluster(mun_id)
 predict resid, residuals
 bys mun_id: egen resid_mun=mean(resid)
 g stdev_sq=(resid-resid_mun)^2
@@ -113,7 +113,7 @@ local hhvars_context=e(allvars_sel) //best model
 global postlasso_context `hhvars_context'
 
 ***OLS and LASSO to get variables for alpha model in ELL
-reg ln_pchinc $postlasso_context [iw=FACTOR], r cluster(mun_id)
+reg ln_pchinc $postlasso_context [iw=weights], r cluster(mun_id)
 predict resid, residuals
 bys mun_id: egen resid_mun=mean(resid)
 g stdev_sq=(resid-resid_mun)^2
