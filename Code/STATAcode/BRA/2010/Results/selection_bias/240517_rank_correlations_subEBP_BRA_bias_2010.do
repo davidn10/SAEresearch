@@ -6,21 +6,19 @@ set more off
  Defining globals
  *=========================================*/
 
-
 global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
-global results "$currdata\results\bias\results_fh"
+global results "$currdata\results\bias\results_sub_ebp"
 global simcensus "$currdata\simcensus"
-
-
+global census "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\census"
 
 
 set seed 648743
 
 /*===================================
 =====================================
-Fay-Harriot models
+EBP subarea
 =====================================
 ===================================*/
 use "$census\census_bias.dta", clear
@@ -33,8 +31,7 @@ save `census'
 
 
 
-
-putexcel set "$results\rankcorr_FH_bias11b11", replace
+putexcel set "$results\rankcorr_subEBP_bias11b11", replace
 
 forvalues i=1(1)100 {
 
@@ -54,20 +51,26 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-use "$results\output_bias11b11\myFH_`i'.dta", clear
+use "$results\output_bias11b11\sim_ebp_sample_`i'.dta", clear
+rename area mun_id
+destring mean mun_id, replace
+rename mean sim_fgt0
 
 merge 1:1 mun_id using `insample'
 drop _merge
 
-merge 1:1 mun_id using "$simcensus\bias11b11\true_fgt0.dta", keepusing(fgt0_m )
+merge 1:1 mun_id using "$simcensus\bias11b11\true_fgt0.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 keep if _merge==3
 drop _merge
 rename  fgt0_m fgt0_true
+rename  fgt1_m fgt1_true
+rename  fgt2_m fgt2_true
 
-merge 1:1 mun_id using "$simcensus\bias11b11\direct_bias_`i'.dta", keepusing(fgt0_m )
+merge 1:1 mun_id using "$simcensus\bias11b11\direct_bias_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dir
-
+rename  fgt1_m fgt1_dir
+rename  fgt2_m fgt2_dir
 
 
 spearman fgt0_true sim_fgt0
@@ -170,20 +173,8 @@ di "`i'"
 
 }
 
-/*===================================
-=====================================
-Fey-Harriot models
-=====================================
-===================================*/
-use "$census\census_bias.dta", clear
-bys mun_id: g num_hh=_N
 
-keep mun_id num_hh
-duplicates drop
-tempfile census
-save `census'
-
-putexcel set "$results\rankcorr_FH_nobias", replace
+putexcel set "$results\rankcorr_subEBP_nobias", replace
 
 forvalues i=1(1)100 {
 
@@ -191,7 +182,6 @@ forvalues i=1(1)100 {
  Identifying in sample and out-of-sample
 *=========================================*/
 use `census', clear
-
 merge 1:m mun_id using "$rawsamples\nobias\selected\sample_`i'.dta"
 keep mun_id _merge num_hh
 duplicates drop 
@@ -204,20 +194,26 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-use "$results\output_nobias\myFH_`i'.dta", clear
+use "$results\output_nobias\sim_ebp_sample_`i'.dta", clear
+rename area mun_id
+destring mean mun_id, replace
+rename mean sim_fgt0
 
 merge 1:1 mun_id using `insample'
 drop _merge
 
-merge 1:1 mun_id using "$simcensus\nobias\true_fgt0.dta", keepusing(fgt0_m )
+merge 1:1 mun_id using "$simcensus\nobias\true_fgt0.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 keep if _merge==3
 drop _merge
 rename  fgt0_m fgt0_true
+rename  fgt1_m fgt1_true
+rename  fgt2_m fgt2_true
 
-merge 1:1 mun_id using "$simcensus\nobias\direct_nobias_`i'.dta", keepusing(fgt0_m )
+merge 1:1 mun_id using "$simcensus\nobias\direct_nobias_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dir
-
+rename  fgt1_m fgt1_dir
+rename  fgt2_m fgt2_dir
 
 
 spearman fgt0_true sim_fgt0
