@@ -1,4 +1,5 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -6,7 +7,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2010\full_census_new\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new\"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\rawdata\census_proc_MEX_2010.dta"
 
@@ -41,7 +42,6 @@ forvalues i=1(1)100 {
 
 use "$rawsamples\selected\sample_`i'.dta", clear
 drop if FACTOR<=1
-
 direct fgt0_m [aw=FACTOR], by(psu_id) gen(poor_direct)
 gen poor_direct_var=poor_direct_SD^2 
 
@@ -59,8 +59,11 @@ Model selection using LASSO
  ***LASSO models to select variables for the models
 set seed 648743
 
+egen mean_FACTOR=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_FACTOR 
 
-lasso linear poor_direct (state_1-state_31) $mysubarea [iw=FACTOR_res], selection(bic, postselection) cluster(mun_id)
+
+lasso linear poor_direct (state_1-state_31) $mysubarea [iw=FACTOR_res2], selection(bic, postselection) cluster(mun_id)
 estimates store model2
 di "`e(allvars_sel)'"
 local hhvarsres=e(allvars_sel) //best model
@@ -70,13 +73,18 @@ global postlassores `hhvarsres'
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 ***Saving selected variables for EBP models in R (BREAK)
 
+
 preserve
 keep psu_id mun_id $postlassores FACTOR_res FACTOR FACTOR_res2 poor_direct
-order psu_id FACTOR_res FACTOR FACTOR_res2
+order psu_id FACTOR_res FACTOR FACTOR_res2 
+
+
 
 save "$currdata\subarea\samples\sample_`i'.dta", replace
 restore
 
-
+keep psu_id mun_id $mysubarea FACTOR_res FACTOR FACTOR_res2 poor_direct 
+order psu_id FACTOR_res FACTOR FACTOR_res2 
+save "$currdata\subarea\fullsamples\sample_`i'.dta", replace
 
 }

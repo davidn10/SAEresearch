@@ -1,4 +1,5 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+global census "D:\david\SAE\SAE_research_with_Melany\MEX"
+
 
 clear all
 set more off
@@ -7,7 +8,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\results_BRF\"
@@ -38,6 +39,7 @@ Unit level models
 putexcel set "$results\rankcorr_BRF_subarea", replace
 
 forvalues i=1(1)100{
+*foreach i of numlist 100 1/20 {
 
 /*=========================================
  Identifying in sample and out-of-sample

@@ -75,7 +75,7 @@ global postlassores `hhvarsres'
 
 preserve
 keep psu_id mun_id $postlassores FACTOR_res FACTOR FACTOR_res2 poor_direct
-order psu_id FACTOR_res FACTOR FACTOR_res2
+order psu_id FACTOR_res FACTOR FACTOR_res2 
 
 save "$currdata\subarea\samples\sample_`i'.dta", replace
 restore

@@ -11,10 +11,9 @@ global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
 global results "$currdata\BRA_2000_new\results\bias\results_nopsu"
 global simcensus "$currdata\simcensus"
+global census "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\census"
 
 set seed 648743
-
-
 
 
 /*===================================

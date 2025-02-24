@@ -135,7 +135,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   coefficients<-cbind(names,coefficients)
   colnames(coefficients) <- c("names","coefficients") 
   write_dta(simulation, paste0("BRA_2000_new/results/bias/results_nopsu/output_nobias/sim_ebp_",mysamples[i]))
-  write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_nopsu/nopsu/model_nobias/coef_",mysamples[i]))
+  write_dta(coefficients, paste0("BRA_2000_new/results/bias/results_nopsu/model_nobias/coef_",mysamples[i]))
   write.excel(ebp, paste0("BRA_2000_new/results/nopsu/bias/results_nopsu/model_nobias/model_",mysamples[i],".xlsx"))
 }
 

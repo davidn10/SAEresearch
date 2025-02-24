@@ -10,7 +10,7 @@ global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
 global results "$currdata\BRA_2000_new\results\bias\results_nopsu"
 global simcensus "$currdata\simcensus"
-
+global census "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\census"
 
 set seed 648743
 
@@ -71,7 +71,7 @@ rename  fgt0_m fgt0_true
 merge 1:1 mun_id using "$simcensus\bias11b11\direct_bias_`i'.dta", keepusing(fgt0_m )
 drop _merge
 rename  fgt0_m fgt0_dir
-xx
+
 
 ***Mean absolute error & RMSE
 g error=abs(fgt0_true-sim_fgt0)
