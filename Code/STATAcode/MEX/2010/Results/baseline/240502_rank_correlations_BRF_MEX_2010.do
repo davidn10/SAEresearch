@@ -1,4 +1,4 @@
-global census "D:\david\SAE\SAE_research_with_Melany\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 
 clear all
@@ -39,6 +39,7 @@ Unit level models
 putexcel set "$results\rankcorr_BRF_subarea", replace
 
 forvalues i=1(1)100{
+*	forvalues i=1(1)1 {
 *foreach i of numlist 100 1/20 {
 
 /*=========================================

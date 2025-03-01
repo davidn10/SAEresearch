@@ -6,11 +6,11 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2010\full_census"
-global rawsamples "$currdata\rawsamples\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
+global rawsamples "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_BRF\"
-global simcensus "$currdata\simcensus\"
+global simcensus "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\simcensus\"
 
 set seed 648743
 

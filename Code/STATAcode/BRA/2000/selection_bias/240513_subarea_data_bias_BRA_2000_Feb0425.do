@@ -8,7 +8,7 @@ set more off
  *=========================================*/
 *global currdata "C:\DavidNewhouse2024\BRA\BRA_2000\2000\full_census"
 *global currdata "D:\SAE_Project\BRA\BRA_2000\2000\full_census"
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global data "$currdata\rawdata"
 
 global rawsamples "$currdata\rawsamples_bias\"
@@ -62,7 +62,8 @@ Model selection using LASSO
 *=========================================*/
  ***LASSO models to select variables for the models
 set seed 648743
-
+egen mean_FACTOR=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_FACTOR 
 
 lasso linear poor_direct (state_1-state_26) $mysubarea [iw=FACTOR_res], selection(bic, postselection) cluster(mun_id)
 estimates store model2
@@ -110,7 +111,8 @@ Model selection using LASSO
 *=========================================*/
  ***LASSO models to select variables for the models
 set seed 648743
-
+egen mean_FACTOR=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_FACTOR 
 
 lasso linear poor_direct (state_1-state_26) $mysubarea [iw=FACTOR_res], selection(bic, postselection) cluster(mun_id)
 estimates store model2

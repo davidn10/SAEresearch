@@ -6,12 +6,12 @@ set more off
  Defining globals
  *=========================================*/
 
-* global currdata "D:\SAE_project\BRA\2010\full_census"
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
-global rawsamples "$currdata\rawsamples_new\"
+global currdata "D:/david/SAE/SAE_research_with_Melany\BRA\2000\full_census"
+global rawsamples "$currdata\BRA_2000_new\rawsamples\"
 global census "$currdata\census\"
-global results "$currdata\results\results_BRF\"
-global simcensus "$currdata\simcensus_new\"
+global results "$currdata\BRA_2000_new\results\results_BRF_norescale\"
+global simcensus "$currdata\simcensus\"
+
 
 set seed 648743
 
@@ -34,9 +34,7 @@ save `census'
 Unit level models
 =====================================
 ===================================*/
-forvalues x=1(1)3 {
-
-putexcel set "$results\sample`x'\errors_BRF_subarea_`x'", replace
+putexcel set "$results\errors_BRF_norescale_subarea", replace
 
 forvalues i=1(1)100{
 
@@ -45,7 +43,7 @@ forvalues i=1(1)100{
 *=========================================*/
 use `census', clear
 
-merge 1:m mun_id using "$rawsamples\sample`x'\selected\sample_`i'.dta"
+merge 1:m mun_id using "$rawsamples\selected\sample_`i'.dta"
 keep mun_id _merge num_hh
 duplicates drop 
 g small_mun=(num_hh<500) //small municipalities around 12%
@@ -59,7 +57,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\sample`x'\BRF_sample_`i'.dta", clear
+use "$results\BRF_sample_`i'.dta", clear
 merge 1:1 psu_id using `weights'
 
 collapse (mean) sim_fgt0=predictions  [aw=popwt] , by(mun_id)
@@ -74,13 +72,13 @@ rename  fgt0_m fgt0_true
 rename  fgt1_m fgt1_true
 rename  fgt2_m fgt2_true
 
-merge 1:1 mun_id using "$simcensus\sample`x'\direct_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
+merge 1:1 mun_id using "$simcensus\direct_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dir
 rename  fgt1_m fgt1_dir
 rename  fgt2_m fgt2_dir
 
-merge 1:1 mun_id using "$simcensus\sample`x'\direct_resc2_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
+merge 1:1 mun_id using "$simcensus\direct_resc2_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dirs
 rename  fgt1_m fgt1_dirs
@@ -91,6 +89,11 @@ g error_me=(fgt0_true-sim_fgt0)
 egen ME=mean(error_me)
 egen MEin=mean(error_me) if in_sample==1
 egen MEout=mean(error_me) if in_sample==0
+
+g error_rme=abs(sim_fgt0-fgt0_true)/fgt0_true
+egen RME=mean(error_rme)
+egen RMEin=mean(error_rme) if in_sample==1
+egen RMEout=mean(error_rme) if in_sample==0
 
 g error=abs(fgt0_true-sim_fgt0)
 g error2=(fgt0_true-sim_fgt0)^2
@@ -127,6 +130,13 @@ local mein_`i'=r(mean)
 sum MEout 
 local meout_`i'=r(mean)
 
+sum RME 
+local rme_`i'=r(mean)
+sum RMEin 
+local rmein_`i'=r(mean)
+sum RMEout 
+local rmeout_`i'=r(mean)
+
 putexcel A`i'=`mae_`i''
 putexcel B`i'=`maein_`i''
 putexcel C`i'=`maeout_`i''
@@ -139,12 +149,20 @@ putexcel I`i'=`me_`i''
 putexcel J`i'=`mein_`i''
 putexcel K`i'=`meout_`i''
 
+putexcel M`i'=`rme_`i''
+putexcel N`i'=`rmein_`i''
+putexcel O`i'=`rmeout_`i''
+
 ***Only larger municipalities
 keep if small_mun==0
 
 egen ME2=mean(error_me)
 egen MEin2=mean(error_me) if in_sample==1
 egen MEout2=mean(error_me) if in_sample==0
+
+egen RME2=mean(error_rme)
+egen RMEin2=mean(error_rme) if in_sample==1
+egen RMEout2=mean(error_rme) if in_sample==0
 
 egen MAE2=mean(error) 
 egen MAEin2=mean(error) if in_sample==1
@@ -173,26 +191,36 @@ local rmsein_`i'=r(mean)
 sum RMSEout2 
 local rmseout_`i'=r(mean)
 
-sum ME 
+sum ME2 
 local me_`i'=r(mean)
-sum MEin 
+sum MEin2 
 local mein_`i'=r(mean)
-sum MEout 
+sum MEout2 
 local meout_`i'=r(mean)
 
-putexcel M`i'=`mae_`i''
-putexcel N`i'=`maein_`i''
-putexcel O`i'=`maeout_`i''
+sum RME2
+local rme_`i'=r(mean)
+sum RMEin2 
+local rmein_`i'=r(mean)
+sum RMEout2 
+local rmeout_`i'=r(mean)
 
-putexcel Q`i'=`rmse_`i''
-putexcel R`i'=`rmsein_`i''
-putexcel S`i'=`rmseout_`i''
+putexcel Q`i'=`mae_`i''
+putexcel R`i'=`maein_`i''
+putexcel S`i'=`maeout_`i''
 
-putexcel U`i'=`me_`i''
-putexcel V`i'=`mein_`i''
-putexcel W`i'=`meout_`i''
+putexcel U`i'=`rmse_`i''
+putexcel V`i'=`rmsein_`i''
+putexcel W`i'=`rmseout_`i''
+
+putexcel Y`i'=`me_`i''
+putexcel Z`i'=`mein_`i''
+putexcel AA`i'=`meout_`i''
+
+putexcel AC`i'=`rme_`i''
+putexcel AD`i'=`rmein_`i''
+putexcel AE`i'=`rmeout_`i''
 
 di "`i'"
 }
 
-}

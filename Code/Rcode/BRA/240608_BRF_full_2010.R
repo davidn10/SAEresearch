@@ -8,7 +8,7 @@ library(foreign)
 
 set.seed(7)
 
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new/")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new/")
 
 
 census<- read_dta("census/census_subarea.dta")
@@ -28,7 +28,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       sample<-sample[complete.cases(sample),]
       
       yvar <- as.vector(sample$poor_direct)
-      x_covar<-sample[,-(1:5)]
+      x_covar<-sample[,-(1:6)]
       x_covar<-as.data.frame(data.matrix(x_covar))
       
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 

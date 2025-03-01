@@ -32,15 +32,15 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       x_covar<-as.data.frame(data.matrix(x_covar))
       
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
-                                               sample.weights = sample$FACTOR, 
+                                               sample.weights = sample$FACTOR_res2, 
                                                cluster = as.factor(sample$mun_id), 
-                                               tune.parameters = "all", honesty=T) 
+                                               tune.parameters = "all", honesty=F) 
       
       predictions <- predict(brf_results,census[,colnames(x_covar)]) 
       select<-subset(census, select = c(mun_id, psu_id))
       results<-as.data.frame(cbind(select, predictions))
       
-      write_dta(results, paste0("results/results_BRF/sample1/BRF_", mysamples[i]))
+      write_dta(results, paste0("BRF_2000_new/results/results_BRF/sample1/BRF_", mysamples[i]))
 }
 
  
@@ -59,15 +59,15 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       x_covar<-as.data.frame(data.matrix(x_covar))
       
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
-                                               sample.weights = sample$FACTOR, 
+                                               sample.weights = sample$FACTOR_res2, 
                                                cluster = as.factor(sample$mun_id), 
-                                               tune.parameters = "all", honesty=T) 
+                                               tune.parameters = "all", honesty=F) 
       
       predictions <- predict(brf_results,census[,colnames(x_covar)]) 
       select<-subset(census, select = c(mun_id, psu_id))
       results<-as.data.frame(cbind(select, predictions))
       
-      write_dta(results, paste0("results/results_BRF/sample2/BRF_", mysamples[i]))
+      write_dta(results, paste0("BRF_2000_new/results/results_BRF/sample2/BRF_", mysamples[i]))
 }
 
 
@@ -86,13 +86,13 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       x_covar<-as.data.frame(data.matrix(x_covar))
       
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
-                                               sample.weights = sample$FACTOR, 
+                                               sample.weights = sample$FACTOR_res2, 
                                                cluster = as.factor(sample$mun_id), 
-                                               tune.parameters = "all", honesty=T) 
+                                               tune.parameters = "all", honesty=F) 
       
       predictions <- predict(brf_results,census[,colnames(x_covar)]) 
       select<-subset(census, select = c(mun_id, psu_id))
       results<-as.data.frame(cbind(select, predictions))
       
-      write_dta(results, paste0("results/results_BRF/sample3/BRF_", mysamples[i]))
+      write_dta(results, paste0("BRF_2000_new/results/results_BRF/sample3/BRF_", mysamples[i]))
 }

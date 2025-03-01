@@ -7,11 +7,11 @@ set more off
  *=========================================*/
 
 * global currdata "D:\SAE_project\BRA\2010\full_census"
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
-global rawsamples "$currdata\rawsamples_new\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
+global rawsamples "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\rawsamples_new\"
 global census "$currdata\census\"
 global results "$currdata\results\results_BRF\"
-global simcensus "$currdata\simcensus_new\"
+global simcensus "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\simcensus_new\"
 
 set seed 648743
 

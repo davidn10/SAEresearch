@@ -1,5 +1,5 @@
 * cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
-cd "H:\david\SAE\SAE_research_with_Melany\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -8,7 +8,7 @@ set more off
  Defining globals
  *=========================================*/
 * global currdata "D:\SAE_project\MEX\2015\full_census_new\"
-global currdata "H:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\rawdata\census_proc_MEX_2020.dta"
 
@@ -44,6 +44,10 @@ drop _merge
 /*=========================================
 Model selection using LASSO
 *=========================================*/
+egen mean_factor=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_factor 
+drop mean_factor
+
  ***LASSO models to select variables for the models
 set seed 648743
 

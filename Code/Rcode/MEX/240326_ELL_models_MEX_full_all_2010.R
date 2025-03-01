@@ -11,7 +11,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("D:/SAE_project/MEX/2010/full_census_new")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2010/full_census_new")
 
 #==============================================
 # Unit-level models
@@ -20,6 +20,7 @@ setwd("D:/SAE_project/MEX/2010/full_census_new")
 ##Reading sample and census files
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
+census$hhsize2 <- census$hhsize^2 
 
 mysamples <- list.files("rawsamples_full/selected") 
 mybetas <- list.files("betavars_selected") 
@@ -77,6 +78,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           indicators=c("Head_Count")
                           )
       
+      
       simulation <- as.data.frame(cbind(levels(ell$ind$Domain), ell$ind$Mean, ell$ind$Head_Count))
       coefficients <- as.data.frame(((ell$model_par$betas)))
       #residuals <- as.data.frame(((ell$model_par$residuals)))
@@ -87,9 +89,10 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       write_dta(simulation, paste0("results/results_ell/unit/output/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ell/unit/model/coef_",mysamples[i]))
       #write.excel(levels(ell$model_par), paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
+      write.excel(ell, paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
 }
 
-
+xx 
 
 #==============================================
 # Unit-context models
@@ -164,6 +167,6 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       colnames(coefficients) <- c("names","coefficients") 
       write_dta(simulation, paste0("results/results_ell/context/output/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ell/context/model/coef_",mysamples[i]))
-      #write.excel(levels(ell$model_par), paste0("results/results_ell/context/model/model_",mysamples[i],".xlsx"))
+      write.excel(levels(ell$model_par), paste0("results/results_ell/context/model/model_",mysamples[i],".xlsx"))
 }
 

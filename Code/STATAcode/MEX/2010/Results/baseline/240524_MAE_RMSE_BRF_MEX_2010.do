@@ -37,7 +37,7 @@ Unit level models
 putexcel set "$results\errors_BRF_subarea", replace
 
 forvalues i=1(1)100{
-
+*forvalues i=1(1)1{
 /*=========================================
  Identifying in sample and out-of-sample
 *=========================================*/

@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,7 +7,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2020\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 global rawsamples "$currdata\rawsamples_bias\"
 global census "$currdata\census\"
 global results "$currdata\results\bias\results_BRF\"
@@ -34,6 +34,7 @@ save `census'
 Unit level models
 =====================================
 ===================================*/
+/*
 putexcel set "$results\errors_BRF_subarea_bias55", replace
 
 forvalues i=1(1)100{
@@ -155,7 +156,7 @@ putexcel O`i'=`rmseout_`i''
 
 di "`i'"
 }
-
+*/ 
 
 
 

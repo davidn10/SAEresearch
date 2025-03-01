@@ -33,9 +33,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   x_covar<-as.data.frame(data.matrix(x_covar))
   
   brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
-                                           sample.weights = sample$weights, 
+                                           sample.weights = sample$FACTOR_res2, 
                                            cluster = as.factor(sample$mun_id), 
-                                           tune.parameters = "all", honesty=T) 
+                                           tune.parameters = "all", honesty=F) 
   
   predictions <- predict(brf_results,census[,colnames(x_covar)]) 
   select<-subset(census, select = c(mun_id, psu_id))
@@ -62,9 +62,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   x_covar<-as.data.frame(data.matrix(x_covar))
   
   brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
-                                           sample.weights = sample$weights, 
+                                           sample.weights = sample$FACTOR_res2, 
                                            cluster = as.factor(sample$mun_id), 
-                                           tune.parameters = "all", honesty=T) 
+                                           tune.parameters = "all", honesty=F) 
   
   predictions <- predict(brf_results,census[,colnames(x_covar)]) 
   select<-subset(census, select = c(mun_id, psu_id))

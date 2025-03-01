@@ -1011,7 +1011,7 @@ merge 1:1 hid using $census10, force
 keep if _merge==3
 gen hhsize2=hhsize^2 
 
-keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR_res FACTOR_res2 state hhsize* state 
+keep psu_id* mun_id*  hid* pchinc $tokeep $myarea povline* fgt* weights FACTOR FACTOR_res FACTOR_res2 state hhsize* state 
 
 desc,short
 local obs_`i'=r(k)

@@ -14,8 +14,8 @@ setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 census<- read_dta("census/census_subarea.dta")
 census<-as.data.frame(census)
 
-sample<- read_dta("subarea/samples/sample_1.dta")
-sample<-as.data.frame(sample)
+#sample<- read_dta("subarea/samples/sample_1.dta")
+#sample<-as.data.frame(sample)
 
 mysamples <- list.files("subarea/samples") 
 
@@ -28,7 +28,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       sample<-sample[complete.cases(sample),]
       
       yvar <- as.vector(sample$poor_direct)
-      x_covar<-sample[,-(1:5)]
+      x_covar<-sample[,-(1:6)]
       x_covar<-as.data.frame(data.matrix(x_covar))
       
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 

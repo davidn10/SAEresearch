@@ -47,18 +47,19 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       sample<-sample[complete.cases(sample),]
       
       yvar <- as.vector(sample$poor_direct)
-      x_covar<-sample[,-(1:5)]
+      x_covar<-sample[,-(1:6)]
 
       #x_covar_mun_id <- model.matrix(~ mun_id,sample)
       #onehot_encoder <- make_encoder(X = x_covar, G = as.factor(sample$mun_id), method = "one_hot")
       #means_encoder <- make_encoder(X = x_covar, G = as.factor(sample$mun_id), method = "means")
       #x_covar <- means_encoder(X=x_covar,G=as.factor(sample$mun_id))
       
-      
-      brf_results <- regression_forest(X=x_covar,Y = yvar, 
+     
+      brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
                                                sample.weights = sample$FACTOR_res2, 
                                                cluster = as.factor(sample$mun_id), 
-                                              tune.parameters = "all", honesty=F) 
+                                              tune.parameters = "all", honesty=F 
+                                              ) 
  
           
       #brf_results <- ll_regression_forest(X=x_covar,Y=yvar,

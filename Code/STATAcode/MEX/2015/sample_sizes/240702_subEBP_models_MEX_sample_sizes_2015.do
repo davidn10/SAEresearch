@@ -57,8 +57,13 @@ drop _merge
 /*=========================================
 Model selection using LASSO
 *=========================================*/
+egen mean_factor=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_factor 
+drop mean_factor
+
+
 set seed 648743
-lasso linear poor_direct (state_1-state_31) $mysubarea  [iw=FACTOR_res], selection(bic, postselection) cluster(mun_id)
+lasso linear poor_direct (state_1-state_31) $mysubarea  [iw=FACTOR_res2], selection(bic, postselection) cluster(mun_id)
 estimates store model
 di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model

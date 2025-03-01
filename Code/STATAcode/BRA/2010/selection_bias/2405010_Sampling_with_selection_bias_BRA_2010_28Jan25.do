@@ -411,7 +411,6 @@ g factor2=factor_total/totw
 g factor3=factor_total/totw2
 rename factor2 FACTOR_res
 rename factor3 FACTOR_res2
-
 keep psu_id hid mun_id state FACTOR_res FACTOR_res2 factor_total state fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
 rename factor_total weights
 
@@ -488,10 +487,11 @@ bys mun_id: egen totw=sum(factor_total)
 bys mun_id: egen totw2=mean(factor_total)
 g factor2=factor_total/totw
 g factor3=factor_total/totw2
+rename factor FACTOR 
 rename factor2 FACTOR_res
 rename factor3 FACTOR_res2
 
-keep psu_id hid mun_id state FACTOR_res FACTOR_res2 factor_total fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
+keep psu_id hid mun_id state FACTOR FACTOR_res FACTOR_res2 factor_total fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
 rename factor_total weights
 
 ***Direct estimates

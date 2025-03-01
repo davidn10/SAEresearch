@@ -51,15 +51,15 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       formula <- paste0("poor_direct ~ ", formula)
       formula <- as.formula(formula)
       
-      xgb_tune <- povmap:::xgb_tune(fixed=formula, smp_data=sample, domains="mun_id", cluster="mun_id",data=sample) 
+      xgb_tune <- povmap:::xgb_tune(fixed=formula, smp_data=sample, domains="mun_id", cluster="mun_id",data=sample,smp_weights=FACTOR_res2) 
       
-      ebp <- povmap:::ebp(fixed = ebpformula,
-                          pop_data = census,
-                          pop_domains = "mun_id",
-                          pop_weights = "popwt",
-                          smp_data = sample,
-                          smp_domains = "mun_id",
-                          weights = "FACTOR",
+      #ebp <- povmap:::ebp(fixed = ebpformula,
+      #                    pop_data = census,
+      #                    pop_domains = "mun_id",
+      #                    pop_weights = "popwt",
+      #                    smp_data = sample,
+      #                    smp_domains = "mun_id",
+      #                    weights = "FACTOR",
           
       #brf_results <- ll_regression_forest(X=x_covar,Y=yvar,
       #                                 cluster = as.factor(sample$mun_id),

@@ -1,4 +1,3 @@
-* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,11 +6,12 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
-global rawsamples "$currdata\rawsamples_full\"
+global currdata "D:/david/SAE/SAE_research_with_Melany\BRA\2000\full_census"
+global rawsamples "$currdata\BRA_2000_new\rawsamples\"
 global census "$currdata\census\"
-global results "$currdata\results\results_BRF\"
+global results "$currdata\BRA_2000_new\results\results_BRF_wow\"
 global simcensus "$currdata\simcensus\"
+
 
 set seed 648743
 
@@ -34,7 +34,7 @@ save `census'
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\errors_BRF_subarea", replace
+putexcel set "$results\errors_BRF_wow_subarea", replace
 
 forvalues i=1(1)100{
 
@@ -72,13 +72,13 @@ rename  fgt0_m fgt0_true
 rename  fgt1_m fgt1_true
 rename  fgt2_m fgt2_true
 
-merge 1:1 mun_id using "$simcensus\full\direct_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
+merge 1:1 mun_id using "$simcensus\direct_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dir
 rename  fgt1_m fgt1_dir
 rename  fgt2_m fgt2_dir
 
-merge 1:1 mun_id using "$simcensus\full\direct_resc2_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
+merge 1:1 mun_id using "$simcensus\direct_resc2_fg0_`i'.dta", keepusing(fgt0_m fgt1_m fgt2_m)
 drop _merge
 rename  fgt0_m fgt0_dirs
 rename  fgt1_m fgt1_dirs

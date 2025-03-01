@@ -1,13 +1,13 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
-
+*cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\BRA"
 clear all
 set more off
 
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\2010\full_census\"
-global rawsamples "$currdata\rawsamples\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\"
+global rawsamples "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\rawsamples\"
 global census "$currdata\rawdata\census_proc_BRA_2010.dta"
 
 
@@ -45,6 +45,9 @@ Model selection using LASSO
  ***LASSO models to select variables for the models
 set seed 648743
 
+egen mean_factor=mean(FACTOR), by(mun_id)
+replace FACTOR_res2=FACTOR/mean_factor 
+drop mean_factor
 
 lasso linear poor_direct (state_1-state_26) $mysubarea [iw=FACTOR_res], selection(bic, postselection) cluster(mun_id)
 estimates store model2

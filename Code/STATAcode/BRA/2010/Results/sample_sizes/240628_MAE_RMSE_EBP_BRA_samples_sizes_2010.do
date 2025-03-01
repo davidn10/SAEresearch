@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
@@ -21,7 +21,7 @@ duplicates drop
 tempfile census
 save `census'
 
-forvalues x=2(1)3 {
+forvalues x=1(1)3 {
 
 /*===================================
 =====================================
