@@ -1,4 +1,5 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -7,7 +8,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ell\"
@@ -32,7 +33,8 @@ use "$census\census.dta", clear
 bys mun_id: g num_hh=_N
 
 keep mun_id num_hh
-duplicates drop
+by mun_id: keep if _n==1
+* duplicates drop
 merge 1:m mun_id using "$rawsamples\selected\sample_`i'.dta"
 keep mun_id _merge num_hh
 duplicates drop 
@@ -182,6 +184,7 @@ putexcel AQ`i'=`Ndt2_`i''
 di "`i'"
 }
 
+exit 
 
 /*===================================
 =====================================

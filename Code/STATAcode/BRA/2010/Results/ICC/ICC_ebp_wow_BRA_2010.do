@@ -58,7 +58,7 @@ di "`i'"
 Unit-context models
 =====================================
 ===================================*/
-putexcel set "$results\ICC_ebp_context_h", replace
+putexcel set "$results\ICC_ebp_context_wow", replace
 
 forvalues i=1(1)100{
 *	forvalues i=1(1)1 {

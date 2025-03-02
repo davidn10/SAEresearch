@@ -22,7 +22,7 @@ set seed 648743
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\ICC_ebp_unit_h", replace
+putexcel set "$results\ICC_ebp_unit_norescale_h", replace
 
 forvalues i=1(1)100{
 *	forvalues i=1(1)1 {
@@ -61,7 +61,7 @@ di "`i'"
 Unit-context models
 =====================================
 ===================================*/
-putexcel set "$results\ICC_ebp_context_h", replace
+putexcel set "$results\ICC_ebp_context_norescale_h", replace
 
 forvalues i=1(1)100{
 *	forvalues i=1(1)1 {

@@ -88,6 +88,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       colnames(coefficients) <- c("names","coefficients") 
       write_dta(simulation, paste0("results/results_ell_norescale/unit/output/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ell_norescale/unit/model/coef_",mysamples[i]))
+      write.excel(ell, paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
       #write.excel(levels(ell$model_par), paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
 }
 

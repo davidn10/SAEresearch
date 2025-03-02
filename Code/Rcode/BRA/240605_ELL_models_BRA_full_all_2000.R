@@ -11,7 +11,9 @@ library("povmap")
 
 set.seed(7)
 
-setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
+#setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new") 
+
 
 #==============================================
 # Unit-level models
@@ -20,6 +22,7 @@ setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
 ##Reading sample and census files
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
+census$hhsize2 <- census$hhsize^2 
 
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("betavars_selected") 
@@ -86,10 +89,11 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       colnames(coefficients) <- c("names","coefficients") 
       write_dta(simulation, paste0("results/results_ell/unit/output/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ell/unit/model/coef_",mysamples[i]))
+      write.excel(ell, paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
       #write.excel(levels(ell$model_par), paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
 }
 
-
+xx
 
 #==============================================
 # Unit-context models

@@ -11,7 +11,7 @@ set more off
 global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
-global results "$currdata\results\results_ebp" 
+global results "$currdata\results\results_ebp_norescale" 
 global simcensus "$currdata\simcensus\"
 
 set seed 648743
@@ -22,7 +22,7 @@ set seed 648743
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\ICC_ebp_unit_h", replace
+putexcel set "$results\ICC_ebp_unit_norescale_h", replace
 
 forvalues i=1(1)100{
 *	forvalues i=1(1)1 {
@@ -61,7 +61,7 @@ di "`i'"
 Unit-context models
 =====================================
 ===================================*/
-putexcel set "$results\ICC_ebp_context_h", replace
+putexcel set "$results\ICC_ebp_context_norescale_h", replace
 
 forvalues i=1(1)100{
 *	forvalues i=1(1)1 {
