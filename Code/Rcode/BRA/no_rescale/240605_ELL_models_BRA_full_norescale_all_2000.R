@@ -12,7 +12,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2000/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 #==============================================
 # Unit-level models
 #==============================================
@@ -84,9 +84,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
       colnames(coefficients) <- c("names","coefficients") 
-      write_dta(simulation, paste0("BRA_2000_new/results/results_ell_norescale/unit/output/sim_ebp_",mysamples[i]))
-      write_dta(coefficients, paste0("BRA_2000_new/results/results_ell_norescale/unit/model/coef_",mysamples[i]))
-      write.excel(ell, paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
+      write_dta(simulation, paste0("results/results_ell_norescale/unit/output/sim_ebp_",mysamples[i]))
+      write_dta(coefficients, paste0("results/results_ell_norescale/unit/model/coef_",mysamples[i]))
+      write.excel(ell, paste0("results/results_ell_norescale/unit/model/model_",mysamples[i],".xlsx"))
       #write.excel(levels(ell$model_par), paste0("results/results_ell/unit/model/model_",mysamples[i],".xlsx"))
 }
 

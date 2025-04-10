@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -6,7 +6,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2020\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$data\census_proc_MEX_2020.dta"

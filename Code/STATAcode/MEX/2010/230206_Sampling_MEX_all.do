@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+*cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 global currdata "D:\SAE_project\MEX\2010\full_census_new"
 global census "$currdata\rawdata\census_proc_MEX_2010.dta"

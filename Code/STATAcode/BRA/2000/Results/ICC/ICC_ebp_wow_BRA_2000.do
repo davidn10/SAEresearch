@@ -39,7 +39,7 @@ Correlation
 import excel using "$results\unit\model_wow\model_sample_`i'.dta.xlsx", cellrange(C20:D21) clear
 local sigma2_eta_`i'=D[2]
 local sigma2_eps_`i'=D[1]
-local ICC_`i'=`sigma2_eta_`i''/`sigma2_eps_`i''
+local ICC_`i'=`sigma2_eta_`i''/(`sigma2_eps_`i''+`sigma2_eta_`i'')
 
 ***Pearson correlations
 putexcel A`i'=`sigma2_eta_`i''
@@ -75,7 +75,7 @@ Correlation
 import excel using "$results\context\model_wow\model_sample_`i'.dta.xlsx", cellrange(C20:D21) clear
 local sigma2_eta_`i'=D[2]
 local sigma2_eps_`i'=D[1]
-local ICC_`i'=`sigma2_eta_`i''/`sigma2_eps_`i''
+local ICC_`i'=`sigma2_eta_`i''/(`sigma2_eps_`i''+`sigma2_eta_`i'')
 
 
 ***Pearson correlations

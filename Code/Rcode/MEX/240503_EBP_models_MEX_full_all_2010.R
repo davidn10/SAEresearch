@@ -11,7 +11,8 @@ library("povmap")
 
 set.seed(7)
 
-setwd("C:/Users/wb462478/Desktop/SAE_project/MEX/2010/full_census_new")
+#setwd("C:/Users/wb462478/Desktop/SAE_project/MEX/2010/full_census_new")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2010/full_census_new")
 
 #==============================================
 # Unit-level models
@@ -20,7 +21,7 @@ setwd("C:/Users/wb462478/Desktop/SAE_project/MEX/2010/full_census_new")
 ##Reading sample and census files
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
-
+census$hhsize2 <- census$hhsize^2 
 mysamples <- list.files("rawsamples_full/selected") 
 mybetas <- list.files("betavars_selected") 
 

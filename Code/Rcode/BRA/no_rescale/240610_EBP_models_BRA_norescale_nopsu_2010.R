@@ -75,6 +75,6 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
   colnames(coefficients) <- c("names","coefficients") 
   write_dta(simulation, paste0("results/results_ebp_norescale/context/output_nopsu_h/sim_ebp_",mysamples[i]))
   write_dta(coefficients, paste0("results/results_ebp_norescale/context/model_nopsu_h/coef_",mysamples[i]))
-  write.excel(ebp, paste0("results/results_ebp/context_norescale/model_nopsu_h/model_",mysamples[i],".xlsx"))
+  write.excel(ebp, paste0("results/results_ebp_norescale/context/model_nopsu_h/model_",mysamples[i],".xlsx"))
 }
 

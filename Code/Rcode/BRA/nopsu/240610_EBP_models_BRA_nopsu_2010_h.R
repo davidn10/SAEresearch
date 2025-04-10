@@ -11,7 +11,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("C:/Users/wb462478/Desktop/SAE_project/BRA/2010/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new/")
+setwd("H:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new/")
 
 
 
