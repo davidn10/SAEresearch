@@ -1,5 +1,5 @@
-* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
-cd "D:\david\SAE\SAE_research_with_Melany\MEX" 
+cd "D:\david\SAE\SAE_research_with_Melany\MEX"
+
 
 clear all
 set more off
@@ -11,10 +11,24 @@ set more off
 global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
-global results "$currdata\results\results_ell_norescale\"
+global results "$currdata\results\results_BRF\"
 global simcensus "$currdata\simcensus\"
 
 set seed 648743
+
+***Weights fro averaging
+use "$census\census.dta", clear
+collapse (rawsum) popwt , by(psu_id) 
+tempfile weights
+save `weights'
+
+use "$census\census.dta", clear
+bys mun_id: g num_hh=_N
+
+keep mun_id num_hh
+duplicates drop
+tempfile census
+save `census'
 
 
 /*===================================
@@ -22,17 +36,16 @@ set seed 648743
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\rankcorr_ELL_wow_unit", replace
+putexcel set "$results\wt_rankcorr_BRF_subarea", replace
+
 forvalues i=1(1)100{
+*	forvalues i=1(1)1 {
+*foreach i of numlist 100 1/20 {
 
 /*=========================================
  Identifying in sample and out-of-sample
 *=========================================*/
-use "$census\census.dta", clear
-bys mun_id: g num_hh=_N
-
-keep mun_id num_hh
-duplicates drop
+use `census', clear
 merge 1:m mun_id using "$rawsamples\selected\sample_`i'.dta"
 keep mun_id _merge num_hh
 duplicates drop 
@@ -42,15 +55,16 @@ rename _merge in_sample
 tempfile insample
 save `insample'
 
+
 /*=========================================
 Rank correlations 
 *=========================================*/
 
-use "$results\unit\output_wow\sim_ebp_sample_`i'", clear
-destring area fgt, replace
-rename area mun_id
-rename fgt sim_fgt0
+use "$results\BRF_sample_`i'.dta", clear
+merge 1:1 psu_id using `weights'
 
+collapse (mean) sim_fgt0=predictions (rawsum) popwt [aw=popwt] , by(mun_id)
+ 
 merge 1:1 mun_id using `insample'
 drop _merge
 
@@ -73,23 +87,38 @@ rename  fgt0_m fgt0_dirs
 rename  fgt1_m fgt1_dirs
 rename  fgt2_m fgt2_dirs
 
-spearman fgt0_true sim_fgt0
+wspearman fgt0_true sim_fgt0 [aw=popwt]
 local rho_`i'=r(rho)
 local N_`i'=r(N)
-spearman fgt0_true sim_fgt0 if in_sample==1
+wspearman fgt0_true sim_fgt0 if in_sample==1 [aw=popwt]
 local rhoin_`i'=r(rho)
 local Nin_`i'=r(N)
-spearman fgt0_true sim_fgt0 if in_sample==0
+wspearman fgt0_true sim_fgt0 if in_sample==0 [aw=popwt]
 local rhoout_`i'=r(rho)
 local Nout_`i'=r(N)
-spearman fgt0_dirs sim_fgt0 
+wspearman fgt0_dirs sim_fgt0  [aw=popwt]
 local rhods_`i'=r(rho)
 local Nds_`i'=r(N)
-spearman fgt0_dir fgt0_true
+wspearman fgt0_dir fgt0_true [aw=popwt]
 local rhodt_`i'=r(rho)
 local Ndt_`i'=r(N)
 
-
+***Pearson correlations
+corr fgt0_true sim_fgt0 [aw=popwt]
+local rho2_`i'=r(rho)
+local N2_`i'=r(N)
+corr fgt0_true sim_fgt0 if in_sample==1 [aw=popwt]
+local rhoin2_`i'=r(rho)
+local Nin2_`i'=r(N)
+corr fgt0_true sim_fgt0 if in_sample==0 [aw=popwt]
+local rhoout2_`i'=r(rho)
+local Nout2_`i'=r(N)
+corr fgt0_dirs sim_fgt0 [aw=popwt]
+local rhods2_`i'=r(rho)
+local Nds2_`i'=r(N)
+corr fgt0_dir fgt0_true [aw=popwt]
+local rhodt2_`i'=r(rho)
+local Ndt2_`i'=r(N)
 
 putexcel A`i'=`rho_`i''
 putexcel B`i'=`rhoin_`i''
@@ -97,7 +126,28 @@ putexcel C`i'=`rhoout_`i''
 putexcel D`i'=`rhods_`i''
 putexcel E`i'=`rhodt_`i''
 
+putexcel G`i'=`N_`i''
+putexcel H`i'=`Nin_`i''
+putexcel I`i'=`Nout_`i''
+putexcel J`i'=`Nds_`i''
+putexcel K`i'=`Ndt_`i''
+
+putexcel M`i'=`rho2_`i''
+putexcel N`i'=`rhoin2_`i''
+putexcel O`i'=`rhoout2_`i''
+putexcel P`i'=`rhods2_`i''
+putexcel Q`i'=`rhodt2_`i''
+
+putexcel S`i'=`N2_`i''
+putexcel T`i'=`Nin2_`i''
+putexcel U`i'=`Nout2_`i''
+putexcel V`i'=`Nds2_`i''
+putexcel W`i'=`Ndt2_`i''
+
+
+
 
 
 di "`i'"
 }
+

@@ -40,7 +40,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       }
       ebpformula <- paste0("ln_pchinc ~ ", ebpformula)
       ebpformula <- as.formula(ebpformula)
-      #sample$FACTOR <- sample$FACTOR/100 
+      
       ###Reading sample data
       assign(paste0("sample"),                                   # Read and store data frames
              read_dta(paste0("rawsamples_full/selected/",

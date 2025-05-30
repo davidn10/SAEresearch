@@ -79,6 +79,7 @@ i <- 1
                           )
       
       
+      
       simulation <- as.data.frame(cbind(levels(ell$ind$Domain), ell$ind$Mean, ell$ind$Head_Count))
       coefficients <- as.data.frame(((ell$model_par$betas)))
       #residuals <- as.data.frame(((ell$model_par$residuals)))

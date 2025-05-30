@@ -9,6 +9,7 @@ set more off
  Defining globals
  *=========================================*/
 global currdata "D:\SAE_project\MEX\2010\full_census_new"
+
 global results "$currdata\results"
 
 /*====================
