@@ -33,7 +33,7 @@ use "$rawsamples\selected\sample_`i'.dta",replace
 * collapse (rawsum) FACTOR (mean) `model' ln_pchinc, by(mun_id)
 regress FACTOR `model' ln_pchinc [aw=FACTOR]
 
-local beta=_b["ln_pchinc"]
+local beta=abs(_b["ln_pchinc"])
 local se=_se["ln_pchinc"]
 local t=abs(`beta'/`se')
 dis "`beta'"
@@ -42,14 +42,29 @@ dis "`t'"
 putexcel A`i'=`beta'
 putexcel B`i'=`t'
 
+qui areg FACTOR `model' ln_pchinc [aw=FACTOR], absorb(mun_id)
+local beta=abs(_b["ln_pchinc"])
+local se=_se["ln_pchinc"]
+local t=abs(`beta'/`se')
+putexcel F`i'=`beta'
+putexcel G`i'=`t'
+
+
 egen meanFACTOR=mean(FACTOR), by(mun_id)
 gen FACTOR_rescaled=FACTOR/meanFACTOR
 regress FACTOR_rescaled `model' ln_pchinc [aw=FACTOR_rescaled]
-local beta=_b["ln_pchinc"]
+local beta=abs(_b["ln_pchinc"])
 local se=_se["ln_pchinc"]
 local t=abs(`beta'/`se')
 putexcel C`i'=`beta'
 putexcel D`i'=`t'
+
+qui areg FACTOR_rescaled `model' ln_pchinc [aw=FACTOR_rescaled], absorb(mun_id)
+local beta=abs(_b["ln_pchinc"])
+local se=_se["ln_pchinc"]
+local t=abs(`beta'/`se')
+putexcel I`i'=`beta'
+putexcel J`i'=`t'
 
 } 
 
