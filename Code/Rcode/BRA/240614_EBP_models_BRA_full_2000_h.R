@@ -5,6 +5,9 @@ library(povmap)
 library(haven)
 library("povmap")
 library(foreach)
+library(doParallel)
+cl <- makeCluster(3)
+registerDoParallel(cl)
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
 
@@ -21,10 +24,12 @@ setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
 
-mysamples <- list.files("rawsamples/selected") 
-mybetas <- list.files("betavars_selected") 
+mysamples <- list.files("rawsamples/selected")
+mybetas <- list.files("betavars_selected")
 
-for (i in 90:length(mysamples)) {                              # Head of for-loop
+#for (i in 1:length(mysamples)) {                              # Head of for-loop
+ebplist <- foreach(i=1:100,.packages=c("haven","povmap")) %dopar% { # Head of for-loop
+  setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("betavars_selected/",
@@ -37,7 +42,7 @@ for (i in 90:length(mysamples)) {                              # Head of for-loo
       }
       ebpformula <- paste0("ln_pchinc ~ ", ebpformula)
       ebpformula <- as.formula(ebpformula)
-      
+
       ###Reading sample data
       assign(paste0("sample"),                                   # Read and store data frames
              read_dta(paste0("rawsamples/selected/",
@@ -54,7 +59,7 @@ for (i in 90:length(mysamples)) {                              # Head of for-loo
                           weights = "FACTOR",
                           weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
+                          rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
@@ -62,19 +67,19 @@ for (i in 90:length(mysamples)) {                              # Head of for-loo
                           na.rm=TRUE,
                           L=100,   #default is 50
                           model_parameters="fixed",
-                          indicators=c("Head_Count")
+                          indicators=c("Head_Count","Minimum")
                           #Ydump=paste0("results/results_ebp/all/unit/model/ydump_",mysamples[i],".csv")
                           )
-      
+
       simulation <- as.data.frame(cbind(levels(ebp$ind$Domain), ebp$ind$Mean, ebp$ind$Head_Count))
       coefficients <- as.data.frame(((ebp$model$coefficients$fixed)))
-      colnames(simulation) <- c("area",  "fgt") 
+      colnames(simulation) <- c("area",  "fgt")
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
-      colnames(coefficients) <- c("names","coefficients") 
+      colnames(coefficients) <- c("names","coefficients")
       write_dta(simulation, paste0("results/results_ebp/unit/output_h/sim_ebp_",mysamples[i]))
       write_dta(coefficients, paste0("results/results_ebp/unit/model_h/coef_",mysamples[i]))
-      write.excel(ebp, paste0("results/results_ebp/unit/model_h/model_",mysamples[i],".xlsx"))
+      write.excel(ebp, paste0("results/results_ebp/unit/model_h/model_",mysamples[i],".xlsx"),gammas=T)
       #saveRDS(object=ebp,file=paste0("results/results_ebp/unit/model_h/object_",mysamples[i]))
 }
 
@@ -82,7 +87,7 @@ for (i in 90:length(mysamples)) {                              # Head of for-loo
 #==============================================
 # Unit-context models
 #==============================================
-
+cl <- makeCluster(5)
 ##Reading sample and census files
 census<- read_dta("census/census.dta")
 census<-as.data.frame(census)
@@ -90,7 +95,9 @@ census<-as.data.frame(census)
 mysamples <- list.files("rawsamples/selected") 
 mybetas <- list.files("context/betavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+#for(i in 1:length(mysamples)) {                              # Head of for-loop
+ebplist <- foreach(i=1:100,.packages=c("haven","povmap")) %dopar% { # Head of for-loop  
+      setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("context/betavars_selected/",
@@ -102,6 +109,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
             ebpformula <- paste0(ebpformula, " + ", coef_names[x])
       }
       ebpformula <- paste0("ln_pchinc ~ ", ebpformula)
+      
       ebpformula <- as.formula(ebpformula)
       
       ###Reading sample data
@@ -109,7 +117,6 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
              read_dta(paste0("rawsamples/selected/",
                              mysamples[i])))
       sample<-as.data.frame(sample)
-      
       ## EBP estimation
       ebp <- povmap:::ebp(fixed = ebpformula,
                           pop_data = census,
@@ -120,11 +127,11 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           weights = "FACTOR",
                           weights_type = "hybrid",
                           nlme_opt="optim",
-                          #rescale_weights = T,
-                          transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
+                          rescale_weights = T,
+                          transformation = "no", #"no", "log", "box.cox", "dual","log.shift", "ordernorm"
                           MSE = F,
                           cpus = 10,
-                          threshold = 4.6622116, #LOG 7.464 , nO LOG 1744.69
+                          threshold = 4.6622116,  
                           na.rm=TRUE,
                           L=100,   #default is 50
                           model_parameters="fixed",
@@ -133,7 +140,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       )
       
       
-      simulation <- as.data.frame(cbind(levels(ebp$ind$Domain), ebp$ind$Mean, ebp$ind$Head_Count))
+      simulation <- as.data.frame(cbind(levels(ebp$ind$Domain), ebp$ind$Head_Count))
       coefficients <- as.data.frame(((ebp$model$coefficients$fixed)))
       colnames(simulation) <- c("area", "fgt") 
       names<-as.data.frame(rownames(coefficients))

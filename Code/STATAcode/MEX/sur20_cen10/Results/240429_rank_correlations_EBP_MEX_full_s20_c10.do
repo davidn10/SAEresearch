@@ -6,6 +6,7 @@ set more off
  *=========================================*/
 
 global currdata "D:\SAE_project\MEX\s20_c10\full_census\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s20_c10"
 global simcensus20 "D:\SAE_project\MEX\2020\full_census\"
 global results "$currdata\results\results_ebp"
 

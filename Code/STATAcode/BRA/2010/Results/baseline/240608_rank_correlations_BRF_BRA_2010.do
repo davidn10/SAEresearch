@@ -103,6 +103,7 @@ spearman fgt0_dir fgt0_true
 local rhodt_`i'=r(rho)
 local Ndt_`i'=r(N)
 
+
 ***Pearson correlations
 corr fgt0_true sim_fgt0
 local rho2_`i'=r(rho)
@@ -144,6 +145,7 @@ putexcel U`i'=`Nout2_`i''
 putexcel V`i'=`Nds2_`i''
 putexcel W`i'=`Ndt2_`i''
 
+/*
 ***Only larger municipalities
 spearman fgt0_true sim_fgt0 if small_mun==0
 local rho_`i'=r(rho)
@@ -192,7 +194,7 @@ putexcel AO`i'=`Nin2_`i''
 putexcel AP`i'=`Nout2_`i''
 putexcel AQ`i'=`Ndt2_`i''
 
-
+*/ 
 
 
 di "`i'"

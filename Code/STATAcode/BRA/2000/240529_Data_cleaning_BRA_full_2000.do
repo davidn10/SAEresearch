@@ -37,7 +37,6 @@ label var V4525 "Income from all jobs"
 label var V4523 "Total income other jobs"
 label var PES_PESSOA "Weights"
 
-
 rename V1006 urban
 replace urban="1" if urban=="1"
 replace urban="0" if urban=="2"

@@ -10,7 +10,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("D:/SAE_project/BRA/2010/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new/")
 
 #==============================================
 # WOW weights
@@ -23,7 +23,7 @@ census<-as.data.frame(census)
 #sample<- read_dta("subarea_ebp/subebp_1.dta")
 #sample<-as.data.frame(sample)
 
-mysamples <- list.files("subarea_ebp") 
+mysamples <- list.files("subarea_ebp",pattern=".dta") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data

@@ -6,6 +6,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
+
 global currdata "D:\SAE_project\MEX\s10_c20\full_census"
 global rawsamples "$currdata\rawsamples\"
 global simcensus20 "D:\SAE_project\MEX\2020\full_census\"

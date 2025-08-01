@@ -6,6 +6,9 @@ global simcensus "$currdata\simcensus\"
 
 drop _all 
 import excel "$results\ESS_BRA_2000"
+if A[2]==. {
+drop in 1/2 
+} 
 rename A ess_rescaled 
 rename B ess_norescale 
 gen sim=_n 
@@ -36,7 +39,7 @@ gen spearman_rescaled=spearman if rescaled==1
 gen spearman_norescale=spearman if rescaled==0 
 label var ess "Effective sample size across areas"
 label var spearman_rescaled "Rescaled weights"
-label var spearman_norescale "Population weights"
+label var spearman_norescale "Raw weights"
 global results "$currdata\results\effective_sample_size" 
 twoway (scatter spearman_rescaled spearman_norescale ess, msymbol(oh X)) (lfit spearman_norescale ess,lcolor(red)) (lfit spearman_rescale ess, lcolor(blue)),  xlabel(0(100)500) xmtick(0(20)500) ylabel(0.96(0.002)0.97) ymtick(0.96(0.01)0.97) legend(position(bottom)) ytitle("Spearman Rank Correlation") saving($results/ESS_scatter_BRA_2000, replace) legend(order(1 2) rows(1) size(small)) title("Brazil 2000")
 

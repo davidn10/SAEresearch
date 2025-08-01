@@ -5,6 +5,10 @@ library(pbmcapply) # wrapper for mclapply that lets me see progress
 library(povmap)
 library(haven)
 library("povmap")
+library(doParallel)
+# adjust number of clusters depending on available memory and file size 
+cl <- makeCluster(5)
+registerDoParallel(cl)
 
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david3")

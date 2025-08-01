@@ -43,6 +43,7 @@ forvalues i=1(1)100 {
 use "$rawsamples\selected\sample_`i'.dta", clear
 drop if FACTOR<=1
 direct fgt0_m [aw=FACTOR], by(psu_id) gen(poor_direct)
+
 gen poor_direct_var=poor_direct_SD^2 
 
 keep psu_id poor_direct poor_direct_var FACTOR FACTOR_res FACTOR_res2 mun_id state_*

@@ -32,7 +32,7 @@ tempfile census
 save `census'
 
 putexcel set "$results\errors_EBP_nopsu_bias55", replace
-
+/*
 forvalues i=1(1)100 {
 
 /*=========================================
@@ -150,7 +150,7 @@ di "`i'"
 
 
 }
-
+*/ 
 putexcel set "$results\errors_EBP_nopsu_bias11b11", replace
 
 forvalues i=1(1)100 {
@@ -229,7 +229,7 @@ putexcel E`i'=`rmse_`i''
 putexcel F`i'=`rmsein_`i''
 putexcel G`i'=`rmseout_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 keep if small_mun==0
 
 egen MAE2=mean(error) 
@@ -265,11 +265,12 @@ putexcel K`i'=`maeout_`i''
 putexcel M`i'=`rmse_`i''
 putexcel N`i'=`rmsein_`i''
 putexcel O`i'=`rmseout_`i''
-
+*/ 
 di "`i'"
 
 
 }
+exit 
 
 /*===================================
 =====================================

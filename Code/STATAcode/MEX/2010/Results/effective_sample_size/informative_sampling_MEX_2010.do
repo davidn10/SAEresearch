@@ -10,7 +10,7 @@ set more off
 
 global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
-global model "$currdata\results\results_ebp\unit\model_h"
+global model "$currdata\results\results_ebp_norescale\unit\model_h"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 
 global simcensus "$currdata\simcensus\"

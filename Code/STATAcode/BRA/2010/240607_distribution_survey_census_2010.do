@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,6 +7,7 @@ set more off
  Defining globals
  *=========================================*/
 global currdata10 "D:\SAE_project\BRA\2010\full_census"
+global currdata10 "D:/david/SAE/SAE_research_with_Melany/BRA/2010/full_census_new"
 global data10 "$currdata10\rawdata\"
 global rawsamples10 "$currdata10\rawsamples\"
 global census10 "$data10\census_proc_BRA_2010.dta"
@@ -653,6 +654,9 @@ desc,short
 local obs_`i'=r(k)
 
 putexcel A`i'=`obs_`i''
+
+*qui su pchinc if pchinc>0 
+*replace ln_pchinc=ln(r(min)) if pchinc==0 
 
 
 save "$currdata10\rawsamples\selected\sample_`i'.dta", replace

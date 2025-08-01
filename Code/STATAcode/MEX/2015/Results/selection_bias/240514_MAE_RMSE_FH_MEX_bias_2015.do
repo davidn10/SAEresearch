@@ -5,10 +5,10 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2015\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global rawsamples "$currdata\rawsamples_bias\"
 global census "$currdata\census\"
-global results "$currdata\results\bias\results_fh\"
+global results "$currdata\results\bias\results_fh_smooth\"
 global simcensus "$currdata\simcensus\"
 
 
@@ -27,7 +27,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-
+/*
 putexcel set "$results\errors_FH_bias55", replace
 
 forvalues i=1(1)100 {
@@ -140,7 +140,7 @@ putexcel O`i'=`rmseout_`i''
 di "`i'"
 
 }
-
+*/ 
 
 putexcel set "$results\errors_FH_bias11b11", replace
 
@@ -214,7 +214,7 @@ putexcel E`i'=`rmse_`i''
 putexcel F`i'=`rmsein_`i''
 putexcel G`i'=`rmseout_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 keep if small_mun==0
 
 egen MAE2=mean(error) 
@@ -251,9 +251,12 @@ putexcel M`i'=`rmse_`i''
 putexcel N`i'=`rmsein_`i''
 putexcel O`i'=`rmseout_`i''
 
-di "`i'"
 
+*/ 
+di "`i'"
 }
+exit 
+
 
 /*===================================
 =====================================

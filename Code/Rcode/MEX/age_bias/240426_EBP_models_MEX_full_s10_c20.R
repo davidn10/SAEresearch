@@ -4,13 +4,17 @@ library(pbmcapply) # wrapper for mclapply that lets me see progress
 library(povmap)
 library(haven)
 library("povmap")
+library(doParallel)
+# adjust number of clusters depending on available memory and file size 
+cl <- makeCluster(3)
+registerDoParallel(cl)
 
 #detach(package:povmap)
 #devtools::install_github("SSA-Statistical-Team-Projects/povmap", ref="david2")
 
 set.seed(7)
 
-setwd("D:/SAE_project/MEX")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models
@@ -24,7 +28,9 @@ mysamples <- list.files("s10_c20/full_census/rawsamples/selected")
 mybetas   <- list.files("s10_c20/full_census/betavars_selected") 
 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+#for(i in 1:length(mysamples)) {                              # Head of for-loop
+ebplist <- foreach(i=1:100,.packages=c("haven","povmap")) %dopar% { # Head of for-loop
+      setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("s10_c20/full_census/betavars_selected/",
@@ -88,7 +94,8 @@ census<-as.data.frame(census)
 mysamples <- list.files("s10_c20/full_census/rawsamples/selected") 
 mybetas <- list.files("s10_c20/full_census/context/betavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+#for(i in 1:length(mysamples)) {                              # Head of for-loop
+ebplist <- foreach(i=1:100,.packages=c("haven","povmap")) %dopar% { # Head of for-loop 
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("s10_c20/full_census/context/betavars_selected/",

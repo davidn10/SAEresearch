@@ -38,8 +38,11 @@ local skew=r(skewness)
 sum FACTOR_rescaledsq 
 local denom=r(sum)
 local ESS_rescaled=`num'/`denom'
-putexcel A`i'=`ESS_rescaled'
-putexcel D`i'=`skew'
+
+local row=`i'+2 
+
+putexcel A`row'=`ESS_rescaled'
+putexcel D`row'=`skew'
 
 
 
@@ -52,8 +55,8 @@ sum FACTOR_sq
 
 local denom=r(sum)
 local ESS_norescale=`num'/`denom'
-putexcel B`i'=`ESS_norescale'
-putexcel E`i'=`skew'
+putexcel B`row'=`ESS_norescale'
+putexcel E`row'=`skew'
 } 
 
 

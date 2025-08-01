@@ -4,9 +4,9 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\s10_c00\full_census"
-global rawsamples "$currdata\rawsamples\"
-global simcensus00 "D:\SAE_project\BRA\2000\full_census\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\s10_c00"
+global rawsamples "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\rawsamples\"
+global simcensus00 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global results "$currdata\results\"
 set seed 648743
 
@@ -62,7 +62,6 @@ estimates store model
 di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model
 global postlasso `hhvars'
-
  
 /*=========================================
 Fay-Harriot models

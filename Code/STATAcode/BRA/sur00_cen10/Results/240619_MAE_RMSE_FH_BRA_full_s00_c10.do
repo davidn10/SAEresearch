@@ -5,9 +5,9 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\s00_c10\full_census\"
-global simcensus10 "D:\SAE_project\BRA\2010\full_census\"
-global results "$currdata\results\results_fh"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\s00_c10"
+global simcensus10 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\"
+global results "$currdata\results\results_smooth_fh"
 
 
 set seed 648743
@@ -33,7 +33,8 @@ forvalues i=1(1)100 {
  Identifying in sample and out-of-sample
 *=========================================*/
 use `census', clear
-merge 1:m mun_id using "$currdata\rawsamples\selected\sample_`i'.dta" //samples from 2015 created in ELL unit s15_c10
+
+merge 1:m mun_id using "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\rawsamples\selected\sample_`i'.dta" //samples from 2015 created in ELL unit s15_c10
 keep mun_id _merge num_hh
 duplicates drop 
 g small_mun=(num_hh<500) //small municipalities around 27%

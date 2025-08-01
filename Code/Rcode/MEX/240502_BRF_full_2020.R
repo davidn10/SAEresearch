@@ -5,7 +5,11 @@ library(grf)
 library(haven)
 library(sp)
 library(foreign)
-
+library(doParallel)
+gc()
+cl <- makeCluster(5)
+registerDoParallel(cl)
+mcoptions <- list(preschedule=TRUE)
 set.seed(7)
 
 setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2020/full_census/")
@@ -20,7 +24,8 @@ census<-as.data.frame(census)
 mysamples <- list.files("subarea/samples") 
 
 #Model and results
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+#for(i in 1:length(mysamples)) {                              # Head of for-loop
+brflist <- foreach(i=1:100,.options.multicore=mcoptions,.packages=c("haven","grf")) %dopar% { # Head of for-loop 
       assign(paste0("sample"),                                   # Read and store data frames
              read_dta(paste0("subarea/samples/",
                              mysamples[i])))

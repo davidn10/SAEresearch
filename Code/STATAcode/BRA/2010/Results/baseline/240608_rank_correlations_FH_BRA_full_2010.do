@@ -6,12 +6,11 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
-global results "$currdata\results\results_fh\"
+global results "$currdata\results\results_fh"
 global simcensus "$currdata\simcensus\"
-
 
 
 set seed 648743
@@ -29,6 +28,10 @@ save `census'
 Fey-Harriot models
 =====================================
 ===================================*/
+
+
+
+
 putexcel set "$results\rankcorr_FH", replace
 
 forvalues i=1(1)100 {
@@ -88,7 +91,7 @@ local Nds_`i'=r(N)
 spearman fgt0_dir fgt0_true
 local rhodt_`i'=r(rho)
 local Ndt_`i'=r(N)
-
+/*
 ***Pearson correlations
 corr fgt0_true sim_fgt0
 local rho2_`i'=r(rho)
@@ -105,7 +108,7 @@ local Nds2_`i'=r(N)
 corr fgt0_dir fgt0_true
 local rhodt2_`i'=r(rho)
 local Ndt2_`i'=r(N)
-
+*/ 
 putexcel A`i'=`rho_`i''
 putexcel B`i'=`rhoin_`i''
 putexcel C`i'=`rhoout_`i''
@@ -118,6 +121,7 @@ putexcel I`i'=`Nout_`i''
 putexcel J`i'=`Nds_`i''
 putexcel K`i'=`Ndt_`i''
 
+/*
 putexcel M`i'=`rho2_`i''
 putexcel N`i'=`rhoin2_`i''
 putexcel O`i'=`rhoout2_`i''
@@ -179,7 +183,7 @@ putexcel AN`i'=`N2_`i''
 putexcel AO`i'=`Nin2_`i''
 putexcel AP`i'=`Nout2_`i''
 putexcel AQ`i'=`Ndt2_`i''
-
+*/ 
 
 di "`i'"
 

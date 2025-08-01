@@ -16,7 +16,7 @@ cd "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 
 
 *1. unit level model 
-foreach sample of numlist 29/100 {
+foreach sample of numlist 98/100 {
 	dis "sample `sample'"
 	
 * get model 	

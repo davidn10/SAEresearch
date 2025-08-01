@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,8 +7,9 @@ set more off
  Defining globals
  *=========================================*/
 global currdata "D:\SAE_project\MEX\s20_c10\full_census"
-global rawsamples "$currdata\rawsamples\"
-global simcensus10 "D:\SAE_project\MEX\2010\full_census_new\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s20_c10"
+global rawsamples "$currdata\rawsamples_full\"
+global simcensus10 "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new\"
 global results "$currdata\results\"
 set seed 648743
 
@@ -82,5 +83,6 @@ predict sim_fgt0, eblup
 keep mun_id sim_fgt0 insample
 
 save "$results\results_fh\myFH_`i'.dta", replace
+
 
 } 

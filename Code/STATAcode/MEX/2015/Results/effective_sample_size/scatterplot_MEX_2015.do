@@ -6,9 +6,14 @@ global simcensus "$currdata\simcensus\"
 
 drop _all 
 import excel "$results\ESS_MEX_2015"
+if A[2]==. {
+drop in 1/2 
+} 
+
 rename A ess_rescaled 
 rename B ess_norescale 
 gen sim=_n 
+su sim 
 save "$results\ESS_MEX_2015", replace 
 
 drop _all 
@@ -36,9 +41,10 @@ gen spearman_rescaled=spearman if rescaled==1
 gen spearman_norescale=spearman if rescaled==0 
 label var ess "Effective sample size across areas"
 label var spearman_rescaled "Rescaled weights"
-label var spearman_norescale "Population weights"
+label var spearman_norescale "Raw weights"
 
 
 global results "$currdata\results\effective_sample_size"
 twoway (scatter spearman_rescaled spearman_norescale ess, msymbol(oh X)) (lfit spearman_norescale ess,lcolor(red)) (lfit spearman_rescale ess, lcolor(blue)),  xlabel(0(100)900) xmtick(0(20)900) ymtick(0.93(0.01)0.96) legend(position(bottom)) ytitle("Spearman Rank Correlation") saving($results/ESS_scatter_MEX_2015, replace) legend(order(1 2) rows(1) size(small)) title("Mexico 2015")
 table rescaled, statistic(mean ess)
+graph export $results/ESS

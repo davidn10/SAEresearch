@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "D:\david\SAE\SAE_research_with_Melany\MEX"
 
 clear all
 set more off
@@ -6,7 +6,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$data\census_proc_MEX_2010.dta"
@@ -53,7 +53,6 @@ set sortseed 648743
 forvalues i=1(1)100 {
 ***To select variables with same distribution in survey and census
 use "$rawsamples\selected\sample_`i'.dta", clear
-
 preserve
 drop psu_id hid ENT mun_id FACTOR FACTOR_res FACTOR_res2 state_* ln_pchinc pchinc psu_id2 hid2 mun_id2 povline fgt0 fgt1 fgt2 fgt0_m fgt1_m fgt2_m
 

@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2000\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_fh\"
@@ -131,7 +131,7 @@ putexcel V`i'=`Nds2_`i''
 putexcel W`i'=`Ndt2_`i''
 
 di "`i'"
-
+/*
 ***Only larger municipalities
 spearman fgt0_true sim_fgt0 if small_mun==0
 local rho_`i'=r(rho)
@@ -182,6 +182,7 @@ putexcel AQ`i'=`Ndt2_`i''
 
 
 di "`i'"
+*/ 
 
 }
 

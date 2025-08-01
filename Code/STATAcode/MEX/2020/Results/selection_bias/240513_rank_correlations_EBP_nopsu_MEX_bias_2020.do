@@ -30,7 +30,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-
+/*
 putexcel set "$results\rankcorr_EBP_nopsu_bias55", replace
 
 forvalues i=1(1)100 {
@@ -52,7 +52,6 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-
 use "$results\nopsu\output_bias55\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
@@ -172,7 +171,7 @@ di "`i'"
 
 
 }
-
+*/ 
 
 putexcel set "$results\rankcorr_EBP_nopsu_bias11b11", replace
 
@@ -262,7 +261,7 @@ putexcel Q`i'=`Nin2_`i''
 putexcel R`i'=`Nout2_`i''
 putexcel S`i'=`Ndt2_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 spearman fgt0_true sim_fgt0 if small_mun==0
 local rho_`i'=r(rho)
 local N_`i'=r(N)
@@ -309,13 +308,14 @@ putexcel AK`i'=`N2_`i''
 putexcel AL`i'=`Nin2_`i''
 putexcel AM`i'=`Nout2_`i''
 putexcel AN`i'=`Ndt2_`i''
-
+*/ 
 
 di "`i'"
 
 
 }
 
+exit 
 
 /*===================================
 =====================================

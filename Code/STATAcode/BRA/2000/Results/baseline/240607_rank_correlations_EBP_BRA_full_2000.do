@@ -26,7 +26,7 @@ save `census'
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\rankcorr_EBP_unit_wow", replace
+putexcel set "$results\rankcorr_EBP_unit_h", replace
 
 forvalues i=1(1)100{
 
@@ -48,7 +48,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\unit\output_wow\sim_ebp_sample_`i'", clear
+use "$results\unit\output_h\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
 rename fgt sim_fgt0
@@ -132,7 +132,7 @@ putexcel U`i'=`Nout2_`i''
 putexcel V`i'=`Nds2_`i''
 putexcel W`i'=`Ndt2_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 spearman fgt0_true sim_fgt0 if small_mun==0
 local rho_`i'=r(rho)
 local N_`i'=r(N)
@@ -179,7 +179,7 @@ putexcel AN`i'=`N2_`i''
 putexcel AO`i'=`Nin2_`i''
 putexcel AP`i'=`Nout2_`i''
 putexcel AQ`i'=`Ndt2_`i''
-
+*/ 
 
 di "`i'"
 }
@@ -190,7 +190,7 @@ di "`i'"
 Unit context models
 =====================================
 ===================================*/
-putexcel set "$results\rankcorr_EBP_context_wow", replace
+putexcel set "$results\rankcorr_EBP_context_h", replace
 
 forvalues i=1(1)100 {
 
@@ -213,7 +213,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\context\output_wow\sim_ebp_sample_`i'", clear
+use "$results\context\output_h\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
 rename fgt sim_fgt0
@@ -298,7 +298,7 @@ putexcel U`i'=`Nout2_`i''
 putexcel V`i'=`Nds2_`i''
 putexcel W`i'=`Ndt2_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 spearman fgt0_true sim_fgt0 if small_mun==0
 local rho_`i'=r(rho)
 local N_`i'=r(N)
@@ -345,6 +345,7 @@ putexcel AN`i'=`N2_`i''
 putexcel AO`i'=`Nin2_`i''
 putexcel AP`i'=`Nout2_`i''
 putexcel AQ`i'=`Ndt2_`i''
+*/ 
 
 di "`i'"
 }

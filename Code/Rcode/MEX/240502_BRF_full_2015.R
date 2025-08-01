@@ -8,7 +8,7 @@ library(foreign)
 
 set.seed(7)
 
-setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2015/full_census_new")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2015/full_census_new")
 
 census<- read_dta("census/census_subarea.dta")
 census<-as.data.frame(census)

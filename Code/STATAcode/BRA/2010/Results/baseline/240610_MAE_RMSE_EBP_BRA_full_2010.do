@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new" 
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp\"
@@ -27,7 +27,7 @@ Unit level models
 =====================================
 ===================================*/
 ***Rescaling weights
-putexcel set "$results\errors_EBP_unit_g", replace
+putexcel set "$results\errors_EBP_unit_h", replace
 
 forvalues i=1(1)100{
 
@@ -49,7 +49,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\unit\output_g\sim_ebp_sample_`i'", clear
+use "$results\unit\output_h\sim_ebp_sample_`i'", clear
 destring area  fgt, replace
 rename area mun_id
 rename fgt sim_fgt0
@@ -145,7 +145,7 @@ putexcel M`i'=`rme_`i''
 putexcel N`i'=`rmein_`i''
 putexcel O`i'=`rmeout_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 keep if small_mun==0
 
 egen ME2=mean(error_me)
@@ -212,6 +212,7 @@ putexcel AA`i'=`meout_`i''
 putexcel AC`i'=`rme_`i''
 putexcel AD`i'=`rmein_`i''
 putexcel AE`i'=`rmeout_`i''
+*/ 
 
 di "`i'"
 }
@@ -222,7 +223,7 @@ di "`i'"
 Unit context models
 =====================================
 ===================================*/
-putexcel set "$results\errors_EBP_context_g", replace
+putexcel set "$results\errors_EBP_context_h", replace
 
 forvalues i=1(1)100 {
 
@@ -244,7 +245,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\context\output_g\sim_ebp_sample_`i'", clear
+use "$results\context\output_h\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
 rename fgt sim_fgt0
@@ -341,7 +342,7 @@ putexcel M`i'=`rme_`i''
 putexcel N`i'=`rmein_`i''
 putexcel O`i'=`rmeout_`i''
 
-***Only larger municipalities
+/***Only larger municipalities
 keep if small_mun==0
 
 egen ME2=mean(error_me)
@@ -408,6 +409,7 @@ putexcel AA`i'=`meout_`i''
 putexcel AC`i'=`rme_`i''
 putexcel AD`i'=`rmein_`i''
 putexcel AE`i'=`rmeout_`i''
+*/ 
 
 di "`i'"
 }

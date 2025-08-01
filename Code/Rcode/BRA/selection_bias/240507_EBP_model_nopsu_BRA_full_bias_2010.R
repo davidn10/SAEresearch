@@ -22,6 +22,7 @@ mysamples <- list.files("rawsamples_bias/bias11b11/selected")
 mybetas <- list.files("vars_selected_bias/nopsu/bias11b11/betavars_selected_bias") 
 
 for(i in 1:length(mysamples)) {                              # Head of for-loop
+  
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("vars_selected_bias/nopsu/bias11b11/betavars_selected_bias/",

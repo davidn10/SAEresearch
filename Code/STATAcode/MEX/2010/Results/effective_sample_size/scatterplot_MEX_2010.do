@@ -1,3 +1,5 @@
+* Figure 6 relating accuracy to effective sample size 
+
 global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
@@ -6,9 +8,14 @@ global simcensus "$currdata\simcensus\"
 
 drop _all 
 import excel "$results\ESS_MEX_2010"
+if A[2]==. {
+drop in 1/2 
+} 
+
 rename A ess_rescaled 
 rename B ess_norescale 
 gen sim=_n 
+su sim 
 save "$results\ESS_MEX_2010", replace 
 
 drop _all 
@@ -36,8 +43,8 @@ gen spearman_rescaled=spearman if rescaled==1
 gen spearman_norescale=spearman if rescaled==0 
 label var ess "Effective sample size across areas"
 label var spearman_rescaled "Rescaled weights"
-label var spearman_norescale "Population weights"
+label var spearman_norescale "Raw weights"
 global results "$currdata\results\effective_sample_size" 
 
 twoway (scatter spearman_rescaled spearman_norescale ess, msymbol(oh X)) (lfit spearman_norescale ess,lcolor(red)) (lfit spearman_rescale ess, lcolor(blue)), xlabel(0(100)800) xmtick(0(20)800) ylabel(0.65(0.05)0.95) ymtick(0.65(0.05)0.95) legend(position(bottom)) ytitle("Spearman Rank Correlation") saving($results/ESS_scatter_MEX_2010, replace) legend(order(1 2) rows(1) size(small)) title("Mexico 2010")
-table rescaled, statistic(mean ess)
+table rescaled, statistic(mean ess) 

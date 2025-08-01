@@ -5,7 +5,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\2000\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global data "$currdata\rawdata\"
 global rawsamples "$currdata\rawsamples\"
 global census "$data\census_proc_BRA_2000.dta"
@@ -44,6 +44,7 @@ Creating simulates surveys
 
 set sortseed 648743
 
+
 forvalues i=1(1)100 {
 ***To select variables with same distribution in survey and census
 use "$rawsamples\selected\sample_`i'.dta", clear
@@ -70,7 +71,9 @@ use `sample`i'_complete', clear
 
 ***Lasso models
 set seed 648743
+
 lasso linear ln_pchinc (state_1-state_26) $myvar [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+
 estimates store bicmodel2
 di "`e(allvars_sel)'"
 local hhvars=e(allvars_sel) //best model
@@ -92,6 +95,13 @@ di "`e(allvars_sel)'"
 local hhvarsres=e(allvars_sel) //best model
 global postlassores `hhvarsres'
 
+/*
+gen zero=pchinc==0 
+lasso linear zero (state_1-state_26) $myvar [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+estimates store bicmodel_zero 
+local hhvarszero=e(allvars_sel)
+global postlassozero `hhvarszero'
+*/ 
 
 ***Save samples and variables post lasso to run ELL and EBP
 preserve
@@ -111,7 +121,21 @@ keep $postlassores
 save "$currdata\alphavars_selected\alpha_`i'.dta", replace
 restore
 
+/*
+preserve 
+use `sample`i'_complete', clear
+sort mun_id
+keep if _n==1
+keep $postlassozero
+save "$currdata\zerovars_selected\zero_`i'.dta", replace
+restore
+*/ 
+
 }
+
+*/
+
+
 
 
 
@@ -125,6 +149,7 @@ Saving census context
 *=========================================*/
 use "$currdata\census\census.dta", clear
 keep hid mun_id  psu_id  popwt pchinc ln_pchinc  $mycontextmun state_*
+
 save "$currdata\census\census_context.dta", replace
 
 set seed 648743
@@ -134,6 +159,20 @@ Creating survey data for unit-context models
 forvalues i=1(1)100 {
 
 use "$rawsamples\selected\sample_`i'.dta", clear
+
+
+preserve
+drop hid mun_id psu_id FACTOR FACTOR_res FACTOR_res2 hid2 pchinc ln_pchinc fgt0_m state_* 
+keep *_psu *_mun 
+ds
+local myvar=r(varlist)
+global mycontextmun `myvar'
+restore
+
+
+
+
+
 
 keep mun_id*   psu_id  hid* pchinc $mycontextmun  ln_pchinc FACTOR FACTOR_res FACTOR_res2 state_*
 
@@ -146,7 +185,9 @@ Model selection using LASSO
  ***LASSO models to select variables for the models
 set seed 648743
 
-lasso linear ln_pchinc (state_1-state_26) $mycontextmun  [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+
+lasso linear ln_pchinc (state_1-state_26) $mycontextmun [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+
 estimates store bicmodel
 di "`e(allvars_sel)'"
 local hhvars_context=e(allvars_sel) //best model
@@ -168,6 +209,13 @@ di "`e(allvars_sel)'"
 local hhvarsres_context=e(allvars_sel) //best model
 global postlassores_context `hhvarsres_context'
 
+/*
+gen zero=pchinc==0 
+lasso linear zero (state_1-state_26) $mycontextmun [iw=FACTOR], selection(bic, postselection) cluster(mun_id)
+estimates store bicmodel_zero 
+local hhvarszero_context=e(allvars_sel)
+global postlassozero_context `hhvarszero_context'
+*/ 
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 ***Saving selected variables for EBP models in R (BREAK)
@@ -188,5 +236,16 @@ keep if _n==1
 keep $postlassores_context
 save "$currdata\context\alphavars_selected\alpha_`i'.dta", replace
 restore
+
+/*
+preserve
+use `sample`i'_complete', clear
+sort mun_id
+keep if _n==1
+keep $postlassozero_context
+save "$currdata\context\zerovars_selected\zero_`i'.dta", replace
+restore
+*/ 
+
 }
 
