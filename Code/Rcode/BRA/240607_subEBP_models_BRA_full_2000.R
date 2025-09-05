@@ -82,7 +82,7 @@ census<- read_dta("census/census_subebp.dta")
 census<-as.data.frame(census)
 
 mysamples <- list.files("subarea_ebp") 
-
+mysamples <- mysamples[grepl("*.dta",mysamples)]
 for(i in 1:length(mysamples)) {                              # Head of for-loop
       ###Reading sample data
       assign(paste0("sample"),                                   # Read and store data frames
