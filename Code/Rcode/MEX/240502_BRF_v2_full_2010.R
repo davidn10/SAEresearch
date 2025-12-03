@@ -1,3 +1,5 @@
+detach(package:povmap)
+install.packages("D:/david/povmap", repos = NULL, type="source")
 
 ###############################################
 ## BRF models
@@ -23,13 +25,13 @@ registerDoParallel(cl)
 mcoptions <- list(preschedule=TRUE)
 
 
-mysamples <- list.files("subarea/samples") 
+mysamples <- list.files("subarea/fullsamples") 
 
 #Model and results
-for(i in 93:93) {                              # Head of for-loop
-#brflist <- foreach(i=1:100,.options.multicore=mcoptions,.packages=c("haven","grf")) %dopar% { # Head of for-loop 
+#for(i in 93:93) {                              # Head of for-loop
+brflist <- foreach(i=1:100,.options.multicore=mcoptions,.packages=c("haven","grf")) %dopar% { # Head of for-loop 
       assign(paste0("sample"),                                   # Read and store data frames
-                read_dta(paste0("subarea/samples/",
+                read_dta(paste0("subarea/fullsamples/",
                                 mysamples[i])))
       
       
@@ -51,8 +53,8 @@ for(i in 93:93) {                              # Head of for-loop
       brf_results <- boosted_regression_forest(X=x_covar,Y = yvar, 
                                                sample.weights = sample$FACTOR_res2, 
                                                cluster = as.factor(sample$mun_id), 
-                                              tune.parameters = "all", honesty=F,
-                                              num.trees=10000
+                                              tune.parameters = "all", honesty=F
+                                              #,num.trees=10000
                                               ) 
  
           

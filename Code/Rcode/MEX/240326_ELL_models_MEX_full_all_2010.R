@@ -26,7 +26,13 @@ mysamples <- list.files("rawsamples_full/selected")
 mybetas <- list.files("betavars_selected") 
 myalphas <- list.files("alphavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+gc()
+cl <- makeCluster(5)
+registerDoParallel(cl)
+mcoptions <- list(preschedule=T)
+
+elllist <- foreach(i=1:100,.options.multicore=mcoptions,.packages=c("haven","povmap")) %dopar% { # Head of for-loop 
+#for(i in 1:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("betavars_selected/",

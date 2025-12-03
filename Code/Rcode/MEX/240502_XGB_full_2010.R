@@ -1,3 +1,5 @@
+detach(package:povmap)
+install.packages("D:/david/povmap", repos = NULL, type="source")
 
 ###############################################
 ## BRF models
@@ -12,7 +14,7 @@ library(foreign)
 set.seed(7)
 
 #setwd("D:/SAE_project/MEX/2010/full_census_new/")
-setwd("H:/david/SAE/SAE_research_with_Melany/MEX/2010/full_census_new")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX/2010/full_census_new")
 
 census<- read_dta("census/census_subarea.dta")
 census<-as.data.frame(census)
@@ -23,7 +25,7 @@ census<-as.data.frame(census)
 #sample<- read_dta("subarea/samples/sample_1.dta")
 #sample<-as.data.frame(sample)
 
-mysamples <- list.files("subarea/samples") 
+mysamples <- list.files("subarea/fullsamples") 
 
 #Model and results
 for(i in 1:length(mysamples)) {                              # Head of for-loop
@@ -32,7 +34,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       #       read_dta(paste0("subarea/samples/",
       #                       mysamples[i])))
       assign(paste0("sample"),                                   # Read and store data frames
-                read_dta(paste0("subarea/samples/",
+                read_dta(paste0("subarea/fullsamples/",
                                 mysamples[i])))
       
       
@@ -51,7 +53,17 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       formula <- paste0("poor_direct ~ ", formula)
       formula <- as.formula(formula)
       
-      xgb_tune <- povmap:::xgb_tune(fixed=formula, smp_data=sample, domains="mun_id", cluster="mun_id",data=sample,smp_weights=FACTOR_res2) 
+      #xgb_tune <- povmap:::xgb_tune(fixed=formula, smp_data=sample, domains="mun_id", cluster="mun_id",data=sample,smp_weights=FACTOR_res2) 
+      
+      xgb <- povmap:::xgb(fixed = formula, smp_data=sample, smp_weights="popw",
+                                pop_data=census_xgb,pop_weight="population",
+                                domains="lgacode",sub_domains="poly_id",
+                                transformation="no",
+                                nround=tune$nround,
+                                na.rm=T,weightedBS=T, center_residuals=T,
+                                objective = "reg:logistic"
+      )
+      
       
       #ebp <- povmap:::ebp(fixed = ebpformula,
       #                    pop_data = census,
