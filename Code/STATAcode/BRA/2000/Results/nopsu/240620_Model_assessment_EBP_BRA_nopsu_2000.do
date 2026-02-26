@@ -548,23 +548,23 @@ use `norm_context_wow', clear
 append using `norm_context_nlme'
 append using `norm_context_g'
 append using `norm_context_h'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\normality_nopsu_2010.dta", replace
+save "$results\results_ebp\normality_nopsu_2000.dta", replace
 
 
 use `r2_context_wow', clear
 append using `r2_context_nlme'
 append using `r2_context_g'
 append using `r2_context_h'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\r2_nopsu_2010.dta", replace
+save "$results\results_ebp\r2_nopsu_2000.dta", replace
 
 use `var_context_wow', clear
 append using `var_context_nlme'
 append using `var_context_g'
 append using `var_context_h'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\var_nopsu_2010.dta", replace
+save "$results\results_ebp\var_nopsu_2000.dta", replace

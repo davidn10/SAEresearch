@@ -2,13 +2,14 @@ clear all
 set more off
 
 /*=========================================
-***Full Mexico 2010 
+***Full Mexico 2000 
 =========================================*/
 
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\2000\full_census"
+ 
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global results "$currdata\results"
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -180,9 +181,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\normality_h_2010.dta", replace
+save "$results\results_ebp\normality_h_2000.dta", replace
 
 /*==========================
 *** R-squared
@@ -219,9 +220,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\rsquared_h_2010.dta", replace
+save "$results\results_ebp\rsquared_h_2000.dta", replace
 
 /*====================
       Variances
@@ -252,9 +253,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\variance_h_2010.dta", replace
+save "$results\results_ebp\variance_h_2000.dta", replace
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -424,9 +425,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\normality_wow_2010.dta", replace
+save "$results\results_ebp\normality_wow_2000.dta", replace
 
 /*==========================
 *** R-squared
@@ -463,9 +464,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\rsquared_wow_2010.dta", replace
+save "$results\results_ebp\rsquared_wow_2000.dta", replace
 
 /*====================
       Variances
@@ -496,9 +497,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\variance_wow_2010.dta", replace
+save "$results\results_ebp\variance_wow_2000.dta", replace
 
 
 
@@ -671,9 +672,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\normality_nlme_2010.dta", replace
+save "$results\results_ebp\normality_nlme_2000.dta", replace
 
 /*==========================
 *** R-squared
@@ -710,9 +711,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\rsquared_nlme_2010.dta", replace
+save "$results\results_ebp\rsquared_nlme_2000.dta", replace
 
 /*====================
       Variances
@@ -743,9 +744,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\variance_nlme_2010.dta", replace
+save "$results\results_ebp\variance_nlme_2000.dta", replace
 
 
 
@@ -918,9 +919,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\normality_g_2010.dta", replace
+save "$results\results_ebp\normality_g_2000.dta", replace
 
 /*==========================
 *** R-squared
@@ -957,9 +958,9 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\rsquared_g_2010.dta", replace
+save "$results\results_ebp\rsquared_g_2000.dta", replace
 
 /*====================
       Variances
@@ -990,6 +991,6 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2000"
 order year model
-save "$results\results_ebp\variance_g_2010.dta", replace
+save "$results\results_ebp\variance_g_2000.dta", replace

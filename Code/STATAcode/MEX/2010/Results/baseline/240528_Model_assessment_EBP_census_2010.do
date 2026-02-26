@@ -8,7 +8,7 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+ global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global results "$currdata\results"
 
 /*====================
@@ -20,7 +20,7 @@ putexcel set "$results\results_ebp\normality_unit_census", replace
 
 forvalues i=1(1)100{
 
-import excel "$results\results_ebp\unit\census\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
+import excel "$results\results_ebp\unit\census_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
 
 sum Skewness if rownames=="Error"
 local skw1_`i'=r(mean)
@@ -45,7 +45,7 @@ putexcel set "$results\results_ebp\normality_context_census", replace
 
 forvalues i=1(1)100{
 
-import excel "$results\results_ebp\context\census\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
+import excel "$results\results_ebp\context\census_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C15:G17) firstrow clear
 
 sum Skewness if rownames=="Error"
 local skw1_`i'=r(mean)
@@ -72,7 +72,7 @@ putexcel E`i'=`kur2_`i''
 putexcel set "$results\results_ebp\rsquared_unit_census", replace
 
 forvalues i=1(1)100{
-	import excel "$results\results_ebp\unit\census\model_sample_`i'.dta.xlsx", sheet("summary")  cellrange(D23:G24) firstrow clear
+	import excel "$results\results_ebp\unit\census_h\model_sample_`i'.dta.xlsx", sheet("summary")  cellrange(D23:G24) firstrow clear
 	foreach x in Marginal_R2 Conditional_R2 Marginal_Area_R2 Conditional_Area_R2 {
 		sum `x'
 		local `x'_`i'=r(mean)
@@ -88,7 +88,7 @@ forvalues i=1(1)100{
 putexcel set "$results\results_ebp\rsquared_context_census", replace
 
 forvalues i=1(1)100{
-	import excel "$results\results_ebp\context\census\model_sample_`i'.dta.xlsx", sheet("summary")  cellrange(D23:G24) firstrow clear
+	import excel "$results\results_ebp\context\census_h\model_sample_`i'.dta.xlsx", sheet("summary")  cellrange(D23:G24) firstrow clear
 	foreach x in Marginal_R2 Conditional_R2 Marginal_Area_R2 Conditional_Area_R2 {
 		sum `x'
 		local `x'_`i'=r(mean)
@@ -109,7 +109,7 @@ putexcel set "$results\results_ebp\variance_unit_census", replace
 
 forvalues i=1(1)100{
 
-import excel "$results\results_ebp\unit\census\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C19:D21) firstrow clear
+import excel "$results\results_ebp\unit\census_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C19:D21) firstrow clear
 
 sum Variance if rownames=="Error"
 local var1_`i'=r(mean)
@@ -126,7 +126,7 @@ putexcel set "$results\results_ebp\variance_context_census", replace
 
 forvalues i=1(1)100{
 
-import excel "$results\results_ebp\context\census\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C19:D21) firstrow clear
+import excel "$results\results_ebp\context\census_h\model_sample_`i'.dta.xlsx", sheet("summary") cellrange(C19:D21) firstrow clear
 
 sum Variance if rownames=="Error"
 local var1_`i'=r(mean)

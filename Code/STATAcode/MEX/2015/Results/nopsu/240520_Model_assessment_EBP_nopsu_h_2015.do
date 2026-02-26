@@ -2,13 +2,13 @@ clear all
 set more off
 
 /*=========================================
-***Full Mexico 2010 
+***Full Mexico 2015 
 =========================================*/
 
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\MEX\2015\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global results "$currdata\results"
 
 /*====================
@@ -96,7 +96,7 @@ rename E kur_re
 collapse (mean) skw_error skw_re kur_error kur_re
 g model="Context"
 order model
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\normality_nopsu_h_2015.dta", replace
 
@@ -116,7 +116,7 @@ rename E r2_area_cond
 collapse (mean) r2_marg r2_cond r2_area_marg r2_area_cond
 g model="Context"
 order model
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\rsquared_nopsu_h_2015.dta", replace
 
@@ -132,6 +132,6 @@ rename B var_re
 collapse (mean) var_error var_re
 g model="Context"
 order model
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\variance_nopsu_h_2015.dta", replace

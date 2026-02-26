@@ -1,4 +1,4 @@
-cd "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
+cd "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 
 	** subarea model 
 	/** prepare census 

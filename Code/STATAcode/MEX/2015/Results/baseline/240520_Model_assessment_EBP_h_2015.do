@@ -9,7 +9,7 @@ set more off
  Defining globals
  *=========================================*/
 global currdata "D:\SAE_project\MEX\2015\full_census_new"
-global currdata "H:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global results "$currdata\results"
 
 /*====================
@@ -174,7 +174,7 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\normality_h_2015.dta", replace
 
@@ -213,7 +213,7 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\rsquared_h_2015.dta", replace
 
@@ -246,6 +246,6 @@ save `context'
 
 use `unit', clear
 append using `context'
-g year="2010"
+g year="2015"
 order year model
 save "$results\results_ebp\variance_h_2015.dta", replace
