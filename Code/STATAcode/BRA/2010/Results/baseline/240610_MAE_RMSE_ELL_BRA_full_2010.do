@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\BRA\2010\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ell\"
@@ -27,7 +27,7 @@ Unit level models
 =====================================
 ===================================*/
 ***Rescaling weights
-putexcel set "$results\errors_ELL_unit_h", replace
+putexcel set "$results\errors_ELL_unit", replace
 
 forvalues i=1(1)100{
 
@@ -222,7 +222,7 @@ di "`i'"
 Unit context models
 =====================================
 ===================================*/
-putexcel set "$results\errors_ELL_context_h", replace
+putexcel set "$results\errors_ELL_context", replace
 
 forvalues i=1(1)100 {
 

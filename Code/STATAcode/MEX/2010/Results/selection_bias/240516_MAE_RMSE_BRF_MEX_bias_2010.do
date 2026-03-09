@@ -159,7 +159,7 @@ putexcel O`i'=`rmseout_`i''
 di "`i'"
 }
 
-*/ 
+
 
 
 putexcel set "$results\errors_BRF_subarea_bias11b11", replace

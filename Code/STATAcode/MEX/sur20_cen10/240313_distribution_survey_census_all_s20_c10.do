@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -6,18 +6,18 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata10 "D:\SAE_project\MEX\2010\full_census_new"
+global currdata10 "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global data10 "$currdata10\rawdata\"
 global rawsamples10 "$currdata10\rawsamples_full\"
 global census10 "$data10\census_proc_MEX_2010.dta"
 
-global currdata20 "D:\SAE_project\MEX\2020\full_census"
+global currdata20 "H:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 global data20 "$currdata20\rawdata\"
 global rawsamples20 "$currdata20\rawsamples_full\"
 global census20 "$data20\census_proc_MEX_2020.dta"
 
-global currdatas20c10 "D:\SAE_project\MEX\s20_c10\full_census"
-global results "$currdatas20c10\results\results"
+global currdatas20c10 "H:\david\SAE\SAE_research_with_Melany\MEX\s20_c10\full_census"
+global results "$currdatas20c10\results"
 
 //global with candidate variables for unit level models
 global myvar wall_improved roof_improved floor_improved water_improved electri flush_toilet sewage own_house cook_fuel over_crowding over_crowding_ext stove shower radio tele fridge washing auto compu cell internet hhsize hhsize2 female_hh educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus sh_literate depen_ch depen_old

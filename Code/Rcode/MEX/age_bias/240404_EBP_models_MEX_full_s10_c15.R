@@ -10,7 +10,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("C:/Users/wb462478/Desktop/SAE_project/MEX")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models
@@ -18,13 +18,15 @@ setwd("C:/Users/wb462478/Desktop/SAE_project/MEX")
 
 ##Reading sample and census files
 census<- read_dta("2015/full_census_new/census/census.dta")
+census$hhsize2=census$hhsize^2 
 census<-as.data.frame(census)
+
 
 mysamples <- list.files("s10_c15/full_census/rawsamples/selected") 
 mybetas   <- list.files("s10_c15/full_census/betavars_selected") 
 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+for(i in 88:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("s10_c15/full_census/betavars_selected/",
@@ -42,17 +44,27 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       assign(paste0("sample"),                                   # Read and store data frames
              read_dta(paste0("s10_c15/full_census/rawsamples/selected/",
                              mysamples[i])))
+    
+      
+      
       sample<-as.data.frame(sample)
-
+      sample<- sample[,c("ln_pchinc","mun_id","FACTOR",coef_names)]
+      census2<- census[,c("mun_id","popwt",coef_names)]
+      
+      #drop sample observations not in population 
+      sample <- na.omit(sample)
+      census2 <- na.omit(census2)
+      sample <- sample[sample$mun_id %in% census2$mun_id, ]
+      
       ## EBP estimation
       ebp <- povmap:::ebp(fixed = ebpformula,
-                          pop_data = census,
+                          pop_data = census2,
                           pop_domains = "mun_id",
                           pop_weights = "popwt",
                           smp_data = sample,
                           smp_domains = "mun_id",
                           weights = "FACTOR",
-                          #weights_type = "nlme",
+                          weights_type = "hybrid",
                           rescale_weights = T,
                           nlme_opt="optim",
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
@@ -71,9 +83,9 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
       colnames(coefficients) <- c("names","coefficients") 
-      write_dta(simulation, paste0("s10_c15/full_census/results/results_ebp/unit/output/sim_ebp_",mysamples[i]))
-      write_dta(coefficients, paste0("s10_c15/full_census/results/results_ebp/unit/model/coef_",mysamples[i]))
-      write.excel(ebp, paste0("s10_c15/full_census/results/results_ebp/unit/model/model_",mysamples[i],".xlsx"))
+      write_dta(simulation, paste0("s10_c15/full_census/results/results_ebp/unit/output_h/sim_ebp_",mysamples[i]))
+      write_dta(coefficients, paste0("s10_c15/full_census/results/results_ebp/unit/model_h/coef_",mysamples[i]))
+      write.excel(ebp, paste0("s10_c15/full_census/results/results_ebp/unit/model_h/model_",mysamples[i],".xlsx"))
 }
 
 
@@ -83,12 +95,13 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 
 ##Reading sample and census files
 census<- read_dta("2015/full_census_new/census/census.dta")
+census$hhsize2 <- census$hhsize^2
 census<-as.data.frame(census)
 
 mysamples <- list.files("s10_c15/full_census/rawsamples/selected") 
 mybetas <- list.files("s10_c15/full_census/context/betavars_selected") 
 
-for(i in 1:length(mysamples)) {                              # Head of for-loop
+for(i in 72:length(mysamples)) {                              # Head of for-loop
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("s10_c15/full_census/context/betavars_selected/",
@@ -116,7 +129,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           smp_data = sample,
                           smp_domains = "mun_id",
                           weights = "FACTOR",
-                          weights_type = "nlme",
+                          weights_type = "hybrid",
                           nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
@@ -136,8 +149,8 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
       names<-as.data.frame(rownames(coefficients))
       coefficients<-cbind(names,coefficients)
       colnames(coefficients) <- c("names","coefficients") 
-      write_dta(simulation, paste0("s10_c15/full_census/results/results_ebp/context/output_nlme/sim_ebp_",mysamples[i]))
-      write_dta(coefficients, paste0("s10_c15/full_census/results/results_ebp/context/model_nlme/coef_",mysamples[i]))
-      write.excel(ebp, paste0("s10_c15/full_census/results/results_ebp/context/model_nlme/model_",mysamples[i],".xlsx"))
+      write_dta(simulation, paste0("s10_c15/full_census/results/results_ebp/context/output_h/sim_ebp_",mysamples[i]))
+      write_dta(coefficients, paste0("s10_c15/full_census/results/results_ebp/context/model_h/coef_",mysamples[i]))
+      write.excel(ebp, paste0("s10_c15/full_census/results/results_ebp/context/model_h/model_",mysamples[i],".xlsx"))
 
 }

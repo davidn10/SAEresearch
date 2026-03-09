@@ -10,7 +10,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("D:/SAE_project/MEX")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models

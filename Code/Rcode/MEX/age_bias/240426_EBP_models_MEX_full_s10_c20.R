@@ -14,7 +14,7 @@ registerDoParallel(cl)
 
 set.seed(7)
 
-setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models
@@ -30,7 +30,6 @@ mybetas   <- list.files("s10_c20/full_census/betavars_selected")
 
 #for(i in 1:length(mysamples)) {                              # Head of for-loop
 ebplist <- foreach(i=1:100,.packages=c("haven","povmap")) %dopar% { # Head of for-loop
-      setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
       ### Variables for EBP model
       assign(paste0("beta"),                                   # Read and store data frames
              read_dta(paste0("s10_c20/full_census/betavars_selected/",

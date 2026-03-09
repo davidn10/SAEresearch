@@ -38,7 +38,7 @@ save `census'
 Unit level models
 =====================================
 ===================================*/
-putexcel set "$results\rankcorr_BRF_v2_subarea", replace
+putexcel set "$results\rankcorr_BRF_subarea", replace
 local runningaverage=0 
 local n=1 
 forvalues i=1(1)100{

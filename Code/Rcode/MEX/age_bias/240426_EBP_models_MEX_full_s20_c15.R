@@ -10,7 +10,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("C:/Users/wb462478/Desktop/SAE_project/MEX")
+setwd("H:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models
@@ -18,6 +18,7 @@ setwd("C:/Users/wb462478/Desktop/SAE_project/MEX")
 
 ##Reading sample and census files
 census<- read_dta("2015/full_census_new/census/census.dta")
+census$hhsize2 <- census$hhsize^2 
 census<-as.data.frame(census)
 
 mysamples <- list.files("s20_c15/full_census/rawsamples/selected") 
@@ -83,6 +84,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
 
 ##Reading sample and census files
 census<- read_dta("2015/full_census_new/census/census.dta")
+census$hhsize2 <- census$hhsize^2 
 census<-as.data.frame(census)
 
 mysamples <- list.files("s20_c15/full_census/rawsamples/selected") 

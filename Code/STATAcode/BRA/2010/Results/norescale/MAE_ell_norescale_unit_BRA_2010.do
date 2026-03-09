@@ -16,7 +16,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-putexcel set "$results\errors_ell_unit_norescale", replace
+putexcel set "$results\errors_ELL_unit", replace
 
 forvalues i=1(1)100{
 	dis `i'

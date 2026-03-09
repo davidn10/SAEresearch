@@ -10,7 +10,7 @@ library("povmap")
 
 set.seed(7)
 
-setwd("D:/SAE_project/MEX")
+setwd("D:/david/SAE/SAE_research_with_Melany/MEX")
 
 #==============================================
 # Unit-level models
@@ -53,7 +53,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           smp_domains = "mun_id",
                           weights = "FACTOR",
                           weights_type = "hybrid",
-                          #nlme_opt="optim",
+                          nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,
@@ -117,7 +117,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           smp_domains = "mun_id",
                           weights = "FACTOR",
                           weights_type = "hybrid",
-                          #nlme_opt="optim",
+                          nlme_opt="optim",
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,

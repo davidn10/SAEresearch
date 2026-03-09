@@ -5,18 +5,18 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata15 "D:\SAE_project\MEX\2015\full_census_new"
+global currdata15 "H:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global data15 "$currdata15\rawdata\"
 global rawsamples15 "$currdata15\rawsamples_full\"
 global census15 "$data15\census_proc_MEX_2015.dta"
 
-global currdata20 "D:\SAE_project\MEX\2020\full_census"
+global currdata20 "H:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
 global data20 "$currdata20\rawdata\"
 global rawsamples20 "$currdata20\rawsamples_full\"
 global census20 "$data20\census_proc_MEX_2020.dta"
 
-global currdatas15c20 "D:\SAE_project\MEX\s15_c20\full_census"
-global results "$currdatas15c20\results\summary"
+global currdatas15c20 "H:\david\SAE\SAE_research_with_Melany\MEX\s15_c20\full_census"
+global results "$currdatas15c20\results"
 
 //global with candidate variables for unit level models
 global myvar wall_improved roof_improved floor_improved water_improved electri flush_toilet sewage own_house cook_fuel over_crowding over_crowding_ext stove shower radio tele fridge washing auto compu cell internet hhsize hhsize2 female_hh educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus sh_literate depen_ch depen_old
@@ -28,6 +28,7 @@ set seed 648743
 
 ***In the census
 use "$currdata20\census\census.dta", clear
+
 keep psu_id* mun_id*  hid* pchinc $myvar ln_pchinc popwt ENT state_*
 
 putexcel set "$results\results_distrib\distribution_census_20", replace
@@ -317,10 +318,11 @@ putexcel G33="sh_literate"
 
 
 
-***Getting samples 2010
+***Getting samples 2015
 forvalues i=1(1)100 {
 use "$rawsamples15\sample_`i'.dta", clear
 merge 1:1 hid using "$currdata15\census\census.dta"
+gen hhsize2=hhsize^2 
 keep if _merge==3
 keep psu_id* mun_id*  hid* pchinc $myvar ln_pchinc povline fgt* FACTOR FACTOR_res FACTOR_res2 ENT state_*
 
@@ -646,6 +648,7 @@ import excel "$results\results_distrib\distribution_census_20.xlsx", sheet("Shee
 
 merge 1:1 A using `survey'
 
+
 g check=1 if (LL_sur<=Meanreg & Meanreg<=UL_sur)
 g check2=1 if (LL_sur<=LL & LL<=UL_sur) | (LL_sur<=UL & UL<=UL_sur)
 g check3=1 if (LL<=LL_sur & LL_sur<=UL) | (LL<=UL_sur & UL_sur<=UL)
@@ -669,6 +672,7 @@ global tokeep `tokeep'
 ***Generating samples with selected variables
 use "$rawsamples15\sample_`i'.dta", clear
 merge 1:1 hid using "$currdata15\census\census.dta"
+gen hhsize2=hhsize^2 
 keep if _merge==3
 
 keep psu_id* mun_id*  hid* pchinc $tokeep  ln_pchinc povline fgt* FACTOR FACTOR_res FACTOR_res2 ENT state_* hhsize*

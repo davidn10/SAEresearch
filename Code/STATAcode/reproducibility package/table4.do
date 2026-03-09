@@ -8,7 +8,7 @@ global results_MEX_2020 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_cen
 global results_BRA_2000 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\results"
 global results_BRA_2010 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\results"
 
-/* 
+
 clear 
 use "$results_MEX_2010\results_ebp\normality_h_2010.dta", replace
 append using "$results_MEX_2015\results_ebp\normality_h_2015.dta" "$results_MEX_2020\results_ebp\normality_h_2020.dta"
@@ -20,6 +20,8 @@ replace country="BRA" if country==""
 
 collapse (mean) skw* kur*, by(model country)
 list 
+* Mexico 
+
 su skw_re if country=="MEX" & model=="Unit" 
 putexcel C4 = `=r(mean)'
 su kur_re if country=="MEX" & model=="Unit" 
@@ -42,7 +44,7 @@ putexcel D7 = `=r(mean)'
 su kur_error if country=="MEX" & model=="Context" 
 putexcel D8 = `=r(mean)'
 
-
+* Brazil 
 
 su skw_re if country=="BRA" & model=="Unit" 
 putexcel F4 = `=r(mean)'
@@ -53,6 +55,7 @@ su skw_error if country=="BRA" & model=="Unit"
 putexcel F7 = `=r(mean)'
 su kur_error if country=="BRA" & model=="Unit" 
 putexcel F8 = `=r(mean)'
+
 
 su skw_re if country=="BRA" & model=="Context" 
 putexcel G4 = `=r(mean)'
@@ -70,8 +73,10 @@ putexcel G8 = `=r(mean)'
 use "$results_MEX_2010\results_ebp\normality_nopsu_h_2010", replace 
 append using "$results_MEX_2015\results_ebp\normality_nopsu_h_2015" "$results_MEX_2020\results_ebp\normality_nopsu_h_2020"
 gen country="MEX" 
-append using "$results_BRA_2000\results_ebp\normality_h_2000.dta"  "$results_BRA_2010\results_ebp\normality_h_2010.dta"
+append using "$results_BRA_2000\results_ebp\normality_nopsu_2000.dta"  "$results_BRA_2010\results_ebp\normality_nopsu_2010.dta"
 replace country="BRA" if country=="" 
+drop if country=="BRA" & model~="Hybrid" 
+replace model="Context" if model=="Hybrid" 
 keep if model=="Context" 
 
 collapse (mean) skw* kur*, by(country model)

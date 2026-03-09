@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -6,18 +6,18 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata10 "D:\SAE_project\MEX\2010\full_census_new"
+global currdata10 "H:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global data10 "$currdata10\rawdata\"
 global rawsamples10 "$currdata10\rawsamples_full\"
 global census10 "$data10\census_proc_MEX_2010.dta"
 
-global currdata15 "D:\SAE_project\MEX\2015\full_census_new"
+global currdata15 "H:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global data15 "$currdata15\rawdata\"
 global rawsamples15 "$currdata15\rawsamples_full\"
 global census15 "$data15\census_proc_MEX_2015.dta"
 
-global currdatas15c10 "D:\SAE_project\MEX\s15_c10\full_census"
-global results "$currdatas15c10\results\results"
+global currdatas15c10 "H:\david\SAE\SAE_research_with_Melany\MEX\s15_c10\full_census"
+global results "$currdatas15c10\results"
 
 //global with candidate variables for unit level models
 global myvar wall_improved roof_improved floor_improved water_improved electri flush_toilet sewage own_house cook_fuel over_crowding over_crowding_ext stove shower radio tele fridge washing auto compu cell internet hhsize hhsize2 female_hh educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus sh_literate depen_ch depen_old
@@ -29,6 +29,7 @@ set seed 648743
 
 ***In the census
 use "$currdata10\census\census.dta", clear
+
 keep psu_id* mun_id*  hid* pchinc $myvar ln_pchinc popwt ENT state_*
 
 putexcel set "$results\results_distrib\distribution_census_10", replace
@@ -323,6 +324,7 @@ forvalues i=1(1)100 {
 use "$rawsamples15\sample_`i'.dta", clear
 merge 1:1 hid using "$currdata15\census\census.dta"
 keep if _merge==3
+gen hhsize2=hhsize^2 
 keep psu_id* mun_id*  hid* pchinc $myvar ln_pchinc povline fgt* FACTOR FACTOR_res FACTOR_res2 ENT state_*
 
 
@@ -671,7 +673,7 @@ global tokeep `tokeep'
 use "$rawsamples15\sample_`i'.dta", clear
 merge 1:1 hid using "$currdata15\census\census.dta"
 keep if _merge==3
-
+gen hhsize2=hhsize^2 
 keep psu_id* mun_id*  hid* pchinc $tokeep  ln_pchinc povline fgt* FACTOR FACTOR_res FACTOR_res2 ENT state_* hhsize*
 
 desc,short

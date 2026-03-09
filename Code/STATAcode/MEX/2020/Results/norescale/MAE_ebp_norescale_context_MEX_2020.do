@@ -2,7 +2,7 @@
  Defining globals
  *=========================================*/
 
-global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\results_ebp_norescale"
@@ -16,7 +16,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-putexcel set "$results\errors_EBP_context_hh", replace
+putexcel set "$results\errors_EBP_context_norescale", replace
 
 forvalues i=1(1)100{
 	dis `i'

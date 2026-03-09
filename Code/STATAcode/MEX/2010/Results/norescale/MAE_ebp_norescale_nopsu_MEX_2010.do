@@ -16,7 +16,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-putexcel set "$results\errors_EBP_nopsu_hh", replace
+putexcel set "$results\errors_EBP_nopsu_norescale", replace
 
 forvalues i=1(1)100{
 	dis `i'
@@ -40,7 +40,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\context\output_nopsu_h\sim_ebp_sample_`i'", clear
+use "$results\context\output_h\sim_ebp_sample_`i'", clear
 destring area fgt, replace 
 rename area mun_id
 rename fgt sim_fgt0

@@ -6,8 +6,8 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\s10_c15\full_census\"
-global simcensus15 "D:\SAE_project\MEX\2015\full_census_new\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s10_c15\full_census\"
+global simcensus15 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\"
 global results "$currdata\results\results_ebp"
 
 set seed 648743

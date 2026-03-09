@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -6,18 +6,18 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata15 "D:\SAE_project\MEX\2015\full_census_new"
+global currdata15 "H:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global data15 "$currdata15\rawdata\"
 global rawsamples15 "$currdata15\rawsamples_full\"
 global census15 "$data10\census_proc_MEX_2015.dta"
 
-global currdata20 "D:\SAE_project\MEX\2020\full_census"
+global currdata20 "H:\david\SAE\SAE_research_with_Melany\MEX\\2020\full_census"
 global data20 "$currdata20\rawdata\"
 global rawsamples20 "$currdata20\rawsamples_full\"
 global census20 "$data20\census_proc_MEX_2020.dta"
 
-global currdatas20c15 "D:\SAE_project\MEX\s20_c15\full_census"
-global results "$currdatas20c15\results\results"
+global currdatas20c15 "H:\david\SAE\SAE_research_with_Melany\MEX\s20_c15\full_census"
+global results "$currdatas20c15\results"
 
 //global with candidate variables for unit level models
 global myvar wall_improved roof_improved floor_improved water_improved electri flush_toilet sewage own_house cook_fuel over_crowding over_crowding_ext stove shower radio tele fridge washing auto compu cell internet hhsize hhsize2 female_hh educ_hh age_hh sh_educ0_8 sh_educ9_13 sh_educ14_plus sh_literate depen_ch depen_old
@@ -29,6 +29,7 @@ set seed 648743
 
 ***In the census
 use "$currdata15\census\census.dta", clear
+gen  hhsize2=hhsize^2
 keep psu_id* mun_id*  hid* pchinc $myvar ln_pchinc popwt ENT state_*
 
 putexcel set "$results\results_distrib\distribution_census_15", replace

@@ -16,7 +16,7 @@ keep mun_id num_hh
 duplicates drop
 tempfile census
 save `census'
-putexcel set "$results\errors_ell_unit_hh", replace
+putexcel set "$results\errors_ell_unit_h", replace
 
 forvalues i=1(1)100{
 	dis `i'
@@ -37,7 +37,7 @@ save `insample'
 
 
 /*=========================================
-Errors 
+Rank correlations 
 *=========================================*/
 
 use "$results\unit\output\sim_ebp_sample_`i'", clear
