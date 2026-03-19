@@ -1,22 +1,18 @@
-* Figure 6 relating accuracy to effective sample size 
-
-global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 
 global simcensus "$currdata\simcensus\"
 
 drop _all 
-import excel "$results\ESS_MEX_2010"
+import excel "$results\ESS_BRA_2000"
 if A[2]==. {
 drop in 1/2 
 } 
-
 rename A ess_rescaled 
 rename B ess_norescale 
 gen sim=_n 
-su sim 
-save "$results\ESS_MEX_2010", replace 
+save "$results\ESS_BRA_2000", replace 
 
 drop _all 
 global results "$currdata\results\results_ebp\"
@@ -25,7 +21,7 @@ keep A
 rename A spearman_rescaled 
 drop in 1/3 
 gen sim=_n 
-save "$currdata\results\effective_sample_size\spearman_rescaled_MEX_2010", replace 
+save "$currdata\results\effective_sample_size\spearman_rescaled_BRA_2000", replace 
 
 global results "$currdata\results\results_ebp_norescale\"
 drop _all 
@@ -35,8 +31,8 @@ rename A spearman_norescale
 drop in 1/3 
 gen sim=_n 
  
-merge 1:1 sim using "$currdata\results\effective_sample_size\spearman_rescaled_MEX_2010", assert(3) nogen 
-merge 1:1 sim using "$currdata\results\effective_sample_size\ESS_MEX_2010", assert(3) nogen 
+merge 1:1 sim using "$currdata\results\effective_sample_size\spearman_rescaled_BRA_2000", assert(3) nogen 
+merge 1:1 sim using "$currdata\results\effective_sample_size\ESS_BRA_2000", assert(3) nogen 
 reshape long spearman ess, i(sim) j(scale) string 
 gen rescaled=scale=="_rescaled" 
 gen spearman_rescaled=spearman if rescaled==1 
@@ -45,7 +41,6 @@ label var ess "Effective sample size across areas"
 label var spearman_rescaled "Rescaled weights"
 label var spearman_norescale "Raw weights"
 global results "$currdata\results\effective_sample_size" 
+twoway (scatter spearman_rescaled spearman_norescale ess, msymbol(oh X)) (lfit spearman_norescale ess,lcolor(red)) (lfit spearman_rescale ess, lcolor(blue)),  xlabel(0(100)500) xmtick(0(20)500) ylabel(0.96(0.002)0.97) ymtick(0.96(0.01)0.97) legend(position(bottom)) ytitle("Spearman Rank Correlation") saving($results/ESS_scatter_BRA_2000, replace) legend(order(1 2) rows(1) size(small)) title("Brazil 2000")
 
-twoway (scatter spearman_rescaled spearman_norescale ess, msymbol(oh X)) (lfit spearman_norescale ess,lcolor(red)) (lfit spearman_rescale ess, lcolor(blue)), xlabel(0(100)800) xmtick(0(20)800) ylabel(0.65(0.05)0.95) ymtick(0.65(0.05)0.95) legend(position(bottom)) ytitle("Spearman Rank Correlation") saving($results/ESS_scatter_MEX_2010, replace) legend(order(1 2) rows(1) size(small)) title("Mexico 2010")
 table rescaled, statistic(mean ess)
-graph export "$results\ESS_MEX_2010.png", replace 

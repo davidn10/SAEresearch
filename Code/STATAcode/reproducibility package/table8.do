@@ -60,8 +60,7 @@ foreach estimate in ebp uc sub_ebp nopsu  {
 	foreach weight in nlme g h gls {
 		dis "`estimate'"
 		
-		* rank correlation 
-		* 1. Standard ebp 
+		* rank correlation  
 		import excel using "`rc_file_`estimate'_`weight''.xlsx", clear 
 		count 
 		assert r(N)==100 
@@ -101,7 +100,6 @@ local mae_row_g=8
 local mae_row_gls=9
 local mae_row_h=10
 
-
 foreach weight in nlme g gls h    {
 putexcel C`rc_row_`weight''=`rc_MEX_ebp_`weight''
 putexcel D`rc_row_`weight''=`rc_MEX_uc_`weight''
@@ -124,6 +122,3 @@ putexcel I`mae_row_`weight''=`mae_BRA_nopsu_`weight''
 putexcel J`mae_row_`weight''=`mae_BRA_sub_ebp_`weight''
 
 }  
-
-
-

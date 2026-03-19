@@ -11,7 +11,6 @@ global simcensus10 "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_n
 global simcensus15 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\"
 global results "$currdata\results\results_ell\"
 
-
 set seed 648743
 
 

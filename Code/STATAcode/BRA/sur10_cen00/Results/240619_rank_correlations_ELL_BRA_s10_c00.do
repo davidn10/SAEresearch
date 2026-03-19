@@ -5,10 +5,10 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-
-global currdata "D:\SAE_project\BRA\s10_c00\full_census\"
+ 
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\s10_c00\full_census\"
 global rawsamples "$currdata\rawsamples\"
-global simcensus10 "D:\SAE_project\BRA\2010\full_census\"
+global simcensus10 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census\"
 global results "$currdata\results\results_ell"
 
 set seed 648743
@@ -183,7 +183,7 @@ putexcel AQ`i'=`Ndt2_`i''
 di "`i'"
 }
 
-
+exit 
 /*===================================
 =====================================
 Unit context models

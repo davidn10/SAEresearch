@@ -5,10 +5,10 @@ set more off
  Defining globals
  *=========================================*/
 
-global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
+global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
-global results "$currdata\BRA_2000_new\results\results_fh"
+global results "$currdata\results\results_fh"
 global simcensus "$currdata\simcensus"
 global census "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\census"
 
@@ -31,7 +31,7 @@ save `census'
 
 
 
-putexcel set "$results\errors_FH_bias11b11", replace
+putexcel set "$currdata/results\bias\results_fh\errors_FH_bias11b11", replace
 
 forvalues i=1(1)100 {
 
@@ -144,6 +144,7 @@ di "`i'"
 
 }
 
+exit 
 /*===================================
 =====================================
 Fey-Harriot models

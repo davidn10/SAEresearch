@@ -8,7 +8,7 @@ set more off
 global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
-global results "$currdata\BRA_2000_new\results\bias\results_nopsu"
+global results "$currdata\BRA_2000_new\results\bias\results_ebp"
 global simcensus "$currdata\simcensus"
 global census "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\census"
 
@@ -54,7 +54,7 @@ save `insample'
 Rank correlations 
 *=========================================*/
 
-use "$results\output_bias11b11\sim_ebp_sample_`i'", clear
+use "$currdata\BRA_2000_new\results\bias\results_nopsu\output_bias11b11\sim_ebp_sample_`i'", clear
 destring area fgt, replace
 rename area mun_id
 rename fgt sim_fgt0
@@ -71,7 +71,6 @@ rename  fgt0_m fgt0_true
 merge 1:1 mun_id using "$simcensus\bias11b11\direct_bias_`i'.dta", keepusing(fgt0_m )
 drop _merge
 rename  fgt0_m fgt0_dir
-
 
 ***Mean absolute error & RMSE
 g error=abs(fgt0_true-sim_fgt0)
@@ -151,7 +150,7 @@ di "`i'"
 
 
 }
-
+exit 
 /*===================================
 =====================================
 Area Unit context models

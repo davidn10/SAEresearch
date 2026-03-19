@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -7,8 +7,8 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\s20_c10\full_census\"
-global simcensus20 "D:\SAE_project\MEX\2020\full_census\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s20_c10\full_census\"
+global simcensus20 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\"
 global results "$currdata\results\results_ell"
 
 set seed 648743
@@ -164,7 +164,7 @@ putexcel AM`i'=`Ndt2_`i''
 di "`i'"
 }
 
-
+exit 
 /*===================================
 =====================================
 Unit context models

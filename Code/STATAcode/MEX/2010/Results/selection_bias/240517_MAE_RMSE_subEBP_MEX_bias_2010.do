@@ -6,7 +6,7 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "D:\SAE_project\MEX\2010\full_census_new"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new"
 global rawsamples "$currdata\rawsamples_bias\"
 global census "$currdata\census\"
 global results "$currdata\results\results_sub_ebp\"
@@ -28,6 +28,7 @@ duplicates drop
 tempfile census
 save `census'
 
+/*
 putexcel set "$results\errors_subEBP_bias55", replace
 
 forvalues i=1(1)100 {
@@ -178,6 +179,7 @@ di "`i'"
 
 
 }
+*/ 
 
 
 putexcel set "$results\errors_subEBP_bias11b11", replace
@@ -332,6 +334,7 @@ di "`i'"
 }
 
 
+exit 
 
 putexcel set "$results\errors_subEBP_nobias", replace
 

@@ -1,4 +1,4 @@
-cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
+* cd "C:\Users\melyg\Desktop\SAE_Project\data\MEX"
 
 clear all
 set more off
@@ -6,9 +6,8 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-
-global currdata "D:\SAE_project\MEX\s15_c20\full_census\"
-global simcensus15 "D:\SAE_project\MEX\2015\full_census_new\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s15_c20\full_census"
+global simcensus20 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\"
 global results "$currdata\results\results_ebp"
 
 set seed 648743

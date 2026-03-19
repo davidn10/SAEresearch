@@ -11,7 +11,7 @@ library("povmap")
 set.seed(7)
 
 #setwd("D:/SAE_project/BRA/2010/full_census")
-setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census")
+setwd("D:/david/SAE/SAE_research_with_Melany/BRA/2000/full_census/BRA_2000_new")
 
 #==============================================
 # Sample 1
@@ -51,6 +51,7 @@ for(i in 1:length(mysamples)) {                              # Head of for-loop
                           weights = "FACTOR",
                           weights_type = "hybrid",
                           nlme_opt="optim",
+                          nlme_optimmethod = "Nelder-Mead", 
                           rescale_weights = T,
                           transformation = "no", #"no", "log", "box.cox", "log.shift", "ordernorm"
                           MSE = F,

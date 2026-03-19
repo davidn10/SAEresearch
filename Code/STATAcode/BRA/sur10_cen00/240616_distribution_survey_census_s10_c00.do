@@ -4,17 +4,17 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata10 "D:\SAE_project\BRA\2010\full_census"
+global currdata10 "H:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
 global data10 "$currdata10\rawdata\"
 global rawsamples10 "$currdata10\rawsamples\"
 global census10 "$data10\census_proc_BRA_2010.dta"
 
-global currdata00 "D:\SAE_project\BRA\2000\full_census"
+global currdata00 "H:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
 global data00 "$currdata00\rawdata\"
 global rawsamples00 "$currdata00\rawsamples_full\"
 global census00 "$data00\census_proc_BRA_2000.dta"
 
-global currdatas10c00 "D:\SAE_project\BRA\s10_c00\full_census"
+global currdatas10c00 "H:\david\SAE\SAE_research_with_Melany\BRA\s10_c00\full_census"
 global results "$currdatas10c00\results\results_distrib"
 
 //global with candidate variables for unit level models

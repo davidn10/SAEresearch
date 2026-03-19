@@ -4,7 +4,8 @@ set more off
 /*=========================================
  Defining globals
  *=========================================*/
-global currdata "D:\SAE_project\BRA\s00_c10\full_census"
+ 
+global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\s00_c10"
 global rawsamples "$currdata\rawsamples\"
 
 

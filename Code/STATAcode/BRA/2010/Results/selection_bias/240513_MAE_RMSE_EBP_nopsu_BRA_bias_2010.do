@@ -33,7 +33,7 @@ tempfile census
 save `census'
 
 
-putexcel set "$results\errors_EBP_nopsu_bias11b11", replace
+putexcel set "$currdata\results\bias\results_ebp\errors_EBP_nopsu_bias11b11", replace
 
 forvalues i=1(1)100 {
 

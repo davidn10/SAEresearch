@@ -9,7 +9,7 @@ set more off
 global rawdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census"
 global rawsamples "$currdata\rawsamples_bias\"
 global currdata "$rawdata"
-global results "$currdata\BRA_2000_new\results\bias\results_sub_ebp"
+global results "$currdata\BRA_2000_new\results\results_sub_ebp"
 global simcensus "$currdata\simcensus"
 global census "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\census"
 
@@ -51,7 +51,7 @@ save `insample'
 /*=========================================
 Rank correlations 
 *=========================================*/
-use "$results\output_bias11b11\sim_ebp_subebp_`i'.dta", clear
+use "$results\output_bias11b11\sim_ebp_sample_`i'.dta", clear
 rename area mun_id
 destring mean mun_id, replace
 rename mean sim_fgt0
@@ -172,7 +172,7 @@ putexcel AN`i'=`Ndt2_`i''
 di "`i'"
 
 }
-
+exit 
 
 putexcel set "$results\rankcorr_subEBP_nobias", replace
 

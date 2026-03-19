@@ -6,7 +6,7 @@ set more off
  *=========================================*/
 global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new"
 global simcensus15 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\"
-global results "D:\david\SAE\SAE_research_with_Melany\MEX\s15_c10\results\results_smooth"
+global results "D:\david\SAE\SAE_research_with_Melany\MEX\s15_c10\full_census\results\results_smooth"
 
 set seed 648743
 

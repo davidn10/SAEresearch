@@ -6,8 +6,8 @@ set more off
  Defining globals
  *=========================================*/
 
-global currdata "C:\Users\wb462478\Desktop\SAE_project\MEX\s20_c15\full_census\"
-global simcensus20 "C:\Users\wb462478\Desktop\SAE_project\MEX\2020\full_census\"
+global currdata "D:\david\SAE\SAE_research_with_Melany\MEX\s20_c15\full_census\"
+global simcensus20 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\"
 global results "$currdata\results\results_ell"
 
 set seed 648743
@@ -163,7 +163,7 @@ putexcel AM`i'=`Ndt2_`i''
 di "`i'"
 }
 
-
+exit 
 /*===================================
 =====================================
 Unit context models

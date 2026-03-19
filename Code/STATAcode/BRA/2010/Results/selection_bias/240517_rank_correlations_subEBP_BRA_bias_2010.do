@@ -31,7 +31,7 @@ save `census'
 
 
 
-putexcel set "$results\rankcorr_subEBP_bias11b11", replace
+putexcel set "$currdata\results\results_sub_ebp\rankcorr_subEBP_bias11b11", replace
 
 forvalues i=1(1)100 {
 
@@ -172,7 +172,7 @@ putexcel AN`i'=`Ndt2_`i''
 di "`i'"
 
 }
-
+exit 
 
 putexcel set "$results\rankcorr_subEBP_nobias", replace
 

@@ -171,7 +171,7 @@ di "`i'"
 
 }
 
-
+exit 
 putexcel set "$results\rankcorr_subEBP_nobias", replace
 
 forvalues i=1(1)100 {

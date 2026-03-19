@@ -13,6 +13,7 @@ global results "$currdata\results\bias\results_nopsu"
 global simcensus "$currdata\simcensus"
 global census "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\census"
 
+
 set seed 648743
 
 
@@ -33,7 +34,7 @@ save `census'
 
 
 
-putexcel set "$results\rankcorr_EBP_nopsu_bias11b11", replace
+putexcel set "$currdata\results\bias\results_ebp\rankcorr_EBP_nopsu_bias11b11", replace
 
 forvalues i=1(1)100 {
 
@@ -174,7 +175,7 @@ di "`i'"
 
 
 }
-
+exit 
 
 /*===================================
 =====================================

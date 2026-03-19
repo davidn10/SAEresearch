@@ -32,7 +32,7 @@ save `census'
 
 
 
-putexcel set "$results\errors_subEBP_bias11b11", replace
+putexcel set "$currdata\results\results_sub_ebp\errors_subEBP_bias11b11", replace
 
 forvalues i=1(1)100 {
 
@@ -179,11 +179,9 @@ putexcel V`i'=`mein_`i''
 putexcel W`i'=`meout_`i''
 
 di "`i'"
-
-
 }
 
-
+exit 
 
 putexcel set "$results\errors_subEBP_nobias", replace
 
