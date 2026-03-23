@@ -1,0 +1,22 @@
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
+use "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results\results_error_figure\mae_graph_MEX_2010", replace 
+append using "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results\results_error_figure\mae_graph_MEX_2015"
+append using "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results\results_error_figure\mae_graph_MEX_2020"
+append using "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\BRA_2000_new\results\results_error_figure\mae_graph_BRA_2000"
+append using "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results\results_error_figure\mae_graph_BRA_2010"
+
+gen country_year=country+" "+string(year)
+
+gen sort_order=1 if country=="MEX" 
+replace sort_order=2 if country=="BRA" 
+
+
+graph hbox MAE* if country=="MEX", ylabel(0(0.05)0.4,labsize(small)) ymtick(0(0.01)0.4) name("MAE_MEX", replace) title("Mexico") ytitle("Absolute Error", size(small)) over(year, total sort(sort_order) label(labsize(small)) gap(250) relabel(4 "Total")) legend(position(6) rows(1) size(tiny) order(1 2 3)) ysize(8)
+graph hbox MAE* if country=="BRA", ylabel(0(0.05)0.4,labsize(small)) ymtick(0(0.01)0.4) name("MAE_BRA", replace) title("Brazil") ytitle("Absolute Error", size(small)) over(year, total sort(sort_order) label(labsize(small)) gap(250) relabel(3 "Total")) legend(position(6) rows(1) size(tiny) order(4 5 6 7)) ysize(8)
+
+graph combine MAE_MEX MAE_BRA, name(MAE, replace) ysize(8)
+
+graph export mae_box_plot.png, replace
+putexcel set ".\tables.xlsx", modify sheet("Figure1")
+putexcel A1 = image("mae_box_plot.png")	

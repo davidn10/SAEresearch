@@ -11,7 +11,6 @@ local row=3
 foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 { 
 	dis "`dataset'"
 	
-	* RC files 
 local icc_file_ebp "${results_`dataset'}/results_ebp/icc_ebp_unit_h"
 local icc_file_ebp_norescale "${results_`dataset'}/results_ebp_norescale/icc_ebp_unit_norescale_h"
 local icc_file_ebp_wow "${results_`dataset'}/results_ebp/icc_EBP_unit_wow"
@@ -61,6 +60,7 @@ foreach estimate in ebp uc nopsu  {
 	count 
 	assert r(N)==100 
 	keep A B C
+	su A 
 	scalar sigma2eta_`estimate'_wow_`dataset'=r(mean)
 	su C 
 	scalar icc_`estimate'_wow_`dataset'=r(mean) 
@@ -70,7 +70,6 @@ foreach estimate in ebp uc nopsu  {
 	putexcel C`row'=sigma2eta_`estimate'_base_`dataset'
 	putexcel D`row'=sigma2eta_`estimate'_noresc_`dataset'
 	putexcel E`row'=sigma2eta_`estimate'_wow_`dataset'
-	dis sigma2eta_`estimate'_wow_`dataset'
 	
 	putexcel F`row'=icc_`estimate'_base_`dataset'
 	putexcel G`row'=icc_`estimate'_noresc_`dataset'

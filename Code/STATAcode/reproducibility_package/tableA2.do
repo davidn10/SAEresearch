@@ -24,7 +24,7 @@ foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 {
 	scalar ess_rescaled=r(mean)
     su D 
 	scalar skew_rescaled=r(mean)
-	su D 
+	su B 
 	scalar ess_norescale=r(mean)
 	su E 
 	scalar skew_norescale=r(mean) 
