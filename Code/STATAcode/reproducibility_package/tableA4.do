@@ -1,9 +1,11 @@
-putexcel set "D:\david\SAE\SAE_research_with_Melany\output\tables.xlsx", modify sheet("TableA4")
-global results_MEX_2010 "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new\results"
-global results_MEX_2015 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\results"
-global results_MEX_2020 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\results"
-global results_BRA_2000 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\results"
-global results_BRA_2010 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\results"
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+putexcel set ".\tables.xlsx", modify sheet("TableA4")
+
+global results_MEX_2010 "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results"
+global results_MEX_2015 "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results"
+global results_MEX_2020 "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results"
+global results_BRA_2000 "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\results"
+global results_BRA_2010 "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results"
 
 local row=3
 
@@ -25,7 +27,7 @@ local rc_file_uc_norescale "${results_`dataset'}/results_ebp_norescale/rankcorr_
 local rc_file_sub_ebp "${results_`dataset'}/results_sub_ebp/rankcorr_subEBP_h" 
 local rc_file_sub_ebp_norescale "${results_`dataset'}/results_sub_ebp_norescale/rankcorr_EBP_subarea_norescale" 
 
-local rc_file_brf "${results_`dataset'}/results_brf_v2/rankcorr_brf_subarea" 
+local rc_file_brf "${results_`dataset'}/results_brf/rankcorr_brf_subarea" 
 local rc_file_brf_norescale "${results_`dataset'}/results_brf_norescale/rankcorr_BRF_norescale_subarea" 
  
 local rc_file_nopsu "${results_`dataset'}/results_ebp/rankcorr_EBP_context_nopsu_h"
@@ -37,7 +39,7 @@ local mae_file_ebp "${results_`dataset'}/results_ebp/errors_EBP_unit_h"
 local mae_file_ebp_norescale "${results_`dataset'}/results_ebp_norescale/errors_EBP_unit_norescale"
 
 local mae_file_ell "${results_`dataset'}/results_ell/errors_ell_unit"
-local mae_file_ell_norescale "${results_`dataset'}/results_ell_norescale/errors_ell_unit"
+local mae_file_ell_norescale "${results_`dataset'}/results_ell_norescale/errors_ell_norescale_unit"
 
 local mae_file_uc "${results_`dataset'}/results_ebp/errors_ebp_context_h"	
 local mae_file_uc_norescale "${results_`dataset'}/results_ebp_norescale/errors_EBP_context_norescale"	
@@ -45,7 +47,7 @@ local mae_file_uc_norescale "${results_`dataset'}/results_ebp_norescale/errors_E
 local mae_file_sub_ebp "${results_`dataset'}/results_sub_ebp/errors_subEBP_h" 
 local mae_file_sub_ebp_norescale "${results_`dataset'}/results_sub_ebp_norescale/errors_EBP_subarea_norescale" 
  
-local mae_file_brf "${results_`dataset'}/results_brf_v2/errors_brf_subarea" 
+local mae_file_brf "${results_`dataset'}/results_brf/errors_brf_subarea" 
 local mae_file_brf_norescale "${results_`dataset'}/results_brf_norescale/errors_BRF_norescale_subarea" 
 
 local mae_file_nopsu "${results_`dataset'}/results_ebp/errors_EBP_context_nopsu_h"

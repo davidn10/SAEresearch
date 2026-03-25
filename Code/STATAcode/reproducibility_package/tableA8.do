@@ -1,9 +1,10 @@
-putexcel set "D:\david\SAE\SAE_research_with_Melany\output\tables.xlsx", modify sheet("TableA8")
-global results_MEX_2010 "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new\results"
-global results_MEX_2015 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\results"
-global results_MEX_2020 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\results"
-global results_BRA_2000 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\results"
-global results_BRA_2010 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\results"
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+putexcel set ".\tables.xlsx", modify sheet("TableA8")
+global results_MEX_2010 "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results"
+global results_MEX_2015 "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results"
+global results_MEX_2020 "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results"
+global results_BRA_2000 "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\results"
+global results_BRA_2010 "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results"
 
 local rc_row=5
 local mae_row=11

@@ -35,6 +35,10 @@ do figure8_combine
 do tableA2 
 do tableA3 
 do tableA4 
+do tableA5 
+do tableA6 
+do tableA7 
+do tableA8 
 
 
 

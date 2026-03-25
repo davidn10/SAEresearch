@@ -1,12 +1,11 @@
-* append together, take averages, and output to spreadsheet 
-* 1. Skewness and kurtosis  
-* a. `estimate' unit and context 
-putexcel set "D:\david\SAE\SAE_research_with_Melany\output\tables.xlsx", modify sheet("TableA3")
-global results_MEX_2010 "D:\david\SAE\SAE_research_with_Melany\MEX\2010\full_census_new\results"
-global results_MEX_2015 "D:\david\SAE\SAE_research_with_Melany\MEX\2015\full_census_new\results"
-global results_MEX_2020 "D:\david\SAE\SAE_research_with_Melany\MEX\2020\full_census\results"
-global results_BRA_2000 "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new\results"
-global results_BRA_2010 "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new\results"
+
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+putexcel set ".\tables.xlsx", modify sheet("TableA3")
+global results_MEX_2010 "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results"
+global results_MEX_2015 "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results"
+global results_MEX_2020 "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results"
+global results_BRA_2000 "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\results"
+global results_BRA_2010 "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results"
 
 
 clear 
@@ -21,7 +20,7 @@ foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 {
 	local rc_file_uc "${results_`dataset'}/results_ebp/rankcorr_ebp_context_h"	
 	local rc_file_sub_ebp "${results_`dataset'}/results_sub_ebp/rankcorr_subEBP_h" 
 	local rc_file_nopsu "${results_`dataset'}/results_ebp/rankcorr_EBP_context_nopsu_h"
-	local rc_file_brf "${results_`dataset'}/results_brf_v2/rankcorr_BRF_subarea" 
+	local rc_file_brf "${results_`dataset'}/results_brf/rankcorr_BRF_subarea" 
 	local rc_file_fh "${results_`dataset'}/results_fh_smooth/rankcorr_fh_smooth" 
 	
 	
@@ -30,7 +29,7 @@ foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 {
 	local mae_file_uc "${results_`dataset'}/results_ebp/errors_ebp_context_h"
 	local mae_file_sub_ebp "${results_`dataset'}/results_sub_ebp/errors_subEBP_h" 
 	local mae_file_nopsu "${results_`dataset'}/results_ebp/errors_EBP_context_nopsu_h"
-	local mae_file_brf "${results_`dataset'}/results_brf_v2/errors_BRF_subarea" 
+	local mae_file_brf "${results_`dataset'}/results_brf/errors_BRF_subarea" 
 	local mae_file_fh "${results_`dataset'}/results_fh_smooth/errors_fh_smooth" 
 	
 	foreach estimate in ebp ell uc sub_ebp brf fh nopsu {

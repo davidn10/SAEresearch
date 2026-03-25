@@ -40,7 +40,6 @@ drop _all
 import excel "$results\rankcorr_EBP_unit_norescale"
 keep A 
 rename A spearman_norescale 
-drop in 1/3 
 gen sim=_n 
 save "$currdata\results\effective_sample_size\spearman_norescale_BRA_2010", replace 
 

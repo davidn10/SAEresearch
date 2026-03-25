@@ -1,4 +1,4 @@
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
+global currdata "D:\david\SAEresearch_reproducibility_package_data\BRA\2010"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 
@@ -40,7 +40,6 @@ drop _all
 import excel "$results\rankcorr_EBP_unit_norescale"
 keep A 
 rename A spearman_norescale 
-drop in 1/3 
 gen sim=_n 
 save "$currdata\results\effective_sample_size\spearman_norescale_BRA_2010", replace 
 

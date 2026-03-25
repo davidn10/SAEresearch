@@ -1,4 +1,4 @@
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2000\full_census\BRA_2000_new"
+global currdata "D:\david\SAEresearch_reproducibility_package_data\BRA\2000"
 global rawsamples "$currdata\rawsamples\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 

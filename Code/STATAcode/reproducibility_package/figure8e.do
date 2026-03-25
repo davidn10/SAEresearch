@@ -1,4 +1,6 @@
-global currdata "D:\david\SAE\SAE_research_with_Melany\BRA\2010\full_census_new"
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
+global currdata "D:\david\SAEresearch_reproducibility_package_data\BRA\2010"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 
@@ -19,7 +21,7 @@ global results "$currdata\results\results_ebp\"
 import excel "$results\rankcorr_EBP_unit_h"
 keep A 
 rename A spearman_rescaled 
-drop in 1/3 
+
 gen sim=_n 
 save "$currdata\results\effective_sample_size\spearman_rescaled_BRA_2010", replace 
 
@@ -28,7 +30,7 @@ drop _all
 import excel "$results\rankcorr_EBP_unit_norescale"
 keep A 
 rename A spearman_norescale 
-drop in 1/3 
+
 gen sim=_n 
  
 merge 1:1 sim using "$currdata\results\effective_sample_size\spearman_rescaled_BRA_2010", assert(3) nogen 
