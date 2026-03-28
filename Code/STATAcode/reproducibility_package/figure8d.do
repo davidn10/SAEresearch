@@ -1,4 +1,4 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
 
 global currdata "D:\david\SAEresearch_reproducibility_package_data\BRA\2000"
 global rawsamples "$currdata\rawsamples_full\"

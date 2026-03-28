@@ -1,10 +1,9 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
 
-use "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results\results_error_figure\mae_graph_MEX_2010", replace 
-append using "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results\results_error_figure\mae_graph_MEX_2015"
-append using "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results\results_error_figure\mae_graph_MEX_2020"
-append using "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\results\results_error_figure\mae_graph_BRA_2000"
-append using "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results\results_error_figure\mae_graph_BRA_2010"
+use "$MEX\2010\results\results_error_figure\mae_graph_MEX_2010", replace 
+append using "$MEX\2015\results\results_error_figure\mae_graph_MEX_2015"
+append using "$MEX\2020\results\results_error_figure\mae_graph_MEX_2020"
+append using "$BRA\2000\results\results_error_figure\mae_graph_BRA_2000"
+append using "$BRA\2010\results\results_error_figure\mae_graph_BRA_2010"
 
 gen country_year=country+" "+string(year)
 

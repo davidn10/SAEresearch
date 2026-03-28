@@ -1,15 +1,16 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
 putexcel set ".\tables.xlsx", modify sheet("Table9")
 
-global results_MEX_2020 "D:\david\SAEresearch_reproducibility_package_data\MEX\2020\results"
-global results_MEX_2015 "D:\david\SAEresearch_reproducibility_package_data\MEX\2015\results"
-global results_MEX_2010 "D:\david\SAEresearch_reproducibility_package_data\MEX\2010\results"
-global results_MEX_s20_c15 "D:\david\SAEresearch_reproducibility_package_data\MEX\s20_c15\results"
-global results_MEX_s20_c10 "D:\david\SAEresearch_reproducibility_package_data\MEX\s20_c10\results"
-global results_MEX_s15_c10 "D:\david\SAEresearch_reproducibility_package_data\MEX\s15_c10\results"
-global results_MEX_s15_c20 "D:\david\SAEresearch_reproducibility_package_data\MEX\s15_c20\results"
-global results_MEX_s10_c15 "D:\david\SAEresearch_reproducibility_package_data\MEX\s10_c15\results"
-global results_MEX_s10_c20 "D:\david\SAEresearch_reproducibility_package_data\MEX\s10_c20\results"
+global results_MEX_2010 "$MEX\2010\results"
+global results_MEX_2015 "$MEX\2015\results"
+global results_MEX_2020 "$MEX\2020\results"
+ 
+global results_MEX_s20_c15 "$MEX\s20_c15\results"
+global results_MEX_s20_c10 "$MEX\s20_c10\results"
+global results_MEX_s15_c10 "$MEX\s15_c10\results"
+global results_MEX_s15_c20 "$MEX\s15_c20\results"
+global results_MEX_s10_c15 "$MEX\s10_c15\results"
+global results_MEX_s10_c20 "$MEX\s10_c20\results"
 
 clear 
 

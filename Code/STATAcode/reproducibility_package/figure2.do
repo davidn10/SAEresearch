@@ -1,4 +1,4 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
 clear 
 set obs 1000 
 gen percentile=_n/10 

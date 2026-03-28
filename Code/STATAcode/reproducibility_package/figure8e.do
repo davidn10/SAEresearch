@@ -1,6 +1,6 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
 
-global currdata "D:\david\SAEresearch_reproducibility_package_data\BRA\2010"
+
+global currdata "$BRA\2010"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 

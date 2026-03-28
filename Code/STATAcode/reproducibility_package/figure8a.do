@@ -1,8 +1,8 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
 
 * Figure 6 relating accuracy to effective sample size 
 
-global currdata "D:\david\SAEresearch_reproducibility_package_data\MEX\2010"
+global currdata "$MEX\2010"
 global rawsamples "$currdata\rawsamples_full\"
 global census "$currdata\census\"
 global results "$currdata\results\effective_sample_size" 

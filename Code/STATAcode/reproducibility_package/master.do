@@ -1,3 +1,11 @@
+* set current directory and file location of data.
+cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+global MEX "D:\david\SAEresearch_reproducibility_package_data\MEX"
+global BRA "D:\david\SAEresearch_reproducibility_package_data\BRA"
+
+
+
+
 ** Main exhibits 
 ** Tables 
 do table3 

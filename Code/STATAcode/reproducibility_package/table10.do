@@ -1,10 +1,10 @@
-cd "D:\david\SAEresearch\Code\STATAcode\reproducibility_package"
+
 putexcel set ".\tables.xlsx", modify sheet("Table10")
 
-global results_BRA_2010 "D:\david\SAEresearch_reproducibility_package_data\BRA\2010\results"
-global results_BRA_2000 "D:\david\SAEresearch_reproducibility_package_data\BRA\2000\results"
-global results_BRA_s10_c00 "D:\david\SAEresearch_reproducibility_package_data\BRA\s10_c00\results"
-global results_BRA_s00_c10 "D:\david\SAEresearch_reproducibility_package_data\BRA\s00_c10\results"
+global results_BRA_2010 "$BRA\2010\results"
+global results_BRA_2000 "$BRA\2000\results"
+global results_BRA_s10_c00 "$BRA\s10_c00\results"
+global results_BRA_s00_c10 "$BRA\s00_c10\results"
 
 local rc_file_ebp_s10_c10 "$results_BRA_2010/results_ebp/rankcorr_EBP_unit_h"
 local rc_file_ell_s10_c10 "$results_BRA_2010/results_ell/rankcorr_ell_unit"
