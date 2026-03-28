@@ -8,56 +8,7 @@ drop _all
 tempfile tempraw temprescale  
 gen sim=. 
 
-/*
-forvalues i=1(1)100{
-	dis "`i'"
-preserve 	
-use "$rawsamples\selected\sample_`i'.dta", replace 
-collapse (mean) mean_y=ln_pchinc  (rawsum) FACTOR [iw=FACTOR], by(mun_id)
-gen sim=`i'
-qui save `tempraw', replace 
-use "$rawsamples\selected\sample_`i'.dta", replace 
-egen meanFACTOR=mean(FACTOR), by(mun_id)
-gen FACTOR_resc=FACTOR/meanFACTOR 
-collapse (rawsum) FACTOR_resc [iw=FACTOR_resc], by(mun_id)
-gen sim=`i'
 
-qui merge 1:1 sim mun_id  using `tempraw', assert(3) nogen 
-qui save `temprescale', replace 
-
-restore 
-
-append using `temprescale'
-
-
-} 
-save "$results\mean_Y_bymun_MEX_2020", replace 
-*/ 
-/*
-use "$currdata/rawdata/census_proc_MEX_2020.dta", replace 
-gen ln_pchinc=log(pchinc_hh) 
-gen popwt=FACTOR*hhsize 
-
-/*
-tab TAMLOC 
-
-su ln_pchinc [aw=popwt], d 
-loneway mean_y_true mun_id [aw=popwt]
-
-preserve 
-collapse (mean) mean_y_true=ln_pchinc (mean) TAMLOC (rawsum) popwt [iw=popwt], by(mun_id psu_id)
-loneway mean_y_true mun_id [aw=popwt]
-restore 
-*/ 
-
-
-collapse (mean) mean_y_true=ln_pchinc (sd) sd_y_true=ln_pchinc (mean) TAMLOC (rawsum) popwt [iw=popwt], by(mun_id)
-rename popwt popwt_census 
-gen pop=popwt_census
-
-merge 1:n mun_id using "$results\mean_Y_bymun_MEX_2020", keep(3) nogen 
-save "$results\Y_bymun_MEX_2020", replace 
-*/ 
 
 use "$results\Y_bymun_MEX_2020", replace 
 

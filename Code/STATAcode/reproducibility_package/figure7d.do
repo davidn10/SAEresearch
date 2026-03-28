@@ -8,75 +8,7 @@ drop _all
 tempfile tempraw temprescale  
 gen sim=. 
 
-/*
-forvalues i=1(1)100{
-	dis "`i'"
-preserve 	
-use "$rawsamples\selected\sample_`i'.dta", replace 
-* assert pchinc<999998 | pchinc==. 
-collapse (mean) mean_y=ln_pchinc  (rawsum) FACTOR [iw=FACTOR], by(mun_id)
-gen sim=`i'
-qui save `tempraw', replace 
-use "$rawsamples\selected\sample_`i'.dta", replace 
-egen meanFACTOR=mean(FACTOR), by(mun_id)
-gen FACTOR_resc=FACTOR/meanFACTOR 
-collapse (rawsum) FACTOR_resc [iw=FACTOR_resc], by(mun_id)
-gen sim=`i'
 
-qui merge 1:1 sim mun_id  using `tempraw', assert(3) nogen 
-qui save `temprescale', replace 
-
-restore 
-
-append using `temprescale'
-
-
-} 
-save "$results\mean_Y_bymun_BRA_2000", replace 
-*/ 
-
-/*
-global results "$currdata\results\results_ebp_norescale\"
-drop _all 
-import excel "$results\rankcorr_EBP_unit_norescale"
-keep A 
-rename A spearman_norescale 
-drop in 1/3 
-gen sim=_n 
-save "$currdata\results\effective_sample_size\spearman_norescale_BRA_2000", replace 
-
-
-
-
-use "$currdata/rawdata/census_proc_BRA_2000.dta", replace 
-sum pchinc
-gen ln_pchinc=log(pchinc)
-gen popwt=weights*hhsize 
-
-
-/* OLD
-su ln_pchinc [aw=popwt], d 
-
-preserve 
-collapse (mean) mean_y_true=ln_pchinc (mean) TAM_LOC (rawsum) popwt [iw=popwt], by(mun_id psu_id)
-loneway mean_y_true mun_id [aw=popwt]
-restore 
-*/ 
-
-collapse (mean) mean_y_true=ln_pchinc (sd) sd_y_true=ln_pchinc (mean) hhsize (rawsum) popwt [iw=popwt], by(mun_id)
-unique mun_id 
-rename popwt popwt_census 
-gen pop=popwt_census
-expand 100
-bys mun_id: gen sim=_n 
-
-global results "$currdata\results\effective_sample_size" 
-merge 1:1 mun_id sim using "$results\mean_Y_bymun_BRA_2000", keep(1 3) nogen 
-
-merge n:1 sim using  "$currdata\results\effective_sample_size\spearman_norescale_BRA_2000", assert(3) nogen 
-
-save "$results\Y_bymun_BRA_2000", replace 
-*/ 
 
 
 

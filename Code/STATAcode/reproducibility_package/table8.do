@@ -6,8 +6,6 @@ global results_MEX_2020 "$MEX\2020\results"
 global results_BRA_2000 "$BRA\2000\results"
 global results_BRA_2010 "$BRA\2010\results"
 
-
-
 foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 { 
 	dis "`dataset'"
 	
