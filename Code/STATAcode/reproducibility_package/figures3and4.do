@@ -11,6 +11,8 @@ global results_BRA_2010 "$BRA\2010\results"
 foreach dataset in MEX_2010 MEX_2015 MEX_2020 BRA_2000 BRA_2010 { 
 	dis "`dataset'"
 	* rank correlation files 
+
+	
 	local rc_file_ebp_small "${results_`dataset'}/results_ebp/sample1/rankcorr_EBP_unit_s1"
 	local rc_file_ebp_med "${results_`dataset'}/results_ebp/sample2/rankcorr_EBP_unit_s2"
 	local rc_file_ebp_large "${results_`dataset'}/results_ebp/sample3/rankcorr_EBP_unit_s3"
