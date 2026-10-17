@@ -323,13 +323,15 @@ graph save graph4.gph, replace
 graph combine graph1.gph graph2.gph graph3.gph graph4.gph
 */
 preserve 
-gsample 8 ,strata(mun_id) wor // nobias
+*gsample 8 ,strata(mun_id) wor // nobias
+gsample 8 if mun_size>=8,strata(mun_id) wor  
 sum pcr pcas
 codebook mun_id psu_id
 keep psu_id mun_id mun_size percentile_remote pcr pcas percentile_asset prob_psu_nobias prob_psu_bias* prob_select_mun
 bys mun_id: gen selected_psu=_N
 ***Probability of PSU getting selected
-g prob_select_psu= selected_psu/mun_size
+*g prob_select_psu= selected_psu/mun_size
+g prob_select_psu= min(selected_psu/mun_size,1)
 sum prob_select_psu prob_psu_nobias
 tempfile sample_psu_nobias
 save `sample_psu_nobias'
