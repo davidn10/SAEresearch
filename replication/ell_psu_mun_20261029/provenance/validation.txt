@@ -1,0 +1,22 @@
+Validated at: 2026-10-29 13:35:17 America/New_York
+Point-output files: 1000 (100 per round and arm).
+Municipality-sample-arm rows: 3688000
+Available coefficient files: 998
+Missing coefficient files: 2
+PASS: every supplied point output has area and fgt and unique nonmissing municipality IDs.
+PASS: both arms have identical area keys for each numeric sample ID.
+PASS: code, original outputs, supplied historical scores, logs and reference metadata copied with identical SHA-256 before/after/source/destination.
+PASS: syntax parsed for 11 R files, including original estimator, new helpers and namespace audit dump.
+PASS: new reader checked on sample 1 for every round and arm.
+PASS: launcher plan validates 1000 sample-arm jobs, input existence and beta/alpha numeric-suffix alignment. No model run and no destination created.
+PASS: numeric IDs 2,10,100 resolve to original positions; see launcher_sample_id_validation.txt.
+No coverage, new-basis scoring or model refits performed.
+Installed environment and local input hashesPASS: numeric IDs 2,10,100 resolve to original positions; see launcher_sample_id_validation.txt.
+No coverage, new-basis scoring or model refits performed.
+Installed environment and local input hashes describe handoff-time files, not a historical environment lock.
+Final ZIP integrity is validated separately after package manifest creation.
+PASS: numeric conversion checked for all 1000 point files; no missing, nonfinite or out-of-range estimate remains after conversion.
+DATA FORMAT: 2 files store fgt as text; supplied reader converts them to numeric. Original DTA files are unchanged.
+Historical-basis MAE reproduction: 1000/1000 sample-arm scores agree within 1e-12 with identical municipality counts. This is validation of archived scores, not revised-basis scoring.
+PASS: final source and destination SHA-256 recheck for 3026 exact copies.
+PASS: launcher rejects an existing output directory and invalid numeric sample IDs, both with nonzero exit status and no estimation.

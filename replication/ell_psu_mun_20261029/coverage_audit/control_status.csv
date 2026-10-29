@@ -1,0 +1,6 @@
+"control","status","detail"
+"required_variance_input","FAIL","Required saved variance is absent; coverage analysis stopped before scoring."
+"original_outputs_unchanged","PASS","Content hashes and file list compared for 1998 original files."
+"synthetic_coverage_self_test","NOT_RUN","Not run: the mandatory input gate stopped the analysis; no new scorer was executed."
+"permute_mse_tracking","NOT_RUN","Not run: the mandatory input gate stopped the analysis; no new scorer was executed."
+"reproduce_previous_mae","NOT_RUN","Not run: the mandatory input gate stopped the analysis; no new scorer was executed."

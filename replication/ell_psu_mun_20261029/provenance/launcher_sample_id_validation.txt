@@ -1,0 +1,15 @@
+During startup - Warning messages:
+1: Setting LC_COLLATE=C.UTF-8 failed 
+2: Setting LC_CTYPE=C.UTF-8 failed 
+3: Setting LC_MONETARY=C.UTF-8 failed 
+4: Setting LC_TIME=C.UTF-8 failed 
+PLAN ONLY: no models run and no output directory created.
+3 sample-arm jobs planned.
+   round arm sample_id original_index   input_sample    beta_file    alpha_file
+ MEX2010 psu         2             13   sample_2.dta   beta_2.dta   alpha_2.dta
+ MEX2010 psu        10              2  sample_10.dta  beta_10.dta  alpha_10.dta
+ MEX2010 psu       100              3 sample_100.dta beta_100.dta alpha_100.dta
+   L model_parameters seed
+ 100            fixed    7
+ 100            fixed    7
+ 100            fixed    7

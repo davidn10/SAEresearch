@@ -1,0 +1,5 @@
+Source URL: https://codeload.github.com/SSA-Statistical-Team-Projects/povmap/tar.gz/0a6aa3a411c6dfab2788d57b51462d3875d84114
+Revision: 0a6aa3a411c6dfab2788d57b51462d3875d84114
+SHA-256: 2476303d89a0dc39a78be93154d02f022a2517a7d75d64fa590ace35461ce463
+Archive (supplied separately alongside the handoff ZIP): povmap_0a6aa3a411c6dfab2788d57b51462d3875d84114_source.tar.gz
+Downloaded for this handoff. This is the upstream revision identified by the current installed package metadata, not a historical run-time snapshot. Installed function fingerprints are recorded separately.
